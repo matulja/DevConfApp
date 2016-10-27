@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Event doInBackground(Void... params) {
             try {
-
-                final String url = "http://12.0.0.1:8080/event";
+                // TODO change IP address to your personal IP address (ifconfig/ipconfig im Terminal eingeben)
+                final String url = "http://192.168.2.104:8080/event";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Event event = restTemplate.getForObject(url, Event.class);
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Event event) {
             TextView eventIdText = (TextView) findViewById(R.id.id_value);
             TextView eventNameText = (TextView) findViewById(R.id.name_value);
-            System.out.println(event.getId());
             eventIdText.setText(event.getId());
             eventNameText.setText(event.getName());
         }
