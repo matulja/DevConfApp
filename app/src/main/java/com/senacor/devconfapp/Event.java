@@ -10,8 +10,6 @@ public class Event {
 
     private String place;
 
-    private LocalDate date;
-
     private String name;
 
     public Event(String name){
@@ -25,9 +23,6 @@ public class Event {
         this.place = place;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -36,10 +31,6 @@ public class Event {
     public String getPlace() {
 
         return place;
-    }
-
-    public LocalDate getDate() {
-        return date;
     }
 
     public String getName() {
