@@ -1,36 +1,45 @@
 package com.senacor.devconfapp;
 
-/**
- * Created by Marynasuprun on 24.10.2016.
- */
-
 public class Event {
 
     private String id;
-
+    private String name;
     private String place;
 
-    private LocalDate date;
+    //private LocalDate date;
 
-    private String name;
+
+    public Event(){
+
+    }
 
     public Event(String name){
         this.name=name;
     }
+
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPlace(String place) {
         this.place = place;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    //public void setDate(LocalDate date) {
+      //  this.date = date;
+    //}
+
+    public String getId() {
+
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getPlace() {
@@ -38,16 +47,9 @@ public class Event {
         return place;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
+    //public LocalDate getDate() {
+      //  return date;
+    //}
 
-    public String getName() {
-        return name;
-    }
 
-    public String getId() {
-
-        return id;
-    }
 }
