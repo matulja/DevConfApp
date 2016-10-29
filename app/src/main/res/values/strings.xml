@@ -1,8 +1,3 @@
 <resources>
     <string name="app_name">DevConApp</string>
-    <string name="label_event_id">Event Id: </string>
-    <string name="label_event_name">Event Name: </string>
-    <string name="label_event_place">Event Place: </string>
-    <string name="action_refresh">Refresh</string>
-
 </resources>
