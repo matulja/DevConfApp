@@ -1,11 +1,8 @@
 <resources>
-    <string name="app_name">DevConfApp</string>
-    <string name="id_label">The ID is</string>
-    <string name="id_value">[id]</string>
-    <string name="name_label">The name is</string>
-    <string name="name_value">[name]</string>
-    <string name="place_label">The place is</string>
-    <string name="place_value">[place]</string>
+    <string name="app_name">DevConApp</string>
+    <string name="label_event_id">Event Id: </string>
+    <string name="label_event_name">Event Name: </string>
+    <string name="label_event_place">Event Place: </string>
     <string name="action_refresh">Refresh</string>
 
 </resources>
