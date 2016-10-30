@@ -1,5 +1,8 @@
 package com.senacor.devconfapp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Event {
 
     private String id;
@@ -15,6 +18,17 @@ public class Event {
 
     public Event(String name){
         this.name=name;
+    }
+
+    public Event(JSONObject object) {
+
+        try {
+            this.id = object.getString("id");
+            this.name = object.getString("name");
+            this.place = object.getString("place");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setId(String id) {
