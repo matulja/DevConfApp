@@ -23,6 +23,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView id;
         TextView name;
         TextView place;
+        TextView date;
     }
 
     public EventAdapter(Context context, ArrayList<Event> events) {
@@ -43,6 +44,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder.id = (TextView) convertView.findViewById(R.id.value_event_id);
             viewHolder.name = (TextView) convertView.findViewById(R.id.value_event_name);
             viewHolder.place = (TextView) convertView.findViewById(R.id.value_event_place);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.value_event_date);
 
             convertView.setTag(viewHolder);
         } else {
@@ -52,6 +54,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.id.setText(event.getId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
+        viewHolder.date.setText(event.getDate());
 
         return convertView;
     }

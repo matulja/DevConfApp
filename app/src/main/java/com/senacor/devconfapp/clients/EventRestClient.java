@@ -12,7 +12,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class EventRestClient {
 
-    private static final String BASE_URL = "http://192.168.2.104:8080/";
+    private static final String BASE_URL = "http://192.168.2.103:8080/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

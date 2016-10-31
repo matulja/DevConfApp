@@ -3,12 +3,16 @@ package com.senacor.devconfapp.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Event {
 
     private String id;
     private String name;
     private String place;
+    private String date;
 
     //private LocalDate date;
 
@@ -17,6 +21,7 @@ public class Event {
             this.id = object.getString("id");
             this.name = object.getString("name");
             this.place = object.getString("place");
+            this.date = object.getString("date");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -43,9 +48,11 @@ public class Event {
         this.place = place;
     }
 
-    //public void setDate(LocalDate date) {
-    //  this.date = date;
-    //}
+    public void setDate(Date myDate)
+
+    {
+        this.date=new SimpleDateFormat("MM-dd-yyyy").format(myDate);
+    }
 
     public String getId() {
 
@@ -59,6 +66,9 @@ public class Event {
     public String getPlace() {
 
         return place;
+    }
+    public String getDate(){
+        return date;
     }
 
 //public LocalDate getDate() {

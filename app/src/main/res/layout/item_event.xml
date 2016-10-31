@@ -27,4 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_name"/>
 
+    <TextView
+        android:id="@+id/value_event_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value_event_place"/>
+
 </RelativeLayout>

@@ -5,10 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.EventAdapter;
-import com.senacor.devconfapp.clients.EventRestClient;
 import com.senacor.devconfapp.models.Event;
+import com.senacor.devconfapp.R;
+
+
+import com.senacor.devconfapp.clients.EventRestClient;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
