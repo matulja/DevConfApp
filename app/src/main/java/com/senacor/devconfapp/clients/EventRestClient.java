@@ -5,6 +5,8 @@ import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.senacor.devconfapp.IPAddress;
+
 import cz.msebera.android.httpclient.Header;
 /**
  * Created by saba on 29.10.16.
@@ -12,7 +14,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class EventRestClient {
 
-    private static final String BASE_URL = "http://192.168.2.103:8080/";
+    private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
