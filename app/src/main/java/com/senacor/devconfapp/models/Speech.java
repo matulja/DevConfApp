@@ -16,6 +16,7 @@ public class Speech {
     //private LocalTime startTime;
     //private LocalTime endTime;
     private String speechRoom;
+    private String speaker;
     private String speakerInfo;
     private String speechSummary;
     private String eventId;
@@ -25,6 +26,7 @@ public class Speech {
             this.speechId = object.getString("speechId");
             this.speechTitle = object.getString("speechTitle");
             this.speechRoom = object.getString("speechRoom");
+            this.speaker = object.getString("speaker");
             this.speakerInfo = object.getString("speakerInfo");
             this.speechSummary = object.getString("speechSummary");
             this.eventId = object.getString("eventId");
@@ -55,6 +57,14 @@ public class Speech {
 
     public void setSpeechRoom(String speechRoom) {
         this.speechRoom = speechRoom;
+    }
+
+    public String getSpeaker() {
+        return speaker;
+    }
+
+    public void setSpeaker(String speaker) {
+        this.speaker = speaker;
     }
 
     public String getSpeakerInfo() {
