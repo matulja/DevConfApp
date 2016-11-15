@@ -8,24 +8,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.senacor.devconfapp.activities.EventsActivity">
-    <!-- layout_weight of ImageView and
-    weightSum in LinearLayout -->
 
     <ListView
         android:id="@+id/list_events"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/textViewId"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="#127080"
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:text="@string/app_name"
-        android:layout_weight="1.70"/>
 
 </LinearLayout>

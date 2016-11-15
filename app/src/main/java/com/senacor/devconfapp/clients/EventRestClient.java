@@ -18,10 +18,16 @@ public class EventRestClient {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
+
+
     public static void get(Context context, String url, Header[] headers, RequestParams params,
                            AsyncHttpResponseHandler responseHandler) {
         client.get(context, getAbsoluteUrl(url), headers, params, responseHandler);
+        client.setConnectTimeout(30000);
+
     }
+
+
 
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;

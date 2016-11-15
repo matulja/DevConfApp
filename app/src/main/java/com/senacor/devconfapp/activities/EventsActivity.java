@@ -46,7 +46,7 @@ public class EventsActivity extends AppCompatActivity {
         List<Header> headers = new ArrayList<Header>();
         headers.add(new BasicHeader("Accept", "application/json"));
 
-        EventRestClient.get(EventsActivity.this, "event", headers.toArray(new Header[headers.size()]),
+        EventRestClient.get(EventsActivity.this, "event/list", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
