@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/value_event_id"
+        android:id="@+id/value_event_eventId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
@@ -19,17 +19,16 @@
         android:id="@+id/value_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_event_id" />
+        android:layout_below="@+id/value_event_eventId" />
 
     <TextView
         android:id="@+id/value_event_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_name"/>
-
     <TextView
-        android:id="@+id/value_event_date"
-        android:layout_width="wrap_content"
+    android:id="@+id/value_event_date"
+    android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_place"/>
 

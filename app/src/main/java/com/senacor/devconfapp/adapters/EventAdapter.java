@@ -12,6 +12,7 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.models.Event;
 
 import java.util.ArrayList;
+import org.joda.time.LocalDate;
 
 /**
  * Created by saba on 28.10.16.
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class EventAdapter extends ArrayAdapter<Event> {
 
     private static class ViewHolder {
-        TextView id;
+        TextView eventId;
         TextView name;
         TextView place;
         TextView date;
@@ -41,7 +42,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_event, parent, false);
 
-            viewHolder.id = (TextView) convertView.findViewById(R.id.value_event_id);
+            viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_eventId);
             viewHolder.name = (TextView) convertView.findViewById(R.id.value_event_name);
             viewHolder.place = (TextView) convertView.findViewById(R.id.value_event_place);
             viewHolder.date = (TextView) convertView.findViewById(R.id.value_event_date);
@@ -51,11 +52,10 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.id.setText(event.getId());
+        viewHolder.eventId.setText(event.getId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
         viewHolder.date.setText(event.getDate());
-
         return convertView;
     }
 }
