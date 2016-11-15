@@ -3,4 +3,23 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="senacorBlueDark">#0C4650</color>
+    <color name="senacorBlue">#4D7178</color>
+    <color name="senacorBlueLight">#8BA6AD</color>
+    <color name="senacorBlueShine">#C2D1D3</color>
+
+    <color name="senacorGreyDark">#5F5F5F</color>
+    <color name="senacorGrey">#9B9B9B</color>
+    <color name="senacorGreyLight">#BEBEBE</color>
+    <color name="senacorGreyShine">#DCDCDC</color>
+
+    <color name="senacorBlack">#000000</color>
+    <color name="senacorWhite">#FFFFFF</color>
+
+    <color name="senacorGreen">#059E7F</color>
+    <color name="senacorRed">#DF0917</color>
+    <color name="senacorYellow">#FFD500</color>
+
+    <!-- DTL Documenta Sans Caps, Verdana-->
 </resources>

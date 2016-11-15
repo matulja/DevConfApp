@@ -4,12 +4,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by saba on 05.11.16.
+ * Created by Berlina on 14.11.16.
  */
 
 public class Speech {
 
-    private String id;
+    private String speechId;
     private String speechTitle;
     private String startTime;
     private String endTime;
@@ -17,10 +17,11 @@ public class Speech {
     private String speaker;
     private String speakerInfo;
     private String speechSummary;
+    private String eventId;
 
     public Speech(JSONObject jsonObject) {
         try {
-            this.id = jsonObject.getString("id");
+            this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
             this.startTime = jsonObject.getString("startTime");
             this.endTime = jsonObject.getString("endTime");
@@ -28,18 +29,19 @@ public class Speech {
             this.speaker = jsonObject.getString("speaker");
             this.speakerInfo = jsonObject.getString("speakerInfo");
             this.speechSummary = jsonObject.getString("speechSummary");
+            this.eventId = jsonObject.getString("eventId");
         }catch (JSONException e){
             e.printStackTrace();
         }
 
     }
 
-    public String getId() {
-        return id;
+    public String getSpeechId() {
+        return speechId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSpeechId(String speechId) {
+        this.speechId = speechId;
     }
 
     public String getSpeechTitle() {
@@ -96,5 +98,13 @@ public class Speech {
 
     public void setSpeechSummary(String speechSummary) {
         this.speechSummary = speechSummary;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }
