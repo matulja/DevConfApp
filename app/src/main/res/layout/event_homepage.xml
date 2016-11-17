@@ -11,6 +11,7 @@
     <!-- layout_weight of ImageView and
     weightSum in LinearLayout -->
 
+    <!--TODO Nadia strings erstellen, kopfzeile anpassen, list view für agenda erstellen, scrollen, themes / stylessheets anpassen, farbcode id-->
     <TextView android:id="@+id/value_event_name"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
         android:layout_width="120dp"
         android:layout_below="@+id/value_event_name"
         android:layout_height="3dp"
-        android:background="@android:color/holo_green_dark"/>
+        android:background="@color/senacorBlueShine"/>
 
     <Spinner android:id="@+id/attend"
         android:layout_width="150dp"
@@ -47,7 +48,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/lineOne"
         android:text="20 December 2016"
-        android:textColor="@android:color/holo_red_dark"/>
+        android:textColor="@color/colorAccent"/>
 
     <TextView android:id="@+id/value_event_place"
         android:layout_width="220dp"
@@ -78,7 +79,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/lineTwo"
         android:textSize="12sp"
-        android:text="Show all details"/>
+        android:text="Show all details"
+        android:textColor="@color/senacorBlueDark"/>
 
     <View
         android:id="@+id/lineThree"
@@ -93,7 +95,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/lineThree"
-        android:text="start time - end time" />
+        android:text="start time - end time"
+        android:textColor="@color/colorAccent" />
 
     <TextView android:id="@+id/speechOne_name"
         android:layout_width="220dp"
@@ -110,7 +113,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/speechOne_name"
         android:text="Subtitle here- just optional"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="@color/senacorBlueDark"
         />
 
     <TextView android:id="@+id/speechOne_speaker"
@@ -126,7 +129,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/speechOne_speaker"
         android:text="Description "
-        android:background="@android:color/holo_blue_bright"/>
+        android:background="@color/senacorBlueShine"/>
 
     <View
         android:id="@+id/lineFour"
@@ -135,13 +138,6 @@
         android:layout_height="1dp"
         android:layout_marginBottom="15dp"
         android:background="@android:color/darker_gray"/>
-
-    <TextView android:id="@+id/speechTwo_time"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/lineFour"
-        android:text="start time - end time" />
 
     <TextView android:id="@+id/speechTwo_name"
         android:layout_width="220dp"
@@ -158,7 +154,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/speechTwo_name"
         android:text="Subtitle here- just optional"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="@color/senacorBlueDark"
         />
 
     <TextView android:id="@+id/speechTwo_speaker"
@@ -175,7 +171,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/speechTwo_speaker"
         android:text="give us your feedback! rate here: * * * * *"
-        android:background="@android:color/holo_blue_bright"/>
+        android:background="@color/senacorYellow"/>
 
     <EditText android:id="@+id/speechTwo_comment"
         android:layout_width="220dp"
@@ -194,7 +190,8 @@
         android:layout_below="@id/speechTwo_comment"
         android:textSize="12sp"
         android:text="send Feedback"
-        android:background="@android:color/holo_blue_dark"/>
+        android:textColor="@color/senacorWhite"
+        android:background="@color/senacorBlueDark"/>
 
     <View
         android:id="@+id/lineFive"
@@ -204,13 +201,24 @@
         android:layout_marginBottom="15dp"
         android:background="@android:color/darker_gray"/>
 
+    <TextView android:id="@+id/speechTwo_time"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="start time - end time"
+        android:layout_below="@+id/lineFour"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorAccent" />
+
     <Button android:id="@+id/back_to_top"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:textSize="12sp"
-        android:text="Back to top"/>
+        android:text="Back to top"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/senacorBlueDark" />
 
 
 </RelativeLayout>
