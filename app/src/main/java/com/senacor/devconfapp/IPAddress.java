@@ -6,5 +6,5 @@ package com.senacor.devconfapp;
 
 public class IPAddress {
 
-    public static final String IP= "192.168.2.102";
+    public static final String IP= "192.168.2.104";
 }

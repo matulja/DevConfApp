@@ -8,11 +8,12 @@ import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 
 import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by saba on 29.10.16.
  */
 
-public class EventRestClient {
+public class RestClient {
 
     private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
 
@@ -22,11 +23,18 @@ public class EventRestClient {
 
     public static void get(Context context, String url, Header[] headers, RequestParams params,
                            AsyncHttpResponseHandler responseHandler) {
+        System.out.println("in get method");
         client.get(context, getAbsoluteUrl(url), headers, params, responseHandler);
         client.setConnectTimeout(30000);
 
     }
 
+
+    public static void post(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        System.out.println("in post method");
+        client.post(context, getAbsoluteUrl(url), params, responseHandler);
+        client.setConnectTimeout(30000);
+    }
 
 
     private static String getAbsoluteUrl(String relativeUrl) {

@@ -12,7 +12,7 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.models.Event;
 
 import java.util.ArrayList;
-import org.joda.time.LocalDate;
+//import org.joda.time.LocalDate;
 
 /**
  * Created by saba on 28.10.16.
@@ -52,7 +52,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.eventId.setText(event.getId());
+        viewHolder.eventId.setText(event.getEventId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
         viewHolder.date.setText(event.getDate());
