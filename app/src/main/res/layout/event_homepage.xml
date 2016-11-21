@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="DevCon winter xx"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/imageView"
+        android:layout_toRightOf="@+id/value_event_name"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/Logo_Senacor_200x200px"/>
 
     <View
         android:id="@+id/lineDevCon"
@@ -65,21 +74,20 @@
         android:layout_marginBottom="25dp"
         android:background="@android:color/white"/>
 
-    <TextView android:id="@+id/agendaTitle"
+    <TextView android:hint="@string/agendaTitle"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/lineTwo"
-        android:text="Agenda"
         android:textSize="30sp"/>
 
-    <Button android:id="@+id/showDetails"
+    <Button android:hint="@string/showDetails"
+        android:id="@+id/showDetails"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/lineTwo"
         android:textSize="12sp"
-        android:text="Show all details"
         android:textColor="@color/senacorBlueDark"/>
 
     <View
@@ -182,14 +190,13 @@
         android:hint="enter comment"/>
     <!--android:imeOptions="actionSend"/>-->
 
-    <Button android:id="@+id/sendFeedback"
+    <Button android:hint="@string/sendFeedback"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="@id/speechTwo_feedback"
         android:layout_alignParentRight="true"
         android:layout_below="@id/speechTwo_comment"
         android:textSize="12sp"
-        android:text="send Feedback"
         android:textColor="@color/senacorWhite"
         android:background="@color/senacorBlueDark"/>
 
@@ -210,15 +217,15 @@
         android:layout_alignParentStart="true"
         android:textColor="@color/colorAccent" />
 
-    <Button android:id="@+id/back_to_top"
+    <Button android:hint="@string/backToTop"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="Back to top"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textColor="@color/senacorBlueDark" />
+
 
 
 </RelativeLayout>
