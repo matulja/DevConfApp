@@ -9,7 +9,7 @@ import com.senacor.devconfapp.adapters.EventAdapter;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.models.Event;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.clients.EventRestClient;
+import com.senacor.devconfapp.clients.RestClient;
 import com.senacor.devconfapp.models.Speech;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +45,7 @@ public class EventsActivity extends AppCompatActivity {
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
 
-        EventRestClient.get(EventsActivity.this, "event/list", headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventsActivity.this, "event/list", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -71,7 +71,7 @@ public class EventsActivity extends AppCompatActivity {
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
 
-        EventRestClient.get(EventsActivity.this, "event/{eventID}/speeches", headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventsActivity.this, "event/{eventID}/speeches", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {

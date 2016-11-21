@@ -1,7 +1,6 @@
 package com.senacor.devconfapp.models;
 
 
-import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,7 +12,6 @@ public class Event {
     private String date;
 
 
-    //event.setDate(new LocalDate(2016, 9, i));
 
     public Event(JSONObject object) {
         try {
@@ -38,7 +36,7 @@ public class Event {
 
     //Setter
 
-    public void setId(String eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
@@ -54,13 +52,8 @@ public class Event {
         this.date = date.toString();
     }
 
-    //public void setDate(LocalDate date) {
-    //    this.date = LocalDate.parse(date.toString());
-   // }
 
-    // Getter
-
-    public String getId() {
+    public String getEventId() {
 
         return eventId;
     }
@@ -77,8 +70,5 @@ public class Event {
     public String getDate() {
         return date;
     }
-   // public LocalDate getDate() {
-    //    return LocalDate.parse(date.toString());
-    //}
 
 }
