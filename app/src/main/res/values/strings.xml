@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">DevConApp</string>
+    <string name="agendaTitle">Agenda</string>
+    <string name="showDetails">Show Details</string>
+    <string name="backToTop">Back to top</string>
+    <string name="sendFeedback">Send feedback</string>
     <string name="title_activity_events">Events</string>
     <string name="title_activity_login">Sign in</string>
 

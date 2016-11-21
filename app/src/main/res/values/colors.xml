@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#9b9b9b</color>
+    <color name="colorPrimaryDark">#0c4650</color>
+    <color name="colorAccent">#DF0917</color>
 
-    <color name="senacorBlueDark">#0C4650</color>
+    <color name="senacorBlueDark">#0c4650</color>
     <color name="senacorBlue">#4D7178</color>
-    <color name="senacorBlueLight">#8BA6AD</color>
-    <color name="senacorBlueShine">#C2D1D3</color>
+    <color name="senacorBlueLight">#8ba6ad</color>
+    <color name="senacorBlueShine">#c2d1d3</color>
 
-    <color name="senacorGreyDark">#5F5F5F</color>
-    <color name="senacorGrey">#9B9B9B</color>
-    <color name="senacorGreyLight">#BEBEBE</color>
+    <color name="senacorGreyDark">#5f5f5f</color>
+    <color name="senacorGrey">#9b9b9b</color>
+    <color name="senacorGreyLight">#bebebe</color>
     <color name="senacorGreyShine">#DCDCDC</color>
 
     <color name="senacorBlack">#000000</color>
@@ -23,3 +23,4 @@
 
     <!-- DTL Documenta Sans Caps, Verdana-->
 </resources>
+

@@ -1,7 +1,9 @@
 package com.senacor.devconfapp.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,10 +15,18 @@ import com.senacor.devconfapp.clients.RestClient;
 import com.senacor.devconfapp.models.Speech;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.client.HttpResponseException;
+import cz.msebera.android.httpclient.*;
+import com.loopj.android.http.*;
+
+
 
 public class EventsActivity extends AppCompatActivity {
 
@@ -26,18 +36,16 @@ public class EventsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
-        //setContentView(R.layout.list_speeches);
+        //setContentView(R.layout.activity_events);
+        setContentView(R.layout.list_speeches);
 
-        getEvents();
-        //getSpeeches();
-
+        //getEvents();
+        getSpeeches();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     private void getEvents() {
@@ -67,7 +75,6 @@ public class EventsActivity extends AppCompatActivity {
     }
 
     private void getSpeeches() {
-
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
 
@@ -75,22 +82,48 @@ public class EventsActivity extends AppCompatActivity {
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        ArrayList<Speech> speechArray = new ArrayList<>();
-                        SpeechAdapter speechAdapter = new SpeechAdapter(EventsActivity.this, speechArray);
-
-                        for (int i = 0; i < response.length(); i++) {
+                        for (int i = 0; i < 1; i++) {
                             try {
-                                speechAdapter.add(new Speech(response.getJSONObject(i)));
+                                JSONObject jObj = response.getJSONObject(0);
+                                String eventID = jObj.getString("eventId");
+                                List<Header> headers2 = new ArrayList<>();
+                                headers2.add(new BasicHeader("Accept", "application/json"));
+                                EventRestClient.get(EventsActivity.this, "event/"+eventID+"/speeches", headers2.toArray(new Header[headers2.size()]),
+                                        null, new JsonHttpResponseHandler() {
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                                                ArrayList<Speech> speechArray = new ArrayList<>();
+                                                SpeechAdapter speechAdapter = new SpeechAdapter(EventsActivity.this, speechArray);
+
+                                                for (int i = 0; i < response.length(); i++) {
+                                                    try {
+                                                        speechAdapter.add(new Speech(response.getJSONObject(i)));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                speechList = (ListView) findViewById(R.id.list_speeches);
+                                                speechList.setAdapter(speechAdapter);
+                                            }
+                                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject object) {
+                                                //super.onFailure(statusCode, headers, responseString, throwable);
+                                                Log.d("Failed: ", "" + statusCode);
+                                                Log.d("Error : ", "" + throwable);
+                                            }
+                                        });
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        speechList= (ListView) findViewById(R.id.list_speeches);
-                        speechList.setAdapter(speechAdapter);
                     }
                 });
+
+
     }
 
 }
+
 
