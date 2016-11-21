@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.models.Event;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
@@ -26,11 +27,10 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speaker;
         TextView speakerInfo;
         TextView speechSummary;
-        TextView eventId;
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
-        super(context, R.layout.list_speeches, speeches);
+        super(context, R.layout.item_speech, speeches);
     }
 
     @Override
@@ -42,15 +42,14 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder = new SpeechAdapter.ViewHolder();
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_speeches, parent, false);
+            convertView = inflater.inflate(R.layout.item_speech, parent, false);
 
             viewHolder.speechId= (TextView) convertView.findViewById(R.id.value_speech_id);
             viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.value_speechTitle);
-            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.value_event_place);
+            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.value_speechRoom);
             viewHolder.speaker = (TextView) convertView.findViewById(R.id.value_speaker);
             viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.value_speakerInfo);
             viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.value_speechSummary);
-            viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_id);
 
             convertView.setTag(viewHolder);
         } else {
@@ -63,7 +62,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.speaker.setText(speech.getSpeaker());
         viewHolder.speakerInfo.setText(speech.getSpeakerInfo());
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
-        viewHolder.eventId.setText(speech.getEventId());
 
         return convertView;
     }
