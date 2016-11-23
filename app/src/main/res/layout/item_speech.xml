@@ -1,41 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="150dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+
     <TextView
-        android:id="@+id/value_speech_id"
+        android:id="@+id/speakerInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/speakerName"
         android:visibility="gone"/>
     <TextView
-        android:id="@+id/value_speechTitle"
+        android:id="@+id/speechSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_speech_id"/>
+        android:layout_below="@+id/speakerInfo"
+        android:visibility="gone"/>
+
     <TextView
-        android:id="@+id/value_speechRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/value_speechTitle"/>
+        android:id="@+id/speakerName"
+        android:layout_height="10dp"
+        android:layout_width="200dp"
+        android:layout_below="@+id/speechTitle"
+        android:layout_alignLeft="@+id/speechTitle"
+        android:layout_alignStart="@+id/speechTitle" />
+
     <TextView
-        android:id="@+id/value_speaker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/value_speechRoom"/>
+        android:id="@+id/speechRoom"
+        android:layout_height="5dp"
+        android:layout_width="200dp"
+        android:layout_below="@+id/speakerName"
+        android:layout_alignLeft="@+id/speakerName"
+        android:layout_alignStart="@+id/speakerName"
+        android:layout_marginTop="11dp" />
+
     <TextView
-        android:id="@+id/value_speakerInfo"
-        android:layout_width="wrap_content"
+        android:id="@+id/value_endTime"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_speaker"/>
+        android:textColor="@color/colorAccent"
+        android:layout_width="60dp"
+        android:layout_below="@+id/value_startTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp" />
+
     <TextView
-        android:id="@+id/value_speechSummary"
-        android:layout_width="wrap_content"
+        android:id="@+id/value_startTime"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_speakerInfo"/>
+        android:textColor="@color/colorAccent"
+        android:layout_width="60dp"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/speechTitle"
+        android:layout_height="15dp"
+        android:layout_width="200dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_toRightOf="@+id/value_startTime" />
 
 </RelativeLayout>

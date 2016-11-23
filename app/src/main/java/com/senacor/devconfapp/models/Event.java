@@ -4,28 +4,30 @@ package com.senacor.devconfapp.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+
 public class Event {
 
-    private String eventId;
     private String name;
     private String place;
     private String date;
-
-
+    private List<Speech> speeches;
+    String url;
 
     public Event(JSONObject object) {
         try {
-            this.eventId = object.getString("eventId");
+            //  this.eventId = object.getString("eventId");
             this.name = object.getString("name");
             this.place = object.getString("place");
             this.date = object.getString("date");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public Event(String eventId, String name, String place) {
-        this.eventId = eventId;
+    public Event(String name, String place) {
         this.name = name;
         this.place = place;
     }
@@ -36,9 +38,6 @@ public class Event {
 
     //Setter
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -48,14 +47,8 @@ public class Event {
         this.place = place;
     }
 
-    public void setDate (String date) {
+    public void setDate(String date) {
         this.date = date.toString();
-    }
-
-
-    public String getEventId() {
-
-        return eventId;
     }
 
     public String getName() {

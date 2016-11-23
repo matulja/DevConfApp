@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.clients.RestClient;
 
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void login(String username, String password) {
+    private void login(final String username, String password) {
       //  List<Header> headers = new ArrayList<>();
         // headers.add(new BasicHeader("Accept", "application/json"));
         params = new RequestParams();
@@ -60,16 +61,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         prgDialog.show();
-        RestClient.post(this, "event/login", params, new JsonHttpResponseHandler() {
+        RestClient.post(this, IPAddress.IP + "/login", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 System.out.println("on success");
                 prgDialog.hide();
                 if(statusCode == 200){
                     System.out.println("status = 200");
-                    Intent intent = new Intent(LoginActivity.this, EventsActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, EventActivity.class);
+                    intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);
-                }else{
+                }
+                if(statusCode == 401) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setMessage("Login failed.")
                             .setNegativeButton("Retry", null)
@@ -87,40 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(throwable.toString());
                 System.out.println("Unexpected Error");
             }
-            /*@Override
-            public void onSuccess(int statusCode, Header[] headers) {
-                System.out.println("on success");
-                    prgDialog.hide();
-                try {
-                    System.out.println("success: im try catch");
-                    if(statusCode == 200){
-                        System.out.println("im ressponse get boolean");
-                        Intent intent = new Intent(LoginActivity.this, EventsActivity.class);
-                        LoginActivity.this.startActivity(intent);
-                    }else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                        builder.setMessage("Login failed.")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-
-            }*/
-
-/*
-            @Override
-            public void onFailure(int statusCode, Header[] headers, JSONObject jsonObject, Throwable throwable) {
-                prgDialog.hide();
-                System.out.println(statusCode + " ");
-                System.out.println(jsonObject.toString() + " = jsonObject");
-                System.out.println(throwable.toString());
-                System.out.println("Unexpected Error");
-            }
-*/
 
 
         });

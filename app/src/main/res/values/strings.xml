@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">DevConApp</string>
     <string name="agendaTitle">Agenda</string>
     <string name="showDetails">Show Details</string>
     <string name="backToTop">Back to top</string>
     <string name="sendFeedback">Send feedback</string>
-    <string name="title_activity_events">Events</string>
+    <string name="title_activity_events">Current Event</string>
     <string name="title_activity_login">Sign in</string>
-
+    <string name="attend"> Attend </string>
+    <string name="app_name">DevCon</string>
+    <string name="welcome"> Welcome </string>
     <!-- Strings related to login -->
     <string name="prompt_userName">Username</string>
     <string name="prompt_password">Password</string>
@@ -19,5 +20,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
 
 </resources>

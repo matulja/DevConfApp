@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.models.Event;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
@@ -44,25 +43,26 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
 
-            viewHolder.speechId= (TextView) convertView.findViewById(R.id.value_speech_id);
-            viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.value_speechTitle);
-            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.value_speechRoom);
-            viewHolder.speaker = (TextView) convertView.findViewById(R.id.value_speaker);
-            viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.value_speakerInfo);
-            viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.value_speechSummary);
+            viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
+            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechRoom);
+            viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
+            viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.speakerInfo);
+            viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.speechSummary);
+            viewHolder.startTime = (TextView) convertView.findViewById(R.id.value_startTime);
+            viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
         }
 
-        viewHolder.speechId.setText(speech.getSpeechId());
         viewHolder.speechTitle.setText(speech.getSpeechTitle());
         viewHolder.speechRoom.setText(speech.getSpeechRoom());
         viewHolder.speaker.setText(speech.getSpeaker());
         viewHolder.speakerInfo.setText(speech.getSpeakerInfo());
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
-
+        viewHolder.startTime.setText(speech.getStartTime());
+        viewHolder.endTime.setText(speech.getEndTime());
         return convertView;
     }
 }

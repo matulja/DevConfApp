@@ -17,11 +17,11 @@ public class Speech {
     private String speaker;
     private String speakerInfo;
     private String speechSummary;
-    private String eventId;
+   // private String eventId;
 
     public Speech(JSONObject jsonObject) {
         try {
-            this.speechId = jsonObject.getString("speechId");
+           // this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
             this.startTime = jsonObject.getString("startTime");
             this.endTime = jsonObject.getString("endTime");
@@ -29,7 +29,7 @@ public class Speech {
             this.speaker = jsonObject.getString("speaker");
             this.speakerInfo = jsonObject.getString("speakerInfo");
             this.speechSummary = jsonObject.getString("speechSummary");
-            this.eventId = jsonObject.getString("eventId");
+          //  this.eventId = jsonObject.getString("eventId");
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -100,11 +100,11 @@ public class Speech {
         this.speechSummary = speechSummary;
     }
 
-    public String getEventId() {
+   /* public String getEventId() {
         return eventId;
     }
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
-    }
+    }*/
 }

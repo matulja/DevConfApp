@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.EventsActivity"
-            android:label="@string/title_activity_events" />
+            android:name=".activities.EventActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
