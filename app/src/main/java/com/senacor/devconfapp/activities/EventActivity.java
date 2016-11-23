@@ -178,10 +178,6 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
-    private void getSpeech(int SpeechID) {
-
-    }
-
 }
 
 
