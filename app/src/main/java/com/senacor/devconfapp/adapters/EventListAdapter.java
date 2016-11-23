@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by saba on 28.10.16.
  */
 
-public class EventAdapter extends ArrayAdapter<Event> {
+public class EventListAdapter extends ArrayAdapter<Event> {
 
     private static class ViewHolder {
         TextView eventId;
@@ -27,7 +27,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView date;
     }
 
-    public EventAdapter(Context context, ArrayList<Event> events) {
+    public EventListAdapter(Context context, ArrayList<Event> events) {
         super(context, R.layout.item_event, events);
     }
 
@@ -52,7 +52,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.eventId.setText(event.getEventId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
         viewHolder.date.setText(event.getDate());
