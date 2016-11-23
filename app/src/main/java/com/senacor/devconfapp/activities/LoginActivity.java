@@ -72,25 +72,31 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);
                 }
-                if(statusCode == 401) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage("Login failed.")
-                            .setNegativeButton("Retry", null)
-                            .create()
-                            .show();
-                }
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 prgDialog.hide();
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setMessage("Login failed.")
+                        .setNegativeButton("Retry", null)
+                        .create()
+                        .show();
                 System.out.println(statusCode + " ");
                 System.out.println(errorResponse.toString() + " = jsonObject");
                 System.out.println(throwable.toString());
                 System.out.println("Unexpected Error");
             }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                prgDialog.hide();
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setMessage("Login failed.")
+                        .setNegativeButton("Retry", null)
+                        .create()
+                        .show();
+            }
 
 
         });
