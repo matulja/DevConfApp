@@ -56,9 +56,7 @@ public class Speech {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime=startTime;
-    }
+    public void setStartTime(String startTime) {this.startTime = startTime;}
 
     public String getEndTime() {
         return endTime;
