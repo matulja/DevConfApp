@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/speakerName"
-        android:layout_height="10dp"
+        android:layout_height="wrap_content"
         android:layout_width="200dp"
         android:layout_below="@+id/speechTitle"
         android:layout_alignLeft="@+id/speechTitle"
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/speechTitle"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_width="200dp"
         android:layout_marginLeft="45dp"
         android:layout_marginStart="45dp"
