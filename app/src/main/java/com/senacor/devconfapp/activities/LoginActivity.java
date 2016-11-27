@@ -35,9 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etUsername = (EditText) findViewById(R.id.username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
         final Button bSignIn = (Button) findViewById(R.id.sign_in_button);
-        prgDialog = new ProgressDialog(this);
+        prgDialog = new ProgressDialog(this); //Please wait view
         prgDialog.setMessage("Please wait...");
-        prgDialog.setCancelable(false);
+        prgDialog.setCancelable(true);
 
         bSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
