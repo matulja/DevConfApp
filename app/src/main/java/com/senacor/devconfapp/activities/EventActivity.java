@@ -3,6 +3,7 @@ package com.senacor.devconfapp.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,6 +50,12 @@ public class EventActivity extends AppCompatActivity {
         welcome.setText(greeting + username);*/
         getCurrentEvent();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Override
     protected void onStart() {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <!-- Menu Icon -->
+    <item
+        android:id="@+id/action_menu"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:title="menu icon"
+        app:showAsAction="always"
+        />
+    <!-- Log Out Icon -->
+    <item
+        android:id="@+id/action_log_out"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="log out icon"
+        app:showAsAction="always"
+        />
+</menu>
