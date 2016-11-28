@@ -83,6 +83,7 @@ public class EventActivity extends AppCompatActivity {
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
 
+                        //JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
                         try {
                             JSONArray jsonArray = jsonObject.getJSONArray("links");
@@ -97,7 +98,7 @@ public class EventActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if (!(speechesUrl == "")) {
+                        if (!(speechesUrl.equals(""))) {
                             getSpeeches(speechesUrl);
                         }
 
