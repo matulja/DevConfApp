@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final String username, String password) {
-      //  List<Header> headers = new ArrayList<>();
-        // headers.add(new BasicHeader("Accept", "application/json"));
+       // List<Header> headers = new ArrayList<>();
+       // headers.add(new BasicHeader("Accept", "application/json"));
         params = new RequestParams();
         if(!username.isEmpty() && !password.isEmpty()){
             params.put("username", username);
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         prgDialog.show();
-        RestClient.post(this, IPAddress.IP + "/login", params, new JsonHttpResponseHandler() {
+        RestClient.post(this, IPAddress.IPuser + "/auth", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 System.out.println("on success");
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         .create()
                         .show();
                 System.out.println(statusCode + " ");
-                System.out.println(errorResponse.toString() + " = jsonObject");
+//                System.out.println(errorResponse.toString() + " = jsonObject");
                 System.out.println(throwable.toString());
                 System.out.println("Unexpected Error");
             }
