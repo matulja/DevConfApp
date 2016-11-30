@@ -23,6 +23,12 @@
         android:title="Create new event"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/dummy_change"
+        android:title="Dummy change "
+        app:showAsAction="never"
+        />
+
     <!-- Log Out Icon -->
     <item
         android:id="@+id/action_log_out"
