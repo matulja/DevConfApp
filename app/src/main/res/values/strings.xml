@@ -8,6 +8,9 @@
     <string name="attend"> Attend </string>
     <string name="app_name">DevCon</string>
     <string name="welcome"> Welcome </string>
+    <string name="speechDetails"> View Details</string>
+    <string name="unit_time"> hrs </string>
+    <string name="menuItem_allEvents"> View all Events</string>
     <!-- Strings related to login -->
     <string name="prompt_userName">Username</string>
     <string name="prompt_password">Password</string>
