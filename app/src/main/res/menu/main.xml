@@ -2,8 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
+    <item
+        android:id="@+id/logo_senacor_white_png"
+        android:layout_width="40dp"
+        android:icon="@drawable/logow"
+        app:showAsAction="always"
+        android:title="Senacor Logo" />
 
     <!-- Menu Icon -->
     <item
@@ -19,4 +23,6 @@
         android:title="log out icon"
         app:showAsAction="always"
         />
+
+
 </menu>
