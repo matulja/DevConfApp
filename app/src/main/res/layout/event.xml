@@ -15,66 +15,9 @@
     <!-- layout_weight of ImageView and
     weightSum in LinearLayout -->
 
-    <!--TODO Nadia strings erstellen, kopfzeile anpassen, list view für agenda erstellen, scrollen, themes / stylessheets anpassen, farbcode id-->
 
-    <TextView
-        android:id="@+id/event_date"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_width="80dp"
-        android:layout_above="@+id/lineTwo" />
-
-
-    <View
-        android:id="@+id/lineDevCon"
-        android:layout_height="3dp"
-        android:background="@color/senacorBlueShine"
-        android:layout_width="180dp"
-        android:layout_above="@+id/event_place"
-        android:layout_alignLeft="@+id/event_place"
-        android:layout_alignStart="@+id/event_place" />
-
-    <View
-        android:id="@+id/lineTwo"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="25dp"
-        android:background="@android:color/white"
-        android:layout_below="@+id/event_place" />
-
-    <TextView
-        android:text="@string/attend"
-        android:id="@+id/register"
-        android:layout_height="20dp"
-        android:clickable="true"
-        android:textStyle="normal|italic"
-        android:layout_alignTop="@+id/lineTwo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="60dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:src="@drawable/logo"
-        android:layout_height="40dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ListView
-        android:id="@+id/list_speeches"
-        android:layout_width="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/agenda"
-        android:layout_height="wrap_content" />
-
+    <!-- DevCon Details-->
+    <!-- lineOne wird nciht gebraucht, nur der hint zu attend steht drin :O-->
     <View
         android:id="@+id/lineOne"
         android:layout_width="match_parent"
@@ -87,6 +30,88 @@
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp" />
 
+    <!-- Logo weglassen
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:src="@drawable/logo"
+        android:layout_height="40dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" /> -->
+
+    <TextView
+        android:id="@+id/event_date"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="85dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="16sp"/>
+
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/event_date" />
+    <!-- soll rechts daneben wirklich das feld Attend stehen,, oder lieber darunter?
+        android:layout_toLeftOf="@+id/register"
+        android:layout_toStartOf="@+id/register"-->
+
+    <!-- folgende Linie zum Beginn der Seite hat keinerlei relationen-->
+    <View
+        android:id="@+id/lineDevCon"
+        android:layout_height="3dp"
+        android:background="@color/senacorBlueShine"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/event_name"
+        android:layout_alignLeft="@+id/event_name"
+        android:layout_alignStart="@+id/event_name"
+        android:layout_alignEnd="@+id/event_name"
+        android:layout_alignRight="@+id/event_name"/>
+
+    <TextView
+        android:id="@+id/event_place"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/lineDevCon"
+        android:layout_alignLeft="@+id/event_name"
+        android:layout_alignStart="@+id/event_name"
+        android:layout_alignEnd="@+id/event_name"
+        android:layout_alignRight="@+id/event_name" />
+
+    <View
+        android:id="@+id/lineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:background="@android:color/white"
+        android:layout_below="@+id/event_place" />
+
+    <TextView
+        android:text="@string/attend"
+        android:id="@+id/register"
+        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:textStyle="normal|italic"
+        android:layout_alignTop="@+id/lineTwo"
+        android:layout_alignLeft="@+id/event_name"
+        android:layout_alignEnd="@+id/event_name"
+        android:layout_alignRight="@+id/event_name" />
+
+
+    <!-- Agenda-->
     <TextView
         android:id="@+id/agenda"
         android:text="@string/agendaTitle"
@@ -95,24 +120,16 @@
         android:textSize="30sp"
         android:layout_below="@+id/lineTwo"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"/>
+
+    <ListView
+        android:id="@+id/list_speeches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/agenda"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/event_name"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_width="180dp"
-        android:layout_above="@+id/lineDevCon"
-        android:layout_toLeftOf="@+id/register"
-        android:layout_toStartOf="@+id/register" />
-
-    <TextView
-        android:id="@+id/event_place"
-        android:layout_height="wrap_content"
-        android:layout_width="180dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/event_name"
-        android:layout_alignStart="@+id/event_name" />
 
 
 </RelativeLayout>
