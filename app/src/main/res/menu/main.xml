@@ -6,11 +6,22 @@
 
 
     <!-- Menu Icon -->
-    <item
+    <!--item
         android:id="@+id/action_menu"
         android:icon="@drawable/ic_menu_black_24dp"
         android:title="menu icon"
         app:showAsAction="always"
+        /> -->
+
+    <item
+        android:id="@+id/list_all_events"
+        android:title="Show all events"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/create_new_event"
+        android:title="Create new event"
+        app:showAsAction="never"
         />
     <!-- Log Out Icon -->
     <item
