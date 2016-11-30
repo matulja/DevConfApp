@@ -1,9 +1,11 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,16 +27,18 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 
+import static com.senacor.devconfapp.R.id.username;
 import static com.senacor.devconfapp.R.layout.event;
 
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener{
 
     TextView welcome;
     TextView eventName;
     TextView eventPlace;
     TextView eventDate;
     ListView speechlist;
+    MenuItem list_all_events;
 
 
     @Override
@@ -50,16 +54,34 @@ public class EventActivity extends AppCompatActivity {
         welcome.setText(greeting + username);*/
         getCurrentEvent();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.list_all_events){
+            Intent intent = new Intent(EventActivity.this, EventListActivity.class);
+            intent.putExtra("username", username);
+            EventActivity.this.startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
     }
 
     private void getCurrentEvent() {
@@ -83,6 +105,7 @@ public class EventActivity extends AppCompatActivity {
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
 
+                        //JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
                         try {
                             JSONArray jsonArray = jsonObject.getJSONArray("links");
@@ -97,7 +120,7 @@ public class EventActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if (!(speechesUrl == "")) {
+                        if (!(speechesUrl.equals(""))) {
                             getSpeeches(speechesUrl);
                         }
 
