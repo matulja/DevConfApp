@@ -6,13 +6,6 @@
 
 
     <!-- Menu Icon -->
-    <!--item
-        android:id="@+id/action_menu"
-        android:icon="@drawable/ic_menu_black_24dp"
-        android:title="menu icon"
-        app:showAsAction="always"
-        /> -->
-
     <item
         android:id="@+id/list_all_events"
         android:title="Show all events"
