@@ -1,7 +1,9 @@
 package com.senacor.devconfapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -39,6 +41,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     TextView eventDate;
     ListView speechlist;
     MenuItem list_all_events;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -52,6 +55,11 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         String username = intent.getStringExtra("username");
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText(greeting + username);*/
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String tokenId = sharedPref.getString("tokenId", "tokenId");
+        System.out.println(tokenId);
+
         getCurrentEvent();
     }
 

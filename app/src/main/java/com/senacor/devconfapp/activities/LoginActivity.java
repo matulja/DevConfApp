@@ -3,7 +3,9 @@ package com.senacor.devconfapp.activities;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +29,13 @@ import cz.msebera.android.httpclient.Header;
 public class LoginActivity extends AppCompatActivity {
     ProgressDialog prgDialog;
     private RequestParams params;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sharedPref =PreferenceManager.getDefaultSharedPreferences(this);
 
         final EditText etUsername = (EditText) findViewById(R.id.username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
@@ -71,9 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println("status = 200");
                     Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                     Token token = new Token(jsonObject);
-                    System.out.println("Token UserID: " + token.getUserId().toString());
-                    System.out.println("Token TokenID: " + token.getTokenId().toString());
-                    intent.putExtra("username", username);
+                    System.out.println("Token UserID: " + token.getUserId());
+                    System.out.println("Token TokenID: " + token.getTokenId());
+                    System.out.println("Token UserRole:" + token.getRole());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("tokenId", token.getTokenId());
+                    editor.putString("role", token.getRole());
+                    editor.putString("userId", token.getUserId());
+                    editor.commit();
                     LoginActivity.this.startActivity(intent);
                 }
             }

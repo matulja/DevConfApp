@@ -11,14 +11,13 @@ public class Token {
 
     private String tokenId;
     private String userId;
-    private String [] roles;
+    private String role;
 
     public Token(JSONObject jsonObject) {
         try {
             this.tokenId = jsonObject.getString("tokenId");
             this.userId = jsonObject.getString("userId");
-            //TODO change roles to String array
-            //this.roles = jsonObject.getJSONArray("roles").toString();
+            this.role = jsonObject.getString("role");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -41,12 +40,12 @@ public class Token {
         this.userId = userId;
     }
 
-    public String[] getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(String[] roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
 

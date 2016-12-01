@@ -1,6 +1,8 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -32,11 +34,15 @@ import static com.senacor.devconfapp.R.layout.activity_events;
 public class EventListActivity extends AppCompatActivity {
 
     ListView eventList;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String tokenId = sharedPref.getString("tokenId", "tokenId");
+        System.out.println("TokenId:" + tokenId);
         getEventList();
     }
 
