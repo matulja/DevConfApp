@@ -40,10 +40,20 @@ public class EventListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
+       // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //String tokenId = sharedPref.getString("tokenId", "tokenId");
+        //System.out.println("TokenId:" + tokenId);
+        getEventList();
+    }
+
+
+    public String getToken()
+
+    {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String tokenId = sharedPref.getString("tokenId", "tokenId");
-        System.out.println("TokenId:" + tokenId);
-        getEventList();
+        return tokenId;
+
     }
 
     @Override
@@ -60,6 +70,8 @@ public class EventListActivity extends AppCompatActivity {
     private void getEventList() {
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
+        headers.add(new BasicHeader ("Authorization", getToken()));
+        System.out.println("Header in getEventList" +headers.toString());
 
         RestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
