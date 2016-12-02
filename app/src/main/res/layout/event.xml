@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:layout_marginTop="1dp">
+    android:layout_marginTop="1dp"
+    tools:context=".activities.EventActivity">
     <!-- tools:context="com.senacor.devconfapp.activities.EventActivity" -->
     <!-- layout_weight of ImageView and
     weightSum in LinearLayout -->
