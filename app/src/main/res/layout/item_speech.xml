@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -7,7 +8,69 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <!--Uhrzeit-->
+    <TextView
+        android:id="@+id/value_startTime"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_width="80dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/value_endTime"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@+id/value_startTime"
+        android:layout_alignLeft="@+id/value_startTime"
+        android:layout_alignStart="@+id/value_startTime"
+        android:layout_alignRight="@+id/value_startTime"
+        android:layout_alignEnd="@+id/value_startTime"/>
 
+    <!-- Details zum Vortrag, initiale größe für die spalte festlegen-->
+    <TextView
+        android:id="@+id/speechTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/value_startTime" />
+
+    <TextView
+        android:id="@+id/speakerName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/speechTitle"
+        android:layout_alignStart="@+id/speechTitle"
+        android:layout_alignEnd="@+id/speechTitle"
+        android:layout_alignLeft="@+id/speechTitle"
+        android:layout_alignRight="@+id/speechTitle"/>
+
+    <TextView
+        android:id="@+id/speechRoom"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/speakerName"
+        android:layout_alignLeft="@+id/speakerName"
+        android:layout_alignStart="@+id/speakerName"
+        android:layout_alignEnd="@+id/speakerName"
+        android:layout_alignRight="@+id/speakerName"
+        android:layout_marginTop="11dp" />
+
+
+    <ImageView
+        android:src="@drawable/ic_remove_circle_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speechRoom"
+        android:layout_alignLeft="@+id/speechRoom"
+        android:layout_alignStart="@+id/speechRoom"
+        android:layout_marginTop="11dp" />
+
+     <!--ohne Inhalte, daher visibility: gone-->
     <TextView
         android:id="@+id/speakerInfo"
         android:layout_width="wrap_content"
@@ -20,48 +83,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/speakerInfo"
         android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/speakerName"
-        android:layout_height="wrap_content"
-        android:layout_width="200dp"
-        android:layout_below="@+id/speechTitle"
-        android:layout_alignLeft="@+id/speechTitle"
-        android:layout_alignStart="@+id/speechTitle" />
-
-    <TextView
-        android:id="@+id/speechRoom"
-        android:layout_height="wrap_content"
-        android:layout_width="200dp"
-        android:layout_below="@+id/speakerName"
-        android:layout_alignLeft="@+id/speakerName"
-        android:layout_alignStart="@+id/speakerName"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:id="@+id/speechTitle"
-        android:layout_height="wrap_content"
-        android:layout_width="200dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_toRightOf="@+id/value_startTime" />
-
-    <TextView
-        android:id="@+id/value_endTime"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:layout_width="60dp"
-        android:layout_below="@+id/value_startTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/value_startTime"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:layout_width="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

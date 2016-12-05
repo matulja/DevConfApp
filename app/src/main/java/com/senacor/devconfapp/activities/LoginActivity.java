@@ -20,7 +20,12 @@ import com.senacor.devconfapp.models.Token;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 
 /**
@@ -72,15 +77,17 @@ public class LoginActivity extends AppCompatActivity {
         AuthRestClient.post(this, IPAddress.IPuser + "/auth", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject)
-          //  public void onSuccess(int statusCode, Header[] headers, String tokenId)
             {
 
                 System.out.println("on success");
                 prgDialog.hide();
                 if(statusCode == 200){
-                 //   System.out.println("status = 200");
+                    System.out.println("status = 200");
                     Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                     Token token = new Token(jsonObject);
+                    System.out.println("Token UserID: " + token.getUserId());
+                    System.out.println("Token TokenID: " + token.getTokenId());
+                    System.out.println("Token UserRole:" + token.getRole());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("tokenId", token.getTokenId());
                     editor.putString("role", token.getRole());
@@ -88,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     String url = IPAddress.IPevent + "/currentEvent";
                     intent.putExtra("url", url);
+                    intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);
                 }
             }

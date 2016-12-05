@@ -3,6 +3,7 @@ package com.senacor.devconfapp.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.RestClient;
@@ -22,9 +24,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
+import static com.senacor.devconfapp.R.id.username;
 import static com.senacor.devconfapp.R.layout.event;
 
 
@@ -50,12 +56,12 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         String username = intent.getStringExtra("username");
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText(greeting + username);*/
+        String url = getIntent().getExtras().getString("url");
+        getEvent(url);
 
        // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
        // String tokenId = sharedPref.getString("tokenId", "tokenId");
        // System.out.println(tokenId);
-        String url = getIntent().getExtras().getString("url");
-        getEvent(url);
     }
 
 /*    public String getToken()
@@ -90,8 +96,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
 
-
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return false;
@@ -105,7 +109,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         //System.out.println("Header in getCurrentEvent" +headers.toString());
         //headers.toArray(new Header[headers.size()]),
 
-        RestClient.get(EventActivity.this, url,
+        RestClient.get(EventActivity.this, url, headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
@@ -189,3 +193,5 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
 }
+
+

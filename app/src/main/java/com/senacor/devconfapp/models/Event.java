@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Event {
 
+    private String eventId;
     private String name;
     private String place;
     private String date;
     private List<Speech> speeches;
-    String url;
 
     public Event(JSONObject object) {
         try {
-            //  this.eventId = object.getString("eventId");
+            //this.eventId = (String) object.get("eventId");
             this.name = object.getString("name");
             this.place = object.getString("place");
             this.date = object.getString("date");
@@ -64,4 +64,11 @@ public class Event {
         return date;
     }
 
+    public String getEventId() {
+    return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
 }
