@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("role", token.getRole());
                     editor.putString("userId", token.getUserId());
                     editor.commit();
-                    String url = IPAddress.IP + "/currentEvent";
+                    String url = IPAddress.IPevent + "/currentEvent";
                     intent.putExtra("url", url);
                     intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);

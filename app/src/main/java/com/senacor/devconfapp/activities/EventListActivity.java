@@ -108,7 +108,7 @@ public class EventListActivity extends AppCompatActivity implements AdapterView.
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Event event = (Event) eventList.getItemAtPosition(position);
                                 Intent intent = new Intent(EventListActivity.this,EventActivity.class);
-                                String url = IPAddress.IP+"/"+event.getEventId();
+                                String url = IPAddress.IPevent+"/"+event.getEventId();
                                 intent.putExtra("url", url);
                                 EventListActivity.this.startActivity(intent);
                             }
