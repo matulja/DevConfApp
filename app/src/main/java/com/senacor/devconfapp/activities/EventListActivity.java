@@ -1,8 +1,6 @@
 package com.senacor.devconfapp.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,10 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
 import static com.senacor.devconfapp.R.layout.activity_events;
 
@@ -34,7 +30,7 @@ import static com.senacor.devconfapp.R.layout.activity_events;
 public class EventListActivity extends AppCompatActivity {
 
     ListView eventList;
-    SharedPreferences sharedPref;
+ //   SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +42,11 @@ public class EventListActivity extends AppCompatActivity {
         getEventList();
     }
 
-
-    public String getToken()
-
-    {
+   /* public String getToken() {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String tokenId = sharedPref.getString("tokenId", "tokenId");
         return tokenId;
-
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -68,12 +60,12 @@ public class EventListActivity extends AppCompatActivity {
     }
 
     private void getEventList() {
-        List<Header> headers = new ArrayList<>();
+/*        List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
         headers.add(new BasicHeader ("Authorization", getToken()));
-        System.out.println("Header in getEventList" +headers.toString());
-
-        RestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list", headers.toArray(new Header[headers.size()]),
+        System.out.println("Header in getEventList" +headers.toString());*/
+        //headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list",
                 null, new JsonHttpResponseHandler() {
 
                     @Override
