@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by saba on 28.10.16.
  */
 
-public class EventListAdapter extends ArrayAdapter<Event> {
+public class EventListAdapter extends ArrayAdapter<Event>  {
 
     private static class ViewHolder {
         TextView eventId;

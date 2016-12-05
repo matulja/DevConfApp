@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.RestClient;
@@ -52,7 +51,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         String username = intent.getStringExtra("username");
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText(greeting + username);*/
-        getCurrentEvent();
+        String url = getIntent().getExtras().getString("url");
+        getEvent(url);
     }
 
     @Override
@@ -84,11 +84,11 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         return false;
     }
 
-    private void getCurrentEvent() {
+    private void getEvent(String url) {
 
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
-        RestClient.get(EventActivity.this, IPAddress.IP + "/currentEvent", headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventActivity.this, url, headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
@@ -96,6 +96,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         Event event = new Event(jsonObject);
                         System.out.println(event.getName());
                         System.out.println(event.getPlace());
+                        //System.out.println(event.getEventId());
 
                         eventName = (TextView)findViewById(R.id.event_name);
                         eventPlace = (TextView)findViewById(R.id.event_place);

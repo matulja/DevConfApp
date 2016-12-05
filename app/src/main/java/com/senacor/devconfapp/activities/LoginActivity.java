@@ -69,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(statusCode == 200){
                     System.out.println("status = 200");
                     Intent intent = new Intent(LoginActivity.this, EventActivity.class);
+                    String url = IPAddress.IP + "/currentEvent";
+                    intent.putExtra("url", url);
                     intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);
                 }
