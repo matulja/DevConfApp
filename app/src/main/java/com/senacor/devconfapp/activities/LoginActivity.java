@@ -20,7 +20,12 @@ import com.senacor.devconfapp.models.Token;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 
 /**
@@ -56,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     private void login(final String username, String password) {
        // List<Header> headers = new ArrayList<>();
        // headers.add(new BasicHeader("Accept", "application/json"));
@@ -66,9 +72,13 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         prgDialog.show();
+
+
         RestClient.post(this, IPAddress.IPuser + "/auth", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject)
+            {
+
                 System.out.println("on success");
                 prgDialog.hide();
                 if(statusCode == 200){
@@ -83,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("role", token.getRole());
                     editor.putString("userId", token.getUserId());
                     editor.commit();
+
                     LoginActivity.this.startActivity(intent);
                 }
             }

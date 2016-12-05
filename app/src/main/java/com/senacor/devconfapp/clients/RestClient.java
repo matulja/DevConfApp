@@ -1,6 +1,8 @@
 package com.senacor.devconfapp.clients;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -14,7 +16,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class RestClient {
 
-   //private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
+
+    //private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
