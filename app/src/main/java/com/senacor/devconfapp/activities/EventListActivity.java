@@ -1,7 +1,9 @@
 package com.senacor.devconfapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -36,12 +38,26 @@ import static com.senacor.devconfapp.R.layout.activity_events;
 public class EventListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, MenuItem.OnMenuItemClickListener {
 
     ListView eventList;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
+       // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //String tokenId = sharedPref.getString("tokenId", "tokenId");
+        //System.out.println("TokenId:" + tokenId);
         getEventList();
+    }
+
+
+    public String getToken()
+
+    {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String tokenId = sharedPref.getString("tokenId", "tokenId");
+        return tokenId;
+
     }
 
     @Override
@@ -63,8 +79,10 @@ public class EventListActivity extends AppCompatActivity implements AdapterView.
     private void getEventList() {
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
+        headers.add(new BasicHeader ("Authorization", getToken()));
+        System.out.println("Header in getEventList" +headers.toString());
 
-        RestClient.get(EventListActivity.this, IPAddress.IP + "/list", headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
 
                     @Override

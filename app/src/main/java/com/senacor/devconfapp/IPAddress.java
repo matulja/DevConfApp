@@ -6,5 +6,7 @@ package com.senacor.devconfapp;
 
 public class IPAddress {
 
-    public static final String IP= "http://192.168.179.88:8080/event";
+    public static final String IPevent= "http://192.168.2.104:8080/event";
+    public static final String IPuser= "http://192.168.2.104:8081/user";
+
 }
