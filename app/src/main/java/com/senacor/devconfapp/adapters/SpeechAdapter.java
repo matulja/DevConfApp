@@ -1,10 +1,13 @@
 package com.senacor.devconfapp.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
@@ -26,6 +29,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speaker;
         TextView speakerInfo;
         TextView speechSummary;
+        ImageView deleteButton;
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
@@ -50,7 +54,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.speechSummary);
             viewHolder.startTime = (TextView) convertView.findViewById(R.id.value_startTime);
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
-
+            viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
@@ -63,6 +67,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
         viewHolder.startTime.setText(speech.getStartTime());
         viewHolder.endTime.setText(speech.getEndTime());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String role = sharedPref.getString("role", "role");
+        if (role.equals("ADMIN")) {
+            viewHolder.deleteButton.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
     }
 }

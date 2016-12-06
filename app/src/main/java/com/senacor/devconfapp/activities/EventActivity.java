@@ -3,7 +3,6 @@ package com.senacor.devconfapp.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.RestClient;
@@ -24,13 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
-import static com.senacor.devconfapp.R.id.username;
 import static com.senacor.devconfapp.R.layout.event;
 
 
@@ -48,30 +42,13 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_events);
-        //setContentView(R.layout.list_speeches);
         setContentView(event);
-/*        Intent intent = getIntent();
-        String greeting = "Welcome ";
-        String username = intent.getStringExtra("username");
-        welcome = (TextView) findViewById(R.id.welcome);
-        welcome.setText(greeting + username);*/
         String url = getIntent().getExtras().getString("url");
+        System.out.println(url);
         getEvent(url);
 
-       // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-       // String tokenId = sharedPref.getString("tokenId", "tokenId");
-       // System.out.println(tokenId);
     }
 
-/*    public String getToken()
-
-    {
-        sharedPref = SharedPreferences sharedPref;
-        String tokenId = sharedPref.getString("tokenId", "tokenId");
-        return tokenId;
-
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,21 +79,12 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void getEvent(String url) {
-
-        //List<Header> headers = new ArrayList<>();
-        //headers.add(new BasicHeader("Accept", "application/json"));
-        //headers.add(new BasicHeader ("Authorization", getToken()));
-        //System.out.println("Header in getCurrentEvent" +headers.toString());
-        //headers.toArray(new Header[headers.size()]),
-
-        RestClient.get(EventActivity.this, url, headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventActivity.this, url,
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                         Event event = new Event(jsonObject);
-                        System.out.println(event.getName());
-                        System.out.println(event.getPlace());
 
                         eventName = (TextView)findViewById(R.id.event_name);
                         eventPlace = (TextView)findViewById(R.id.event_place);
@@ -126,7 +94,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
 
-                        //JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
+                        //TODO JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
                         try {
                             JSONArray jsonArray = jsonObject.getJSONArray("links");
@@ -155,12 +123,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void getSpeeches(String speechesUrl) {
-       // List<Header> headers = new ArrayList<>();
 
-        //headers.add(new BasicHeader("Accept", "application/json"));
-        //headers.add(new BasicHeader ("Authorization", getToken()));
-        //System.out.println("Header in getSpeeches" +headers.toString());
-        //headers.toArray(new Header[headers.size()]),
         RestClient.get(EventActivity.this, speechesUrl,
                 null, new JsonHttpResponseHandler() {
 

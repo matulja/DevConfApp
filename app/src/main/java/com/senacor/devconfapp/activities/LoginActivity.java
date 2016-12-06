@@ -20,12 +20,7 @@ import com.senacor.devconfapp.models.Token;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
 
 /**
@@ -63,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login(final String username, String password) {
-       // List<Header> headers = new ArrayList<>();
-       // headers.add(new BasicHeader("Accept", "application/json"));
         params = new RequestParams();
         if(!username.isEmpty() && !password.isEmpty()){
             params.put("username", username);
@@ -72,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         prgDialog.show();
-
 
         AuthRestClient.post(this, IPAddress.IPuser + "/auth", params, new JsonHttpResponseHandler() {
             @Override
@@ -82,12 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("on success");
                 prgDialog.hide();
                 if(statusCode == 200){
-                    System.out.println("status = 200");
                     Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                     Token token = new Token(jsonObject);
-                    System.out.println("Token UserID: " + token.getUserId());
-                    System.out.println("Token TokenID: " + token.getTokenId());
-                    System.out.println("Token UserRole:" + token.getRole());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("tokenId", token.getTokenId());
                     editor.putString("role", token.getRole());
@@ -95,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     String url = IPAddress.IPevent + "/currentEvent";
                     intent.putExtra("url", url);
-                    intent.putExtra("username", username);
                     LoginActivity.this.startActivity(intent);
                 }
             }
@@ -109,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                         .create()
                         .show();
                 System.out.println(statusCode + " ");
-//                System.out.println(errorResponse.toString() + " = jsonObject");
                 System.out.println(throwable.toString());
                 System.out.println("Unexpected Error");
             }
