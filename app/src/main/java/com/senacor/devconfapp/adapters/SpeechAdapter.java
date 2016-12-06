@@ -71,6 +71,14 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         String role = sharedPref.getString("role", "role");
         if (role.equals("ADMIN")) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
+            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                   // RestClient.put(this, IPAddress.IPevent + "23");
+                }
+            });
+
         }
 
         return convertView;

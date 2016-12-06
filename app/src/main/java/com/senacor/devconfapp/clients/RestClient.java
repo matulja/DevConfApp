@@ -26,10 +26,6 @@ public class RestClient {
         System.out.println("in get method");
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         addHeaders(sharedPref);
-      /*  String tokenId = sharedPref.getString("tokenId", "tokenId");
-       System.out.println(tokenId);
-        client.addHeader("Authorization", tokenId);
-        client.addHeader("Accept", "application/json");*/
         client.get(context, url, params, responseHandler);
         client.setConnectTimeout(30000);
 
@@ -41,10 +37,16 @@ public class RestClient {
         System.out.println(params.toString());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         addHeaders(sharedPref);
-        /*String tokenId = sharedPref.getString("tokenId", "tokenId");
-        client.addHeader("Authorization", tokenId);
-        client.addHeader("Accept", "application/json");*/
         client.post(context, url, params, responseHandler);
+        client.setConnectTimeout(30000);
+    }
+
+    public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        System.out.println("in put method");
+        System.out.println(params.toString());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        addHeaders(sharedPref);
+        client.put(context, url, params, responseHandler);
         client.setConnectTimeout(30000);
     }
 
