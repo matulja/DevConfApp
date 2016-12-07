@@ -98,11 +98,4 @@ public class Speech {
         this.speechSummary = speechSummary;
     }
 
-   /* public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }*/
 }

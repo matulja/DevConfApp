@@ -68,7 +68,9 @@
         android:layout_below="@+id/speechRoom"
         android:layout_alignLeft="@+id/speechRoom"
         android:layout_alignStart="@+id/speechRoom"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="11dp"
+        android:id="@+id/button_delete"
+        android:visibility="gone"/>
 
      <!--ohne Inhalte, daher visibility: gone-->
     <TextView

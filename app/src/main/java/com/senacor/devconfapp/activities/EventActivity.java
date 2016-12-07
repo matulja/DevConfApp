@@ -27,12 +27,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 
-import static com.senacor.devconfapp.R.id.username;
 import static com.senacor.devconfapp.R.layout.event;
 
 
@@ -52,46 +50,20 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(event);
-/*      Intent intent = getIntent();
-        String greeting = "Welcome ";
-        String username = intent.getStringExtra("username");
-        welcome = (TextView) findViewById(R.id.welcome);
-        welcome.setText(greeting + username);*/
         String url = getIntent().getExtras().getString("url");
+        System.out.println(url);
         getEvent(url);
         joinButton = (Button) findViewById(R.id.joinButton);
         joinButton.setOnClickListener(EventActivity.this);
 
-       // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-       // String tokenId = sharedPref.getString("tokenId", "tokenId");
-       // System.out.println(tokenId);
     }
 
-    public String getToken()
 
-    {
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String tokenId = sharedPref.getString("tokenId", "tokenId");
-        return tokenId;
-
-    }
-
-    public String getUserId()
-
-    {
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String userId = sharedPref.getString("userId", "userId");
-        return userId;
-
-    }
-
-    //Opens list with all events when menu item "show all events" get clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.list_all_events){
             Intent intent = new Intent(EventActivity.this, EventListActivity.class);
-            intent.putExtra("username", username);
             EventActivity.this.startActivity(intent);
             return true;
         }
@@ -163,20 +135,12 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void getEvent(String url) {
-
-        List<Header> headers = new ArrayList<>();
-        headers.add(new BasicHeader("Accept", "application/json"));
-        headers.add(new BasicHeader ("Authorization", getToken()));
-        System.out.println("Header in getCurrentEvent" +headers.toString());
-
-        RestClient.get(EventActivity.this, url, headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventActivity.this, url,
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                         Event event = new Event(jsonObject);
-                        System.out.println(event.getName());
-                        System.out.println(event.getPlace());
 
                         eventName = (TextView)findViewById(R.id.event_name);
                         eventPlace = (TextView)findViewById(R.id.event_place);
@@ -186,7 +150,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
 
-                        //JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
+                        //TODO JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
                         try {
                             JSONArray jsonArray = jsonObject.getJSONArray("links");
@@ -215,12 +179,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void getSpeeches(String speechesUrl) {
-        List<Header> headers = new ArrayList<>();
-        headers.add(new BasicHeader("Accept", "application/json"));
-        headers.add(new BasicHeader ("Authorization", getToken()));
-        System.out.println("Header in getSpeeches" +headers.toString());
 
-        RestClient.get(EventActivity.this, speechesUrl, headers.toArray(new Header[headers.size()]),
+        RestClient.get(EventActivity.this, speechesUrl,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
@@ -246,46 +206,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         Log.d("Failed: ", "" + statusCode);
                         Log.d("Error : ", "" + throwable);
                     }
-
-                   /*     for (int i = 0; i < 1; i++) {
-                            try {
-                                JSONObject jObj = response.getJSONObject(0);
-                                String eventID = jObj.getString("eventId");
-                                List<Header> headers2 = new ArrayList<>();
-                                headers2.add(new BasicHeader("Accept", "application/json"));
-                                RestClient.get(EventActivity.this, "event/"+eventID+"/speeches", headers2.toArray(new Header[headers2.size()]),
-                                        null, new JsonHttpResponseHandler() {
-                                            @Override
-                                            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                                                ArrayList<Speech> speechArray = new ArrayList<>();
-                                                SpeechAdapter speechAdapter = new SpeechAdapter(EventActivity.this, speechArray);
-
-                                                for (int i = 0; i < response.length(); i++) {
-                                                    try {
-                                                        speechAdapter.add(new Speech(response.getJSONObject(i)));
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-
-                                                speechList = (ListView) findViewById(R.id.list_speeches);
-                                                speechList.setAdapter(speechAdapter);
-                                            }
-                                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject object) {
-                                                //super.onFailure(statusCode, headers, responseString, throwable);
-                                                Log.d("Failed: ", "" + statusCode);
-                                                Log.d("Error : ", "" + throwable);
-                                            }
-                                        });
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
-
-
-
-
                 });
 
 
