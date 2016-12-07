@@ -1,18 +1,21 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.RestClient;
@@ -25,16 +28,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.message.BasicHeader;
 
 import static com.senacor.devconfapp.R.id.username;
 import static com.senacor.devconfapp.R.layout.event;
 
 
-public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener{
+public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, View.OnClickListener{
 
     TextView welcome;
     TextView eventName;
@@ -43,21 +46,22 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     ListView speechlist;
     MenuItem list_all_events;
     SharedPreferences sharedPref;
+    Button joinButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_events);
-        //setContentView(R.layout.list_speeches);
         setContentView(event);
-/*        Intent intent = getIntent();
+/*      Intent intent = getIntent();
         String greeting = "Welcome ";
         String username = intent.getStringExtra("username");
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText(greeting + username);*/
         String url = getIntent().getExtras().getString("url");
         getEvent(url);
+        joinButton = (Button) findViewById(R.id.joinButton);
+        joinButton.setOnClickListener(EventActivity.this);
 
        // sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
        // String tokenId = sharedPref.getString("tokenId", "tokenId");
@@ -73,6 +77,16 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
     }
 
+    public String getUserId()
+
+    {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String userId = sharedPref.getString("userId", "userId");
+        return userId;
+
+    }
+
+    //Opens list with all events when menu item "show all events" get clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -83,6 +97,52 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Opens dialog when Button "Join" get clicked to register for the conference
+    @Override
+    public void onClick(View v) {
+        if (v == joinButton)
+        {
+            if (joinButton.getText().equals("join")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+            builder.setMessage("You successfully registered for the conference.")
+                    .setTitle("Conference Registration")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                            joinButton.setText("joined");
+                        }
+                        })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    })
+                    .create()
+                    .show();
+            }
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+                builder.setMessage("You successfully unregistered for the conference.")
+                        .setTitle("Conference Registration")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked OK button
+                                //ToDo: User soll gespeichert
+                                joinButton.setText("join");
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        }
+
     }
 
     @Override
