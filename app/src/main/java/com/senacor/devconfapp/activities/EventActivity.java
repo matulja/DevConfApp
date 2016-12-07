@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.ToDoubleBiFunction;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -99,19 +98,20 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         return super.onOptionsItemSelected(item);
     }
 
-    //Opens dialog when Button "Join" get clicked to register for the conference
+    //Opens dialog when Button "Join" get clicked to register/unregister for the conference
     @Override
     public void onClick(View v) {
         if (v == joinButton)
         {
-            if (joinButton.getText().equals("join")){
+            if (joinButton.getText().equals("Join")){
             AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
             builder.setMessage("You successfully registered for the conference.")
                     .setTitle("Conference Registration")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User clicked OK button
-                            joinButton.setText("joined");
+                            //ToDo: User soll zum Event gespeichert werden
+                            joinButton.setText("Joined");
                         }
                         })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -129,8 +129,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
-                                //ToDo: User soll gespeichert
-                                joinButton.setText("join");
+                                //ToDo: User soll wieder vom Event abgemeldet werden
+                                joinButton.setText("Join");
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

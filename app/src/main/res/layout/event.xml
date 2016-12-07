@@ -98,7 +98,7 @@
         android:background="@android:color/white"
         android:layout_below="@+id/event_place" />
 
-    <TextView
+   <!-- <TextView
         android:text="@string/attend"
         android:id="@+id/register"
         android:layout_height="25dp"
@@ -109,7 +109,7 @@
         android:layout_alignLeft="@+id/event_name"
         android:layout_alignEnd="@+id/event_name"
         android:layout_alignRight="@+id/event_name" />
-
+-->
 
     <!-- Agenda-->
     <TextView
@@ -135,11 +135,10 @@
         android:id="@+id/joinButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/event_place"
+        android:text="Join"
+        android:layout_below="@+id/lineDevCon"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:text="Join" />
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
