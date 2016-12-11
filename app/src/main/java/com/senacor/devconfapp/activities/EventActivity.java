@@ -1,12 +1,17 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,11 +29,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 import static com.senacor.devconfapp.R.layout.event;
 
 
-public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener{
+public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, View.OnClickListener{
 
     TextView eventName;
     TextView eventPlace;
@@ -36,6 +42,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     ListView speechlist;
     MenuItem list_all_events;
     SharedPreferences sharedPref;
+    Button joinButton;
 
 
     @Override
@@ -45,6 +52,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         String url = getIntent().getExtras().getString("url");
         System.out.println(url);
         getEvent(url);
+        joinButton = (Button) findViewById(R.id.joinButton);
+        joinButton.setOnClickListener(EventActivity.this);
 
     }
 
@@ -58,6 +67,53 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Opens dialog when Button "Join" get clicked to register/unregister for the conference
+    @Override
+    public void onClick(View v) {
+        if (v == joinButton)
+        {
+            if (joinButton.getText().equals("Join")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+            builder.setMessage("You successfully registered for the conference.")
+                    .setTitle("Conference Registration")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                            //ToDo: User soll zum Event gespeichert werden
+                            joinButton.setText("Joined");
+                        }
+                        })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    })
+                    .create()
+                    .show();
+            }
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+                builder.setMessage("You successfully unregistered for the conference.")
+                        .setTitle("Conference Registration")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User clicked OK button
+                                //ToDo: User soll wieder vom Event abgemeldet werden
+                                joinButton.setText("Join");
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        }
+
     }
 
     @Override
