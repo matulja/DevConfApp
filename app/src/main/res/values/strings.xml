@@ -25,4 +25,14 @@
         completions."
     </string>
 
+    <!-- Strings creating new Speech-->
+    <string name="speech_title_label">Title of Speech: </string>
+    <string name="addSpeechTitle"> Add new speech </string>
+    <string name="speechTitleHint"> enter speech title... </string>
+    <string name="speechStartTimeHint"> enter start time...</string>
+    <string name="speech_startTime_label">Start time:</string>
+    <string name="speech_endTime_label">End Time:</string>
+    <string name="speechEndTimeHint">enter end time...</string>
+
+
 </resources>
