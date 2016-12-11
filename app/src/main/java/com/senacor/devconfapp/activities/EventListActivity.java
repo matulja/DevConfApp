@@ -70,12 +70,12 @@ public class EventListActivity extends AppCompatActivity implements AdapterView.
                         ArrayList<Event> eventListArray = new ArrayList<>();
                         EventListAdapter eventListAdapter = new EventListAdapter(EventListActivity.this, eventListArray);
                         for (int i = 0; i < response.length(); i++) {
-                            try {
+                           try {
                                 Event event = new Event(response.getJSONObject(i));
                                 String eventId2= response.getJSONObject(i).getString("eventId");
                                 event.setEventId(eventId2);
                                 eventListAdapter.add(event);
-                            } catch (JSONException e) {
+                           } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }

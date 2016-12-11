@@ -50,6 +50,14 @@ public class RestClient {
         client.setConnectTimeout(30000);
     }
 
+    public static void delete(Context context, String url, AsyncHttpResponseHandler responseHandler) {
+        System.out.println("in delete method");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        addHeaders(sharedPref);
+        client.delete(context, url, responseHandler);
+        client.setConnectTimeout(30000);
+
+    }
     public static void addHeaders(SharedPreferences sharedPref){
         String tokenId = sharedPref.getString("tokenId", "tokenId");
         client.addHeader("Authorization", tokenId);

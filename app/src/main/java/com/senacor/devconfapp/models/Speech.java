@@ -1,5 +1,6 @@
 package com.senacor.devconfapp.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,7 +8,7 @@ import org.json.JSONObject;
  * Created by Berlina on 14.11.16.
  */
 
-public class Speech {
+public class Speech{
 
     private String speechId;
     private String speechTitle;
@@ -17,11 +18,13 @@ public class Speech {
     private String speaker;
     private String speakerInfo;
     private String speechSummary;
-   // private String eventId;
+    private String eventId;
+
+    private String url;
 
     public Speech(JSONObject jsonObject) {
         try {
-           // this.speechId = jsonObject.getString("speechId");
+            this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
             this.startTime = jsonObject.getString("startTime");
             this.endTime = jsonObject.getString("endTime");
@@ -29,7 +32,15 @@ public class Speech {
             this.speaker = jsonObject.getString("speaker");
             this.speakerInfo = jsonObject.getString("speakerInfo");
             this.speechSummary = jsonObject.getString("speechSummary");
-          //  this.eventId = jsonObject.getString("eventId");
+//            this.eventId = jsonObject.getString("eventId");
+            JSONArray array = jsonObject.getJSONArray("links");
+            for (int i = 0; i < array.length(); i++) {
+                if(array.getJSONObject(i).getString("rel").equals("self")){
+                    this.url = array.getJSONObject(i).getString("href");
+                    System.out.println(url);
+
+                }
+            }
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -96,6 +107,14 @@ public class Speech {
 
     public void setSpeechSummary(String speechSummary) {
         this.speechSummary = speechSummary;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

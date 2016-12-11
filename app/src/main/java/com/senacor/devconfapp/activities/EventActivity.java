@@ -30,7 +30,6 @@ import static com.senacor.devconfapp.R.layout.event;
 
 public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener{
 
-    TextView welcome;
     TextView eventName;
     TextView eventPlace;
     TextView eventDate;
@@ -85,6 +84,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                         Event event = new Event(jsonObject);
+                        System.out.println(event.getName());
 
                         eventName = (TextView)findViewById(R.id.event_name);
                         eventPlace = (TextView)findViewById(R.id.event_place);
@@ -93,6 +93,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         eventName.setText(event.getName());
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
+
 
                         //TODO JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
@@ -104,7 +105,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                                     speechesUrl = jsonArray.getJSONObject(i).getString("href");
                                     System.out.println(speechesUrl);
 
-                                };
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
