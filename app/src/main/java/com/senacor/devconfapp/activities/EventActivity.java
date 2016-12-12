@@ -65,21 +65,52 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(event);
         String url = getIntent().getExtras().getString("url");
-        System.out.println(url);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         getEvent(url);
         joinButton = (Button) findViewById(R.id.joinButton);
+        userId = sharedPref.getString("userId", "DEFAULT");
+        String attendanceUrl=url+"attendees/"+userId;
+        System.out.println(attendanceUrl);
+        getAttendanceStatus(attendanceUrl);
         joinButton.setOnClickListener(EventActivity.this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
         addSpeechButton = (ImageButton) findViewById(R.id.addSpeechButton);
         addSpeechButton.setOnClickListener(EventActivity.this);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         popupView = inflater.inflate(R.layout.popup_layout, null, false);
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if(sharedPref.getString("role", "role").equals("ADMIN")) {
             addSpeechButton.setVisibility(VISIBLE);
             speechHandler = new SpeechHandler();
         }
+    }
+
+    private void getAttendanceStatus(String attendanceUrl) {
+        RestClient.get(EventActivity.this, attendanceUrl,
+                null, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        try {
+                            if (response.getBoolean("isAttending")) {
+                                joinButton.setText("Joined");
+                            }
+                            else{
+                                joinButton.setText("Join");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Log.d("Failed: ", "" + statusCode);
+                        Log.d("Error : ", "" + throwable);
+                    }
+
+                });
     }
 
 
@@ -105,7 +136,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User clicked OK button
-                            userId = sharedPref.getString("userId", "DEFAULT");
                             Log.i("myapp", userId);
                             //ToDo: User soll zum Event gespeichert werden
                             joinButton.setText("Joined");
