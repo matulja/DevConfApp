@@ -29,7 +29,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
 import static com.senacor.devconfapp.R.layout.event;
 
@@ -42,9 +41,9 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     TextView eventDate;
     ListView speechlist;
     MenuItem list_all_events;
-    SharedPreferences sharedPref;
     Button joinButton;
-
+    private SharedPreferences sharedPref;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         getEvent(url);
         joinButton = (Button) findViewById(R.id.joinButton);
         joinButton.setOnClickListener(EventActivity.this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
@@ -82,6 +82,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User clicked OK button
+                            userId = sharedPref.getString("userId", "DEFAULT");
+                            Log.i("myapp", userId);
                             //ToDo: User soll zum Event gespeichert werden
                             joinButton.setText("Joined");
                         }
