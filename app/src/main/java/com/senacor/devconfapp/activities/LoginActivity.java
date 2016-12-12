@@ -16,8 +16,11 @@ import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.clients.AuthRestClient;
+import com.senacor.devconfapp.clients.RestClient;
 import com.senacor.devconfapp.models.Token;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog prgDialog;
     private RequestParams params;
     private SharedPreferences sharedPref;
+    String urlNextPage = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("role", token.getRole());
                     editor.putString("userId", token.getUserId());
                     editor.commit();
-                    String url = IPAddress.IPevent + "/currentEvent";
-                    intent.putExtra("url", url);
+                    setUrlNextPage(IPAddress.IPevent + "/currentEvent");
+                    //String url = IPAddress.IPevent + "/currentEvent";
+                    intent.putExtra("url", urlNextPage);
                     LoginActivity.this.startActivity(intent);
                 }
             }
@@ -111,6 +116,32 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
+
+        });
+    }
+
+    private void setUrlNextPage(String url) {
+        RestClient.get(this, url, null, new JsonHttpResponseHandler(){
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("links");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            if(jsonArray.getJSONObject(i).getString("rel").equals("self")){
+                                urlNextPage = jsonArray.getJSONObject(i).getString("href");
+                                System.out.println("in set next Url:" + urlNextPage);
+
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+            }
         });
     }
 

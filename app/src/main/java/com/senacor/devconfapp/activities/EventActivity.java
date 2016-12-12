@@ -4,14 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +36,6 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 import static android.view.View.VISIBLE;
-import static android.widget.ListPopupWindow.MATCH_PARENT;
 import static com.senacor.devconfapp.R.layout.event;
 
 
@@ -95,7 +91,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     @Override
     public void onClick(View v) {
         if (v == joinButton)    {
-            if (joinButton.getText().equals("Join")){
+/*            if (joinButton.getText().equals("Join")){
+
             AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
             builder.setMessage("You successfully registered for the conference.")
                     .setTitle("Conference Registration")
@@ -112,7 +109,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         }
                     })
                     .create()
-                    .show();
+                    .show();*/
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
                 builder.setMessage("You successfully unregistered for the conference.")
@@ -132,7 +129,8 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         .create()
                         .show();
             }
-        } if (v == addSpeechButton) {
+        }
+   /* if (v == addSpeechButton) {
             pw = new PopupWindow(this);
             pw.setWidth(MATCH_PARENT);
             pw.setHeight(MATCH_PARENT);
@@ -143,9 +141,9 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
             // Use any one method - showAtLocation or showAsDropDown to show the popup
             pw.showAtLocation(v, Gravity.CENTER, 0, 0);
            // speechHandler.addSpeech();
-        }
+        }*/
 
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
