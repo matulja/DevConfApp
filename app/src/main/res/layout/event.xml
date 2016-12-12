@@ -17,31 +17,6 @@
 
 
     <!-- DevCon Details-->
-    <!-- lineOne wird nciht gebraucht, nur der hint zu attend steht drin :O-->
-    <View
-        android:id="@+id/lineOne"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/white"
-        android:hint="@string/attend"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="13dp"
-        android:layout_marginEnd="13dp" />
-
-    <!-- Logo weglassen
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:src="@drawable/logo"
-        android:layout_height="40dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /> -->
-
     <TextView
         android:id="@+id/event_date"
         android:layout_height="wrap_content"
@@ -64,9 +39,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/event_date" />
-    <!-- soll rechts daneben wirklich das feld Attend stehen,, oder lieber darunter?
-        android:layout_toLeftOf="@+id/register"
-        android:layout_toStartOf="@+id/register"-->
 
     <!-- folgende Linie zum Beginn der Seite hat keinerlei relationen-->
     <View
@@ -87,29 +59,16 @@
         android:layout_below="@+id/lineDevCon"
         android:layout_alignLeft="@+id/event_name"
         android:layout_alignStart="@+id/event_name"
-        android:layout_alignEnd="@+id/event_name"
-        android:layout_alignRight="@+id/event_name" />
+        android:layout_toLeftOf="@id/joinButton" />
 
-    <View
-        android:id="@+id/lineTwo"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="25dp"
-        android:background="@android:color/white"
-        android:layout_below="@+id/event_place" />
-
-   <!-- <TextView
-        android:text="@string/attend"
-        android:id="@+id/register"
-        android:layout_height="25dp"
+    <Button
+        android:id="@+id/joinButton"
         android:layout_width="wrap_content"
-        android:clickable="true"
-        android:textStyle="normal|italic"
-        android:layout_alignTop="@+id/lineTwo"
-        android:layout_alignLeft="@+id/event_name"
+        android:layout_height="wrap_content"
+        android:text="Join"
+        android:layout_below="@+id/lineDevCon"
         android:layout_alignEnd="@+id/event_name"
-        android:layout_alignRight="@+id/event_name" />
--->
+        android:layout_alignRight="@+id/event_name"/>
 
     <!-- Agenda-->
     <TextView
@@ -118,10 +77,9 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_below="@+id/lineTwo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"/>
+        android:layout_below="@+id/joinButton"
+        android:layout_alignLeft="@id/event_date"
+        android:layout_alignStart="@id/event_date"/>
 
     <ListView
         android:id="@+id/list_speeches"
@@ -131,6 +89,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
     <ImageButton
         android:id="@+id/addSpeechButton"
         android:layout_width="wrap_content"
@@ -139,16 +98,6 @@
         android:layout_alignParentRight="true"
         android:src="@android:drawable/ic_input_add"
         android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/joinButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Join"
-        android:layout_below="@+id/lineDevCon"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
 
 </RelativeLayout>
 
