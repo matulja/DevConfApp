@@ -1,6 +1,7 @@
 package com.senacor.devconfapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -10,10 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.activities.EventActivity;
+import com.senacor.devconfapp.clients.RestClient;
 import com.senacor.devconfapp.models.Speech;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Veronika Babic on 14.11.2016.
@@ -37,8 +45,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Speech speech = getItem(position);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Speech speech = getItem(position);
         SpeechAdapter.ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -75,7 +83,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
                 @Override
                 public void onClick(View v) {
-                   // RestClient.put(this, IPAddress.IPevent + "23");
+                    deleteSpeech(speech.getUrl());
                 }
             });
 
@@ -83,5 +91,30 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
         return convertView;
     }
+
+    private void deleteSpeech(final String url) {
+
+        RestClient.delete(getContext(), url, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Intent intent = new Intent(getContext(), EventActivity.class);
+                String[] parts = url.split("/");
+                String newUrl="";
+                for (int i = 0; i < 5; i++) {
+                    newUrl += parts[i] + "/";
+                }
+                intent.putExtra("url", newUrl);
+                getContext().startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                System.out.println("in delete speech: " + throwable);
+            }
+        });
+        }
 }
 

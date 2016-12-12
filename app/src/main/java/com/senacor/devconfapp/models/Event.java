@@ -1,17 +1,24 @@
 package com.senacor.devconfapp.models;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
 
-public class Event {
+public class Event{
 
+    //@JsonProperty
     private String eventId;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String place;
+    @JsonProperty
     private String date;
     private List<Speech> speeches;
 
@@ -36,6 +43,10 @@ public class Event {
         this.name = name;
     }
 
+    @JsonCreator
+    public Event() {
+
+    }
     //Setter
 
 
@@ -70,5 +81,9 @@ public class Event {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public void setSpeeches(List<Speech> speeches) {
+        this.speeches = speeches;
     }
 }

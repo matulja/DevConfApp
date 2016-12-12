@@ -1,24 +1,32 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.RestClient;
+import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Event;
 import com.senacor.devconfapp.models.Speech;
 
@@ -30,18 +38,25 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static android.view.View.VISIBLE;
+import static android.widget.ListPopupWindow.MATCH_PARENT;
 import static com.senacor.devconfapp.R.layout.event;
 
 
 public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, View.OnClickListener{
 
-    TextView welcome;
     TextView eventName;
     TextView eventPlace;
     TextView eventDate;
     ListView speechlist;
     MenuItem list_all_events;
     Button joinButton;
+    ImageButton addSpeechButton;
+    private PopupWindow pw;
+    private View popupView;
+    private LayoutInflater inflater;
+    private SpeechHandler speechHandler;
+
     private SharedPreferences sharedPref;
     private String userId;
 
@@ -56,6 +71,15 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         joinButton.setOnClickListener(EventActivity.this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
+        addSpeechButton = (ImageButton) findViewById(R.id.addSpeechButton);
+        addSpeechButton.setOnClickListener(EventActivity.this);
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        popupView = inflater.inflate(R.layout.popup_layout, null, false);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sharedPref.getString("role", "role").equals("ADMIN")) {
+            addSpeechButton.setVisibility(VISIBLE);
+            speechHandler = new SpeechHandler();
+        }
     }
 
 
@@ -73,8 +97,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     //Opens dialog when Button "Join" get clicked to register/unregister for the conference
     @Override
     public void onClick(View v) {
-        if (v == joinButton)
-        {
+        if (v == joinButton)    {
             if (joinButton.getText().equals("Join")){
             AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
             builder.setMessage("You successfully registered for the conference.")
@@ -95,8 +118,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     })
                     .create()
                     .show();
-            }
-            else{
+            } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
                 builder.setMessage("You successfully unregistered for the conference.")
                         .setTitle("Conference Registration")
@@ -115,6 +137,17 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         .create()
                         .show();
             }
+        } if (v == addSpeechButton) {
+            pw = new PopupWindow(this);
+            pw.setWidth(MATCH_PARENT);
+            pw.setHeight(MATCH_PARENT);
+            pw.setOutsideTouchable(false);
+            pw.setContentView(popupView);
+            pw.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+
+            // Use any one method - showAtLocation or showAsDropDown to show the popup
+            pw.showAtLocation(v, Gravity.CENTER, 0, 0);
+           // speechHandler.addSpeech();
         }
 
     }
@@ -143,6 +176,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                         Event event = new Event(jsonObject);
+                        System.out.println(event.getName());
 
                         eventName = (TextView)findViewById(R.id.event_name);
                         eventPlace = (TextView)findViewById(R.id.event_place);
@@ -151,6 +185,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         eventName.setText(event.getName());
                         eventPlace.setText(event.getPlace());
                         eventDate.setText(event.getDate());
+
 
                         //TODO JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
