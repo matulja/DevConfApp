@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
-import com.senacor.devconfapp.clients.RestClient;
+import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Event;
 import com.senacor.devconfapp.models.Speech;
@@ -37,6 +37,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.view.View.VISIBLE;
 import static com.senacor.devconfapp.R.layout.event;
+import static com.senacor.devconfapp.clients.AsynchRestClient.get;
 
 
 public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, View.OnClickListener{
@@ -52,22 +53,17 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     private View popupView;
     private LayoutInflater inflater;
     private SpeechHandler speechHandler;
-
     private SharedPreferences sharedPref;
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(event);
         String url = getIntent().getExtras().getString("url");
+        System.out.println(url);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         getEvent(url);
         joinButton = (Button) findViewById(R.id.joinButton);
-        userId = sharedPref.getString("userId", "DEFAULT");
-        String attendanceUrl=url+"attendees/"+userId;
-        System.out.println(attendanceUrl);
-        getAttendanceStatus(attendanceUrl);
         joinButton.setOnClickListener(EventActivity.this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         addSpeechButton = (ImageButton) findViewById(R.id.addSpeechButton);
@@ -78,35 +74,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
             addSpeechButton.setVisibility(VISIBLE);
             speechHandler = new SpeechHandler();
         }
-    }
-
-    private void getAttendanceStatus(String attendanceUrl) {
-        RestClient.get(EventActivity.this, attendanceUrl,
-                null, new JsonHttpResponseHandler() {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
-                        try {
-                            if (response.getBoolean("isAttending")) {
-                                joinButton.setText("Joined");
-                            }
-                            else{
-                                joinButton.setText("Join");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                        Log.d("Failed: ", "" + statusCode);
-                        Log.d("Error : ", "" + throwable);
-                    }
-
-                });
     }
 
 
@@ -124,60 +91,46 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     //Opens dialog when Button "Join" get clicked to register/unregister for the conference
     @Override
     public void onClick(View v) {
-        if (v == joinButton)    {
-/*            if (joinButton.getText().equals("Join")){
 
+        if (v == joinButton) {
             AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
-            builder.setMessage("You successfully registered for the conference.")
-                    .setTitle("Conference Registration")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User clicked OK button
-                            Log.i("myapp", userId);
-                            //ToDo: User soll zum Event gespeichert werden
-                            joinButton.setText("Joined");
-                        }
-                        })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    })
-                    .create()
-                    .show();*/
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
-                builder.setMessage("You successfully unregistered for the conference.")
-                        .setTitle("Conference Registration")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User clicked OK button
-                                //ToDo: User soll wieder vom Event abgemeldet werden
-                                joinButton.setText("Join");
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        })
-                        .create()
-                        .show();
+            builder.setTitle("Conference Registration");
+            if(joinButton.getText().equals("Join")){
+                builder.setMessage("You successfully registered for the conference.");
+            }else{
+                builder.setMessage("You successfully unregistered for the conference.");
             }
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String url = getIntent().getExtras().getString("url") + "/attendees/" + sharedPref.getString("userId", "userId");
+                            System.out.println(url);
+                            AsynchRestClient.put(getBaseContext(), url, null, new JsonHttpResponseHandler(){
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                    System.out.println("putting attendance successful");
+                                    String url = getIntent().getExtras().getString("url") + "/attendees/" + sharedPref.getString("userId", "userId");
+                                    setAttendanceButton(url);
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                    Log.d("Failed: ", "" + statusCode);
+                                    Log.d("Error : ", "" + throwable);
+                                    System.out.println("putting attendance not successful");
+                                }
+                            });
+
+                        }})
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+                    builder.create()
+                            .show();
         }
-   /* if (v == addSpeechButton) {
-            pw = new PopupWindow(this);
-            pw.setWidth(MATCH_PARENT);
-            pw.setHeight(MATCH_PARENT);
-            pw.setOutsideTouchable(false);
-            pw.setContentView(popupView);
-            pw.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
-
-            // Use any one method - showAtLocation or showAsDropDown to show the popup
-            pw.showAtLocation(v, Gravity.CENTER, 0, 0);
-           // speechHandler.addSpeech();
-        }*/
-
+    }
 
 
     @Override
@@ -198,7 +151,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
     private void getEvent(String url) {
-        RestClient.get(EventActivity.this, url,
+        get(EventActivity.this, url,
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
@@ -217,13 +170,17 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
                         //TODO JsonObject in KLasse überführen - Hal-Object / Resource .getLink();
                         String speechesUrl = "";
+                        String attendanceUrl = "";
                         try {
                             JSONArray jsonArray = jsonObject.getJSONArray("links");
-                            System.out.println(jsonArray.length() + " ");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 if(jsonArray.getJSONObject(i).getString("rel").equals("speeches")){
                                     speechesUrl = jsonArray.getJSONObject(i).getString("href");
-                                    System.out.println(speechesUrl);
+
+                                }
+                                if(jsonArray.getJSONObject(i).getString("rel").equals("attendance")){
+                                    attendanceUrl = jsonArray.getJSONObject(i).getString("href");
+                                    System.out.println("extracting attendance url:" + attendanceUrl);
 
                                 };
                             }
@@ -232,6 +189,9 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                         }
                         if (!(speechesUrl.equals(""))) {
                             getSpeeches(speechesUrl);
+                        }
+                        if (!(attendanceUrl.equals(""))) {
+                            setAttendanceButton(attendanceUrl);
                         }
 
                     }
@@ -245,7 +205,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
     private void getSpeeches(String speechesUrl) {
 
-        RestClient.get(EventActivity.this, speechesUrl,
+        get(EventActivity.this, speechesUrl,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
@@ -274,6 +234,35 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
                 });
 
 
+    }
+
+    private void setAttendanceButton(String attendanceUrl) {
+        AsynchRestClient.get(EventActivity.this, attendanceUrl,
+                null, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            System.out.println(response.getBoolean("isAttending"));
+                            if (response.getBoolean("isAttending")) {
+                                joinButton.setText("Joined");
+                            }
+                            else{
+                                joinButton.setText("Join");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("Failed: ", "" + statusCode);
+                        Log.d("Error : ", "" + throwable);
+                    }
+
+
+                });
     }
 
 }

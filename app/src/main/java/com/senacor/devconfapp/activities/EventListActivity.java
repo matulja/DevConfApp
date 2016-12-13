@@ -15,7 +15,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.adapters.EventListAdapter;
-import com.senacor.devconfapp.clients.RestClient;
+import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.models.Event;
 
 import org.json.JSONArray;
@@ -61,7 +61,7 @@ public class EventListActivity extends AppCompatActivity implements AdapterView.
     }
 
     private void getEventList() {
-        RestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list",
+        AsynchRestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list",
                 null, new JsonHttpResponseHandler() {
 
                     @Override

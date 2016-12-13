@@ -16,7 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.clients.AuthRestClient;
-import com.senacor.devconfapp.clients.RestClient;
+import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.models.Token;
 
 import org.json.JSONArray;
@@ -33,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog prgDialog;
     private RequestParams params;
     private SharedPreferences sharedPref;
-    String urlNextPage = "";
+    public String eventId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("on success");
                 prgDialog.hide();
                 if(statusCode == 200){
-                    Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                     Token token = new Token(jsonObject);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("tokenId", token.getTokenId());
                     editor.putString("role", token.getRole());
                     editor.putString("userId", token.getUserId());
                     editor.commit();
-                    setUrlNextPage(IPAddress.IPevent + "/currentEvent");
-                    //String url = IPAddress.IPevent + "/currentEvent";
-                    intent.putExtra("url", urlNextPage);
-                    LoginActivity.this.startActivity(intent);
+                    getCurrentEvent();
+
                 }
             }
 
@@ -120,31 +118,32 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void setUrlNextPage(String url) {
-        RestClient.get(this, url, null, new JsonHttpResponseHandler(){
+    private void getCurrentEvent() {
+        AsynchRestClient.get(this, IPAddress.IPevent + "/currentEvent", null, new JsonHttpResponseHandler() {
 
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("links");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            if(jsonArray.getJSONObject(i).getString("rel").equals("self")){
-                                urlNextPage = jsonArray.getJSONObject(i).getString("href");
-                                System.out.println("in set next Url:" + urlNextPage);
-
-                            }
+                Intent intent = new Intent(LoginActivity.this, EventActivity.class);
+                String url = "";
+                try {
+                    JSONArray jsonArray = response.getJSONArray("links");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        if (jsonArray.getJSONObject(i).getString("rel").equals("self")) {
+                            url = jsonArray.getJSONObject(i).getString("href");
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+                System.out.println(url);
+                intent.putExtra("url", url);
+                LoginActivity.this.startActivity(intent);
             }
         });
     }
-
 
     @Override
     public void onStart() {

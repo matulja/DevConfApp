@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
-import com.senacor.devconfapp.clients.RestClient;
+import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.models.Speech;
 
 import org.json.JSONObject;
@@ -94,11 +94,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
     private void deleteSpeech(final String url) {
 
-        RestClient.delete(getContext(), url, new JsonHttpResponseHandler(){
+        AsynchRestClient.delete(getContext(), url, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                System.out.println("in delete speech");
                 Intent intent = new Intent(getContext(), EventActivity.class);
                 String[] parts = url.split("/");
                 String newUrl="";
