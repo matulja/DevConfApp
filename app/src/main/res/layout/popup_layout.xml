@@ -82,7 +82,7 @@
         android:ems="11"
         android:hint="@string/speechEndTimeHint"/>
 
-    <TextView
+<!--    <TextView
         android:layout_height="28dp"
         android:id="@+id/speechSpeaker_label"
         android:text="@string/speech_speaker_label"
@@ -132,7 +132,7 @@
     <EditText
         android:id="@+id/speechSummary"
         android:ems="11"
-        android:hint="@string/speechSummaryHint"/>
+        android:hint="@string/speechSummaryHint"/>-->
 
 
 </GridLayout>
