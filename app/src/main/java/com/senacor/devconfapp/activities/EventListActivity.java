@@ -61,7 +61,7 @@ public class EventListActivity extends AppCompatActivity implements AdapterView.
     }
 
     private void getEventList() {
-        AsynchRestClient.get(EventListActivity.this, IPAddress.IPevent+ "/list",
+        AsynchRestClient.get(EventListActivity.this, IPAddress.IPevent + "/list",
                 null, new JsonHttpResponseHandler() {
 
                     @Override
