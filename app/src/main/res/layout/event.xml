@@ -59,13 +59,12 @@
         android:layout_below="@+id/lineDevCon"
         android:layout_alignLeft="@+id/event_name"
         android:layout_alignStart="@+id/event_name"
-        android:layout_toLeftOf="@id/joinButton" />
+        android:layout_toLeftOf="@+id/joinButton" />
 
     <Button
         android:id="@+id/joinButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Join"
         android:layout_below="@+id/lineDevCon"
         android:layout_alignEnd="@+id/event_name"
         android:layout_alignRight="@+id/event_name"/>

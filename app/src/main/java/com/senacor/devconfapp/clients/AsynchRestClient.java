@@ -12,7 +12,7 @@ import com.loopj.android.http.RequestParams;
  * Created by saba on 29.10.16.
  */
 
-public class RestClient {
+public class AsynchRestClient {
 
 
     //private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
@@ -43,11 +43,9 @@ public class RestClient {
 
     public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         System.out.println("in put method");
-        System.out.println(params.toString());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         addHeaders(sharedPref);
         client.put(context, url, params, responseHandler);
-        client.setConnectTimeout(30000);
     }
 
     public static void delete(Context context, String url, AsyncHttpResponseHandler responseHandler) {
