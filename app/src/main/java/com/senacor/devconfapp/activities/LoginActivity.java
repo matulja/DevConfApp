@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog prgDialog;
     private RequestParams params;
     private SharedPreferences sharedPref;
-    public String eventId;
 
 
     @Override
@@ -124,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
                 Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                 String url = "";
                 try {

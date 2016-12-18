@@ -101,12 +101,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
                 super.onSuccess(statusCode, headers, response);
                 System.out.println("in delete speech");
                 Intent intent = new Intent(getContext(), EventActivity.class);
-                String[] parts = url.split("/");
-                String newUrl="";
-                for (int i = 0; i < 5; i++) {
-                    newUrl += parts[i] + "/";
-                }
-                intent.putExtra("url", newUrl);
+                intent.putExtra("url", EventActivity.URL);
                 getContext().startActivity(intent);
             }
 

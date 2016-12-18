@@ -18,7 +18,6 @@ public class AsynchRestClient {
     //private static final String BASE_URL = "http://"+ IPAddress.IP + ":8080/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
-    private static String tokenId;
 
 
     public static void get(Context context, String url, RequestParams params,

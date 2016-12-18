@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 
 public class Event{
 
@@ -20,7 +18,7 @@ public class Event{
     private String place;
     @JsonProperty
     private String date;
-    private List<Speech> speeches;
+
 
     public Event(JSONObject object) {
         try {
@@ -83,7 +81,4 @@ public class Event{
         this.eventId = eventId;
     }
 
-    public void setSpeeches(List<Speech> speeches) {
-        this.speeches = speeches;
-    }
 }
