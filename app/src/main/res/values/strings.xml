@@ -34,5 +34,14 @@
     <string name="speech_endTime_label">End Time:</string>
     <string name="speechEndTimeHint">enter end time...</string>
 
+    <!-- Strings creating new Event-->
+    <string name="event_name_label">Name of Event </string>
+    <string name="addEventName"> Add new event </string>
+    <string name="eventPlaceHint"> enter event place... </string>
+    <string name="eventNameHint"> enter event name...</string>
+    <string name="eventPlace_label"> enter event place... </string>
+    <string name="eventName_label_"> enter event name...</string>
+
+
 
 </resources>

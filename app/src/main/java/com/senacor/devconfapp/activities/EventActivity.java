@@ -40,7 +40,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.list_all_events) {
@@ -49,7 +49,33 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }*/
+
+   @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+       switch(item.getItemId()) {
+
+            case R.id.list_all_events:
+
+                Intent intent = new Intent(EventActivity.this, EventListActivity.class);
+                EventActivity.this.startActivity(intent);
+                break;
+
+            case R.id.create_new_event:
+
+                Intent intent2 = new Intent(getApplicationContext(), TestActivity.class);
+                startActivity(intent2);
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+            return true;
     }
+
 
 
 
