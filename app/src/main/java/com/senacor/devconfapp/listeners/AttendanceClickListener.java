@@ -23,14 +23,14 @@ import cz.msebera.android.httpclient.Header;
  * Created by saba on 18.12.16.
  */
 
-public class ClickListener implements View.OnClickListener {
+public class AttendanceClickListener implements View.OnClickListener {
 
     Button clickedButton;
     private SharedPreferences sharedPref;
     AttendanceHandler attendanceHandler;
     Activity activity;
 
-    public ClickListener(Activity activity) {
+    public AttendanceClickListener(Activity activity) {
         this.activity = activity;
 
     }
@@ -84,6 +84,5 @@ public class ClickListener implements View.OnClickListener {
             builder.create()
                     .show();
         }
-
     }
 }

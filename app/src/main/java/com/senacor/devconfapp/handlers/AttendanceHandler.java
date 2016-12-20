@@ -7,7 +7,7 @@ import android.widget.Button;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.clients.AsynchRestClient;
-import com.senacor.devconfapp.listeners.ClickListener;
+import com.senacor.devconfapp.listeners.AttendanceClickListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +34,7 @@ public class AttendanceHandler {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             Button joinButton = (Button) activity.findViewById(R.id.joinButton);
-                            joinButton.setOnClickListener(new ClickListener(activity));
+                            joinButton.setOnClickListener(new AttendanceClickListener(activity));
                             if (response.getBoolean("isAttending")) {
                                 joinButton.setText("Joined");
                             } else {
