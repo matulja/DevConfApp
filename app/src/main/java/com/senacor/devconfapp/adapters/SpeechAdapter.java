@@ -38,6 +38,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speakerInfo;
         TextView speechSummary;
         ImageView deleteButton;
+        ImageView editSpeechButton;
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
@@ -63,6 +64,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder.startTime = (TextView) convertView.findViewById(R.id.value_startTime);
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
             viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
+            viewHolder.editSpeechButton = (ImageView) convertView.findViewById(R.id.button_editSpeech);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
@@ -79,6 +81,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         String role = sharedPref.getString("role", "role");
         if (role.equals("ADMIN")) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
+            viewHolder.editSpeechButton.setVisibility(View.VISIBLE);
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
 
                 @Override

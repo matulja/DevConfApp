@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject)
             {
 
-                System.out.println("on success");
+                System.out.println("post login on success");
                 prgDialog.hide();
                 if(statusCode == 200){
                     Token token = new Token(jsonObject);
@@ -139,6 +140,12 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(url);
                 intent.putExtra("url", url);
                 LoginActivity.this.startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
             }
         });
     }
