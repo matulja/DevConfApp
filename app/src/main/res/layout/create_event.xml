@@ -12,10 +12,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:text="Create new Event"
         android:ems="10"
-        android:id="@+id/createSpeechHeadline"
+        android:id="@+id/createEventHeadline"
         android:textSize="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
@@ -33,7 +33,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/addSpeechTitleLayout"
+            android:id="@+id/addEventNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
@@ -48,7 +48,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/addSpeakerNameLayout"
+            android:id="@+id/addEventPlaceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
@@ -63,7 +63,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/addRoomLayout"
+            android:id="@+id/addEventDateLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
