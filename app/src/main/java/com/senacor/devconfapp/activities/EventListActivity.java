@@ -1,5 +1,6 @@
 package com.senacor.devconfapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -28,6 +29,32 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
         setContentView(activity_events);
         eventHandler.getEventList(URL);
     }
+
+    // in jeder Activity überschreiben, oder von TabActivity(default--> alle Methods) erben
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(item.getItemId()) {
+
+            case R.id.list_all_events:
+
+                Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
+                EventListActivity.this.startActivity(intent);
+                break;
+
+            case R.id.create_new_event:
+
+                Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
+                startActivity(intent2);
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

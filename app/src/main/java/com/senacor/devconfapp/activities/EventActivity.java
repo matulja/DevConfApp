@@ -53,8 +53,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
+       int id = item.getItemId();
        switch(item.getItemId()) {
 
             case R.id.list_all_events:
@@ -65,7 +64,7 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
 
             case R.id.create_new_event:
 
-                Intent intent2 = new Intent(getApplicationContext(), TestActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
                 startActivity(intent2);
                 break;
 

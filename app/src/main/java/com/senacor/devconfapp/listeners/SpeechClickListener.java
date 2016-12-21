@@ -30,7 +30,7 @@ public class SpeechClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId()== R.id.addSpeechButton){
+        if (v.getId() == R.id.addSpeechButton) {
             LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View popupView = inflater.inflate(R.layout.popup_layout, null, false);
             pw = new PopupWindow(popupView);
@@ -41,6 +41,9 @@ public class SpeechClickListener implements View.OnClickListener {
             pw.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
             pw.showAtLocation(v, Gravity.CENTER, 0, 0);
 
+            //Auskommentieren; cancel_new_speech, add_new_speech werden rot angezeigt
+
+         /*
             Button cancel = (Button) activity.findViewById(R.id.cancel_new_speech);
             cancel.setOnClickListener(this);
 
@@ -54,9 +57,9 @@ public class SpeechClickListener implements View.OnClickListener {
 
         if (v.getId() == R.id.add_new_speech) {
 
-        }
+        }*/
 
-    }
+        }
         /*pw = new PopupWindow(this);
                    pw.setWidth(MATCH_PARENT);
                    pw.setHeight(MATCH_PARENT);
@@ -67,4 +70,5 @@ public class SpeechClickListener implements View.OnClickListener {
                                     pw.showAtLocation(v, Gravity.CENTER, 0, 0);
                    // speechHandler.addSpeech();
     }*/
+    }
 }

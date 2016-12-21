@@ -25,90 +25,90 @@
         android:elegantTextHeight="false" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addSpeechTitleLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" >
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addSpeechTitleLayout"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/addSpeechTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:ems="10"
+                android:hint="Speech Title"/>
 
-                <EditText
-                    android:id="@+id/addSpeechTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Speech Title"/>
+        </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addSpeakerNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addSpeakerNameLayout"
+            <EditText
+                android:id="@+id/addSpeakerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:ems="10"
+                android:hint="Name of Speaker"/>
 
-                <EditText
-                    android:id="@+id/addSpeakerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Name of Speaker"/>
+        </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addRoomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addRoomLayout"
+            <EditText
+                android:id="@+id/addRoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:ems="10"
+                android:hint="Room Number"/>
 
-                <EditText
-                    android:id="@+id/addRoom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Room Number"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addStartTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addStartTimeLayout"
+            <EditText
+                android:id="@+id/addStartTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:ems="10"
+                android:hint="Start Time"/>
 
-                <EditText
-                    android:id="@+id/addStartTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Start Time"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addEndTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addEndTimeLayout"
+            <EditText
+                android:id="@+id/addEndTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:ems="10"
+                android:hint="End Time"/>
 
-                <EditText
-                    android:id="@+id/addEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="End Time"/>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            </GridLayout>
 
-                </GridLayout>
-
-            </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -150,12 +150,12 @@
 
 </LinearLayout>
 
-        <!--  <TextView
-              android:layout_height="wrap_content"
-              android:id="@+id/speechTitle_label"
-              android:text="@string/speech_title_label"
-              android:layout_gravity="end"
-              android:layout_width="wrap_content"/> -->
+    <!--  <TextView
+          android:layout_height="wrap_content"
+          android:id="@+id/speechTitle_label"
+          android:text="@string/speech_title_label"
+          android:layout_gravity="end"
+          android:layout_width="wrap_content"/> -->
 
 
     <!--<EditText
@@ -214,57 +214,57 @@
         android:hint="@string/speechEndTimeHint"/>  -->
 
 
-<!--    <TextView
-        android:layout_height="28dp"
-        android:id="@+id/speechSpeaker_label"
-        android:text="@string/speech_speaker_label"
-        android:layout_gravity="right"
-        android:layout_row="4"
-        android:layout_column="0" />
+    <!--    <TextView
+            android:layout_height="28dp"
+            android:id="@+id/speechSpeaker_label"
+            android:text="@string/speech_speaker_label"
+            android:layout_gravity="right"
+            android:layout_row="4"
+            android:layout_column="0" />
 
-    <EditText
-        android:id="@+id/speakerName"
-        android:ems="11"
-        android:hint="@string/speechSpeakerHint"/>
+        <EditText
+            android:id="@+id/speakerName"
+            android:ems="11"
+            android:hint="@string/speechSpeakerHint"/>
 
-    <TextView
-        android:layout_height="28dp"
-        android:id="@+id/speechRoom_label"
-        android:text="@string/speech_room_label"
-        android:layout_gravity="right"
-        android:layout_row="5"
-        android:layout_column="0" />
+        <TextView
+            android:layout_height="28dp"
+            android:id="@+id/speechRoom_label"
+            android:text="@string/speech_room_label"
+            android:layout_gravity="right"
+            android:layout_row="5"
+            android:layout_column="0" />
 
-    <EditText
-        android:id="@+id/speechRoom"
-        android:ems="11"
-        android:hint="@string/speechRoomHint"/>
+        <EditText
+            android:id="@+id/speechRoom"
+            android:ems="11"
+            android:hint="@string/speechRoomHint"/>
 
-    <TextView
-        android:layout_height="28dp"
-        android:id="@+id/speechSpeakerInfo_label"
-        android:text="@string/speech_speaker_info_label"
-        android:layout_gravity="right"
-        android:layout_row="10"
-        android:layout_column="1" />
+        <TextView
+            android:layout_height="28dp"
+            android:id="@+id/speechSpeakerInfo_label"
+            android:text="@string/speech_speaker_info_label"
+            android:layout_gravity="right"
+            android:layout_row="10"
+            android:layout_column="1" />
 
-    <EditText
-        android:id="@+id/speakerInfo"
-        android:ems="11"
-        android:hint="@string/speechSpeakerInfoHint"/>
+        <EditText
+            android:id="@+id/speakerInfo"
+            android:ems="11"
+            android:hint="@string/speechSpeakerInfoHint"/>
 
-    <TextView
-        android:layout_height="28dp"
-        android:id="@+id/speechSummary_label"
-        android:text="@string/speech_summary_label"
-        android:layout_gravity="right"
-        android:layout_row="7"
-        android:layout_column="0" />
+        <TextView
+            android:layout_height="28dp"
+            android:id="@+id/speechSummary_label"
+            android:text="@string/speech_summary_label"
+            android:layout_gravity="right"
+            android:layout_row="7"
+            android:layout_column="0" />
 
-    <EditText
-        android:id="@+id/speechSummary"
-        android:ems="11"
-        android:hint="@string/speechSummaryHint"/>-->
+        <EditText
+            android:id="@+id/speechSummary"
+            android:ems="11"
+            android:hint="@string/speechSummaryHint"/>-->
 
     <!--<Button
         android:text="add speech"
@@ -280,4 +280,3 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cancel_new_speech" />-->
-
