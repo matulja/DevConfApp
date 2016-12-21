@@ -1,34 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:useDefaultMargins="true"
-    android:alignmentMode="alignBounds"
-    android:columnOrderPreserved="false"
-    android:columnCount="4">
-
-    <TextView
-        android:text="@string/addSpeechTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/addSpeechTitle"
-        android:textSize="30dip"
-        android:layout_columnSpan="4"
-        android:layout_gravity="center_horizontal"/>
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:id="@+id/speechTitle_label"
-        android:text="@string/speech_title_label"
-        android:layout_gravity="end"
-        android:layout_width="wrap_content"/>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Create new Speech"
+        android:ems="10"
+        android:id="@+id/createSpeechHeadline"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+
+        style="@style/Widget.AppCompat.EditText"
+        android:singleLine="false"
+        android:selectAllOnFocus="false"
+        android:elegantTextHeight="false" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addSpeechTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/addSpeechTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Speech Title"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addSpeakerNameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/addSpeakerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Name of Speaker"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addRoomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/addRoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Room Number"/>
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addStartTimeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/addStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Start Time"/>
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEndTimeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/addEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="End Time"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </GridLayout>
+
+            </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="@color/senacorWhite"
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_alignBaseline="@+id/create_button"
+            android:layout_alignBottom="@+id/create_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/Widget.AppCompat.Button"
+            android:fontFamily="sans-serif-medium"
+            android:elevation="0dp" />
+
+        <Button android:id="@+id/create_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            android:textColor="@color/senacorWhite"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+        <!--  <TextView
+              android:layout_height="wrap_content"
+              android:id="@+id/speechTitle_label"
+              android:text="@string/speech_title_label"
+              android:layout_gravity="end"
+              android:layout_width="wrap_content"/> -->
+
+
+    <!--<EditText
         android:id="@+id/speechTitle"
         android:ems="11"
         android:hint="@string/speechTitleHint"
@@ -37,7 +167,7 @@
         android:inputType="text"
         android:maxLines="1"/>
 
-    <!--
+
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -55,7 +185,7 @@
     </android.support.design.widget.TextInputLayout>
     -->
 
-    <TextView
+    <!--<TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/speechStartTime_label"
@@ -81,7 +211,8 @@
     <EditText
         android:id="@+id/endTime"
         android:ems="11"
-        android:hint="@string/speechEndTimeHint"/>
+        android:hint="@string/speechEndTimeHint"/>  -->
+
 
 <!--    <TextView
         android:layout_height="28dp"
@@ -135,7 +266,7 @@
         android:ems="11"
         android:hint="@string/speechSummaryHint"/>-->
 
-    <Button
+    <!--<Button
         android:text="add speech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,7 +279,5 @@
         android:text="Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cancel_new_speech" />
+        android:id="@+id/cancel_new_speech" />-->
 
-
-</GridLayout>
