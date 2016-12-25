@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +18,7 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
-import com.senacor.devconfapp.listeners.SpeechClickListener;
+import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Event;
 
 import org.json.JSONArray;
@@ -30,11 +31,12 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.view.View.VISIBLE;
 
+
 /**
  * Created by saba on 13.12.16.
  */
 
-public class EventHandler {
+public class EventHandler{
 
     private Event event;
     private Activity activity;
@@ -71,7 +73,15 @@ public class EventHandler {
 
                         if (sharedPref.getString("role", "role").equals("ADMIN")) {
                             addSpeechButton.setVisibility(VISIBLE);
-                            addSpeechButton.setOnClickListener(new SpeechClickListener(activity));
+                            addSpeechButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    DialogFragment speechFragment = new SpeechDialog();
+                                //   FragmentManager fm = activity.getFragmentManager();
+                                    speechFragment.show(getActivity().getFragmentManager(), "SpeechDialog");
+
+                                }
+                            });
                         }
 
 
@@ -134,5 +144,7 @@ public class EventHandler {
                 });
     }
 
-
+    public Activity getActivity() {
+        return activity;
+    }
 }
