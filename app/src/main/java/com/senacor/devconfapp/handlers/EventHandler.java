@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
-import com.senacor.devconfapp.listeners.SpeechClickListener;
 import com.senacor.devconfapp.models.Event;
 
 import org.json.JSONArray;
@@ -27,8 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-
-import static android.view.View.VISIBLE;
 
 /**
  * Created by saba on 13.12.16.
@@ -66,15 +62,13 @@ public class EventHandler {
                         TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
                         eventDate.setText(event.getDate());
 
-                        ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
+                        /*ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
 
 
                         if (sharedPref.getString("role", "role").equals("ADMIN")) {
                             addSpeechButton.setVisibility(VISIBLE);
                             addSpeechButton.setOnClickListener(new SpeechClickListener(activity));
-                        }
-
-
+                        }*/
 
                     }
 

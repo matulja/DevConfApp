@@ -1,33 +1,31 @@
 package com.senacor.devconfapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.activities.EventActivity;
-import com.senacor.devconfapp.clients.AsynchRestClient;
+import com.senacor.devconfapp.listeners.SpeechClickListener;
 import com.senacor.devconfapp.models.Speech;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Veronika Babic on 14.11.2016.
  */
 
 public class SpeechAdapter extends ArrayAdapter<Speech>{
+
+    private Activity activity;
+
     public static class ViewHolder{
         TextView speechId;
         TextView speechTitle;
@@ -39,6 +37,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speechSummary;
         ImageView deleteButton;
         ImageView editSpeechButton;
+        ImageButton addSpeechButton;
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
@@ -56,7 +55,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
 
-            viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
+            viewHolder.speechTitle = (TextView) convertView.findViewById(R.id.speechTitle);
             viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechRoom);
             viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
             viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.speakerInfo);
@@ -65,6 +64,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
             viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
             viewHolder.editSpeechButton = (ImageView) convertView.findViewById(R.id.button_editSpeech);
+            viewHolder.addSpeechButton = (ImageButton) convertView.findViewById(R.id.addSpeechButton);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
@@ -82,38 +82,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         if (role.equals("ADMIN")) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
             viewHolder.editSpeechButton.setVisibility(View.VISIBLE);
-            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    deleteSpeech(speech.getUrl());
-                }
-            });
-
+            viewHolder.editSpeechButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
+            viewHolder.addSpeechButton.setVisibility(View.VISIBLE);
+            viewHolder.addSpeechButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
+            viewHolder.deleteButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
         }
-
         return convertView;
     }
-
-    private void deleteSpeech(final String url) {
-
-        AsynchRestClient.delete(getContext(), url, new JsonHttpResponseHandler(){
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                System.out.println("in delete speech");
-                Intent intent = new Intent(getContext(), EventActivity.class);
-                intent.putExtra("url", EventActivity.URL);
-                getContext().startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                System.out.println("in delete speech: " + throwable);
-            }
-        });
-        }
 }
 

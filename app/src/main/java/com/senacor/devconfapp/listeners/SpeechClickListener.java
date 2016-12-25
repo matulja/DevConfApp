@@ -7,10 +7,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.handlers.SpeechHandler;
+import com.senacor.devconfapp.models.Speech;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -22,6 +24,8 @@ public class SpeechClickListener implements View.OnClickListener {
 
     private Activity activity;
     private PopupWindow pw;
+    private SpeechHandler speechHandler;
+    private Speech speech;
 
     public SpeechClickListener(Activity activity) {
         this.activity = activity;
@@ -60,6 +64,25 @@ public class SpeechClickListener implements View.OnClickListener {
         }*/
 
         }
+
+        if (v.getId() == R.id.button_editSpeech) {
+            LayoutInflater inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup_layout, null, false);
+            pw = new PopupWindow(popupView);
+            pw.setWidth(MATCH_PARENT);
+            pw.setHeight(MATCH_PARENT);
+            pw.setOutsideTouchable(false);
+            pw.setContentView(popupView);
+            pw.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+            pw.showAtLocation(v, Gravity.CENTER, 0, 0);
+            ((TextView)pw.getContentView().findViewById(R.id.createSpeechHeadline)).setText("Edit Speech");
+        }
+
+        if (v.getId() == R.id.button_delete) {
+            speechHandler.deleteSpeech(speech.getUrl());
+        }
+
+
         /*pw = new PopupWindow(this);
                    pw.setWidth(MATCH_PARENT);
                    pw.setHeight(MATCH_PARENT);
