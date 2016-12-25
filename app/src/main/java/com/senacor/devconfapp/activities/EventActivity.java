@@ -95,7 +95,9 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         return false;
     }
 
-
+    public SpeechHandler getSpeechHandler() {
+        return speechHandler;
+    }
 }
 
 

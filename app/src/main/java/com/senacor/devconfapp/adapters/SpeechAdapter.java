@@ -8,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.listeners.SpeechClickListener;
+import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
@@ -24,10 +23,9 @@ import java.util.ArrayList;
 
 public class SpeechAdapter extends ArrayAdapter<Speech>{
 
-    private Activity activity;
+    SpeechHandler speechHandler;
 
     public static class ViewHolder{
-        TextView speechId;
         TextView speechTitle;
         TextView startTime;
         TextView endTime;
@@ -37,11 +35,14 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speechSummary;
         ImageView deleteButton;
         ImageView editSpeechButton;
-        ImageButton addSpeechButton;
+
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
         super(context, R.layout.item_speech, speeches);
+        speechHandler = new SpeechHandler((Activity) getContext());
+
+
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
 
-            viewHolder.speechTitle = (TextView) convertView.findViewById(R.id.speechTitle);
+            viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
             viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechRoom);
             viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
             viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.speakerInfo);
@@ -64,7 +65,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
             viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
             viewHolder.editSpeechButton = (ImageView) convertView.findViewById(R.id.button_editSpeech);
-            viewHolder.addSpeechButton = (ImageButton) convertView.findViewById(R.id.addSpeechButton);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
@@ -78,14 +78,27 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.startTime.setText(speech.getStartTime());
         viewHolder.endTime.setText(speech.getEndTime());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String role = sharedPref.getString("role", "role");
+        final String role = sharedPref.getString("role", "role");
         if (role.equals("ADMIN")) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
+            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    speechHandler.deleteSpeech(speech.getUrl());
+                }
+            });
+
             viewHolder.editSpeechButton.setVisibility(View.VISIBLE);
-            viewHolder.editSpeechButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
-            viewHolder.addSpeechButton.setVisibility(View.VISIBLE);
-            viewHolder.addSpeechButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
-            viewHolder.deleteButton.setOnClickListener(new SpeechClickListener((Activity) getContext()));
+            viewHolder.editSpeechButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    //speechHandler.editSpeech(speech.getUrl());
+                }
+            });
+
+
         }
         return convertView;
     }

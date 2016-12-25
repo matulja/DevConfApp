@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
@@ -88,7 +88,25 @@ public class SpeechHandler {
     }
 
 
-    public void addSpeech(View view) {
+    public void addSpeech(RequestParams params) {
+
+        final String url = EventActivity.URL + "/speeches/createSpeech";
+
+        AsynchRestClient.post(activity, url, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                Log.i("Information", "in speechhandler add speech method");
+                Log.i("Information", "speeches were successfully updated");
+                getSpeeches(EventActivity.URL+"/speeches");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
 
 
     }
