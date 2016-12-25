@@ -1,10 +1,10 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -147,4 +147,5 @@ public class EventHandler{
     public Activity getActivity() {
         return activity;
     }
+
 }

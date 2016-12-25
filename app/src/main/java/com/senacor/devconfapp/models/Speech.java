@@ -47,6 +47,10 @@ public class Speech{
 
     }
 
+    public Speech() {
+
+    }
+
     public String getSpeechId() {
         return speechId;
     }
