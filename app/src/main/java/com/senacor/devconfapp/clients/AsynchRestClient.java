@@ -43,7 +43,9 @@ public class AsynchRestClient {
 
     public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         System.out.println("in put method");
-        params.setUseJsonStreamer(true);
+        if (params != null) {
+            params.setUseJsonStreamer(true);
+        }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         addHeaders(sharedPref);
         client.put(context, url, params, responseHandler);

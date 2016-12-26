@@ -45,10 +45,4 @@
     <string name="eventPlace_label"> enter event place... </string>
     <string name="eventName_label_"> enter event name...</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="saveSpeech">Save</string>
-    <string name="cancelSpeech">Cancel</string>
-
-
 </resources>
