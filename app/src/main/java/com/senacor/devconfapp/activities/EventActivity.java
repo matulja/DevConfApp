@@ -22,8 +22,9 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     private SharedPreferences sharedPref;
     public static String URL;
     EventHandler eventHandler = new EventHandler(EventActivity.this);
-    SpeechHandler speechHandler = new SpeechHandler(EventActivity.this);
+    public SpeechHandler speechHandler = new SpeechHandler(EventActivity.this);
     AttendanceHandler attendanceHandler = new AttendanceHandler(EventActivity.this);
+
 
 
     @Override
@@ -40,16 +41,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
     }
 
 
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.list_all_events) {
-            Intent intent = new Intent(EventActivity.this, EventListActivity.class);
-            EventActivity.this.startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
    @Override
     public boolean onOptionsItemSelected(MenuItem item) {

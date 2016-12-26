@@ -33,6 +33,9 @@
     <string name="speech_startTime_label">Start time:</string>
     <string name="speech_endTime_label">End Time:</string>
     <string name="speechEndTimeHint">enter end time...</string>
+    <string name="saveSpeech">Save</string>
+    <string name="cancelSpeech">Cancel</string>
+
 
     <!-- Strings creating new Event-->
     <string name="event_name_label">Name of Event </string>

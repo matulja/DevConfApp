@@ -89,8 +89,6 @@ public class SpeechDialog extends DialogFragment{
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
 
-
-
                                 final String speechTitle = etSpeechTitle.getText().toString();
                                 final String speechSpeaker = etSpeaker.getText().toString();
                                 final String room = etRoom.getText().toString();

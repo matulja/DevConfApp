@@ -21,7 +21,6 @@
         android:textAlignment="center"
 
         style="@style/Widget.AppCompat.EditText"
-        android:singleLine="false"
         android:selectAllOnFocus="false"
         android:elegantTextHeight="false" />
 
@@ -49,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Speech Title"/>
+                android:hint="Speech Title"
+                android:inputType="text"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -64,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Name of Speaker"/>
+                android:hint="Name of Speaker"
+                android:inputType="text"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -79,7 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Room Number"/>
+                android:hint="Room Number"
+                android:inputType="text"/>
 
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -126,7 +128,7 @@
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
@@ -161,7 +163,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </LinearLayout>
 
