@@ -18,6 +18,7 @@ public class AuthRestClient {
 
 
     public static void post(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        params.setUseJsonStreamer(true);
         client.post(context, url, params, responseHandler);
         client.setConnectTimeout(30000);
     }

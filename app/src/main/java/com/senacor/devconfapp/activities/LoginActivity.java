@@ -67,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         if(!username.isEmpty() && !password.isEmpty()){
             params.put("username", username);
             params.put("password", password);
-            params.setUseJsonStreamer(true);
-
         }
 
         prgDialog.show();

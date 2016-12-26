@@ -1,6 +1,7 @@
 package com.senacor.devconfapp.adapters;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Speech;
 
@@ -26,6 +28,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
     SpeechHandler speechHandler;
 
     public static class ViewHolder{
+        TextView speechId;
         TextView speechTitle;
         TextView startTime;
         TextView endTime;
@@ -55,7 +58,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
-
+            viewHolder.speechId = (TextView) convertView.findViewById(R.id.value_speech_speechId);
             viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
             viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechRoom);
             viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
@@ -69,7 +72,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
         }
-
+        viewHolder.speechId.setText(speech.getSpeechId());
         viewHolder.speechTitle.setText(speech.getSpeechTitle());
         viewHolder.speechRoom.setText(speech.getSpeechRoom());
         viewHolder.speaker.setText(speech.getSpeaker());
@@ -94,7 +97,10 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
                 @Override
                 public void onClick(View v) {
-                    //speechHandler.editSpeech(speech.getUrl());
+                    System.out.println("clicklistener edit speech button: speech id = " + speech.getSpeechId());
+                    DialogFragment speechFragment = SpeechDialog.newInstance(speech);
+                    Activity activity = (Activity) getContext();
+                    speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                 }
             });
 

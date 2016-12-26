@@ -75,7 +75,7 @@ public class EventHandler{
                             addSpeechButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    DialogFragment speechFragment = new SpeechDialog();
+                                    DialogFragment speechFragment = SpeechDialog.newInstance(null);
                                     speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
 
                                 }

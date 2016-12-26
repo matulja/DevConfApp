@@ -1,7 +1,6 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ListView;
@@ -29,8 +28,6 @@ import cz.msebera.android.httpclient.Header;
 public class SpeechHandler {
 
     private Activity activity;
-    private Context context;
-
 
     public SpeechHandler(Activity activity) {
         this.activity = activity;
@@ -48,7 +45,11 @@ public class SpeechHandler {
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                speechAdapter.add(new Speech(response.getJSONObject(i)));
+                                Speech speech = new Speech(response.getJSONObject(i));
+                                String id = response.getJSONObject(i).getString("speechId");
+                                System.out.println(id);
+                                speech.setSpeechId(id);
+                                speechAdapter.add(speech);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -65,6 +66,7 @@ public class SpeechHandler {
                     }
                 });
     }
+
 
     public void deleteSpeech(String url) {
 
@@ -97,7 +99,7 @@ public class SpeechHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 Log.i("Information", "in speechhandler add speech method");
-                Log.i("Information", "speeches were successfully updated");
+                Log.i("Information", "speeches were successfully added");
                 getSpeeches(EventActivity.URL+"/speeches");
             }
 
@@ -109,6 +111,26 @@ public class SpeechHandler {
         });
 
 
+    }
+
+    public void editSpeech(String url, RequestParams params) {
+
+        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                Log.i("Information", "in speechhandler edit speech method");
+                Log.i("Information", "speeches were successfully edited");
+                getSpeeches(EventActivity.URL+"/speeches");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+
+        });
     }
 
 }

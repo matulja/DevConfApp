@@ -24,7 +24,7 @@ public class Speech{
 
     public Speech(JSONObject jsonObject) {
         try {
-            this.speechId = jsonObject.getString("speechId");
+           // this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
             this.startTime = jsonObject.getString("startTime");
             this.endTime = jsonObject.getString("endTime");

@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:id="@+id/speechPopUP">
 
 
     <TextView
@@ -23,6 +24,12 @@
         android:singleLine="false"
         android:selectAllOnFocus="false"
         android:elegantTextHeight="false" />
+
+    <TextView
+        android:id="@+id/speechPopUp_speechId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
