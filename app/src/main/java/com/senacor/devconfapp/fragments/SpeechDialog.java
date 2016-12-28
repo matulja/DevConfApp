@@ -28,8 +28,6 @@ public class SpeechDialog extends DialogFragment{
     EditText etSpeechTitle, etSpeaker, etRoom;
     TextView tvSpeechId;
     //Timepicker tpStartTime, tpEndTime;
-    String speechUrl;
-    static boolean editingExistingSpeech = false;
 
     public SpeechDialog() {
 
@@ -48,7 +46,6 @@ public class SpeechDialog extends DialogFragment{
             args.putString("speechEndTime", speech.getEndTime());*/
             args.putString("speechUrl", speech.getUrl());
             speechDialog.setArguments(args);
-            editingExistingSpeech = true;
         }
 
         return speechDialog;
@@ -68,15 +65,17 @@ public class SpeechDialog extends DialogFragment{
         etSpeechTitle = (EditText) view.findViewById(R.id.addSpeechTitle);
         etSpeaker = (EditText) view.findViewById(R.id.addSpeakerName);
         etRoom = (EditText) view.findViewById(R.id.addRoom);
+        headline = (TextView) view.findViewById(R.id.createSpeechHeadline);
 
         //tpStartTime = (TimePicker) view.findViewById(R.id.startTime);
 
 
-        if (editingExistingSpeech) {
+        if (getArguments()!= null) {
             tvSpeechId.setText(getArguments().getString("speechId"));
             etSpeechTitle.setText(getArguments().getString("speechTitle"));
             etSpeaker.setText(getArguments().getString("speaker"));
             etRoom.setText(getArguments().getString("room"));
+            headline.setText("Edit Speech");
 
         }
         // Inflate and set the layout for the dialog
@@ -100,7 +99,7 @@ public class SpeechDialog extends DialogFragment{
                                 params.put("speaker", speechSpeaker);
                                 //TODO put start and end time
 
-                                if (editingExistingSpeech) {
+                                if (getArguments()!=null) {
                                     params.put("speechId", tvSpeechId.getText().toString());
                                     speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
                                 }else{
