@@ -45,4 +45,7 @@
     <string name="eventPlace_label"> enter event place... </string>
     <string name="eventName_label_"> enter event name...</string>
 
+    <!-- Strings for showing list of all Events-->
+    <string name="allEvents_title"> All Events </string>
+
 </resources>
