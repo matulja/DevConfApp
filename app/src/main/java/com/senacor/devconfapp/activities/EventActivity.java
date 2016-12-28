@@ -16,7 +16,7 @@ import com.senacor.devconfapp.handlers.SpeechHandler;
 import static com.senacor.devconfapp.R.layout.event;
 
 
-public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class EventActivity extends AppCompatActivity {
 
 
     private SharedPreferences sharedPref;
@@ -80,15 +80,6 @@ public class EventActivity extends AppCompatActivity implements MenuItem.OnMenuI
         super.onStart();
     }
 
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        return false;
-    }
-
-    public SpeechHandler getSpeechHandler() {
-        return speechHandler;
-    }
 }
 
 
