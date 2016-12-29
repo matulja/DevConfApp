@@ -42,6 +42,7 @@ public class EventHandler{
     private Activity activity;
     SharedPreferences sharedPref;
     ListView eventList;
+    TextView noEvents;
 
     public EventHandler(Activity activity) {
         this.activity = activity;
@@ -97,41 +98,47 @@ public class EventHandler{
     }
 
 
-    public void getEventList(String url) {
+    public void getEventList() {
 
-        AsynchRestClient.get(activity, url,
+        AsynchRestClient.get(activity, IPAddress.IPevent,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, final JSONArray response) {
                         System.out.println("in getEventList");
                         eventList = (ListView) activity.findViewById(R.id.list_events);
-                        ArrayList<Event> eventListArray = new ArrayList<>();
-                        EventListAdapter eventListAdapter = new EventListAdapter(activity, eventListArray);
+                        noEvents = (TextView) activity.findViewById(R.id.info_noEvent);
 
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                Event event = new Event(response.getJSONObject(i));
-                                String id = response.getJSONObject(i).getString("eventId");
-                                event.setEventId(id);
-                                eventListAdapter.add(event);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        if (response.length() == 0) {
+                            noEvents.setVisibility(VISIBLE);
+                        }else {
+                            ArrayList<Event> eventListArray = new ArrayList<>();
+                            EventListAdapter eventListAdapter = new EventListAdapter(activity, eventListArray);
+
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    Event event = new Event(response.getJSONObject(i));
+                                    String id = response.getJSONObject(i).getString("eventId");
+                                    event.setEventId(id);
+                                    eventListAdapter.add(event);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+                            eventList.setAdapter(eventListAdapter);
+                            eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Event event = (Event) eventList.getItemAtPosition(position);
+                                    Intent intent = new Intent(activity, EventActivity.class);
+                                    String url = IPAddress.IPevent + "/" + event.getEventId();
+                                    intent.putExtra("url", url);
+                                    activity.startActivity(intent);
+                                }
+
+                            });
                         }
-
-                        eventList.setAdapter(eventListAdapter);
-                        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Event event = (Event) eventList.getItemAtPosition(position);
-                                Intent intent = new Intent(activity,EventActivity.class);
-                                String url = IPAddress.IPevent+"/"+ event.getEventId();
-                                intent.putExtra("url", url);
-                                activity.startActivity(intent);
-                            }
-
-                        });
                     }
 
                     @Override

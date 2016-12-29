@@ -48,5 +48,6 @@
 
     <!-- Strings for showing list of all Events-->
     <string name="allEvents_title"> All Events </string>
+    <string name="info_noEvent">Sorry, there are no conferences planned at the moment.</string>
 
 </resources>

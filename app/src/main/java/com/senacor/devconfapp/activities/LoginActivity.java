@@ -128,10 +128,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent;
 
+                //no events present yet
                 if (url.equals("noEvent")) {
-                    intent = new Intent(LoginActivity.this, CreateEventActivity.class);
-                    intent.putExtra("hasNoEvent", true);
-
+                    //when user = ADMIN, next intent is "create new event" otherwise user will be directed to list all events
+                    if(sharedPref.getString("role", "role").equals("ADMIN")){
+                        intent = new Intent(LoginActivity.this, CreateEventActivity.class);
+                        intent.putExtra("hasNoEvent", true);
+                    }else{
+                        intent = new Intent(LoginActivity.this, EventListActivity.class);
+                    }
+                 //otherwise user and admin are always routed to the current event
                 }else{
                     intent = new Intent(LoginActivity.this, EventActivity.class);
                     intent.putExtra("url",IPAddress.IPevent + "/" + url);

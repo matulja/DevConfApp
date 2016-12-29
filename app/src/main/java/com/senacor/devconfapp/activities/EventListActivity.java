@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.EventHandler;
 
@@ -21,7 +20,6 @@ import static com.senacor.devconfapp.R.layout.activity_events;
 public class EventListActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
     EventHandler eventHandler = new EventHandler(this);
-    public static String URL = IPAddress.IPevent;
     public SharedPreferences sharedPref;
 
     @Override
@@ -30,7 +28,7 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
         setContentView(activity_events);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        eventHandler.getEventList(URL);
+        eventHandler.getEventList();
     }
 
     // in jeder Activity überschreiben, oder von TabActivity(default--> alle Methods) erben
