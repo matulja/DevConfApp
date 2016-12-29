@@ -9,11 +9,10 @@
     android:padding="10dp">
 
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text="Create new Event"
+        android:text="@string/createEvent_title"
         android:ems="10"
         android:id="@+id/createEventHeadline"
         android:textSize="20dp"
@@ -22,8 +21,7 @@
 
         style="@style/Widget.AppCompat.EditText"
 
-        android:selectAllOnFocus="false"
-        android:elegantTextHeight="false" />
+        android:selectAllOnFocus="false" />
 
     <LinearLayout
         android:layout_width="match_parent"

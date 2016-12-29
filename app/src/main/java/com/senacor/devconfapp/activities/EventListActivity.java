@@ -34,17 +34,20 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(item.getItemId()) {
+        switch(id) {
 
+/*
             case R.id.list_all_events:
 
                 Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
                 EventListActivity.this.startActivity(intent);
                 break;
+*/
 
             case R.id.create_new_event:
 
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
+                intent2.putExtra("hasNoEvent", false);
                 startActivity(intent2);
                 break;
 

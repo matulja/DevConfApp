@@ -44,6 +44,7 @@
     <string name="eventNameHint"> enter event name...</string>
     <string name="eventPlace_label"> enter event place... </string>
     <string name="eventName_label_"> enter event name...</string>
+    <string name="createEvent_title">Create new Event</string>
 
     <!-- Strings for showing list of all Events-->
     <string name="allEvents_title"> All Events </string>

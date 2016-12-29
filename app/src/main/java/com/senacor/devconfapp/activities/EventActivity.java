@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.AttendanceHandler;
@@ -45,7 +46,8 @@ public class EventActivity extends AppCompatActivity {
    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
        int id = item.getItemId();
-       switch(item.getItemId()) {
+
+       switch(id) {
 
             case R.id.list_all_events:
 
@@ -54,10 +56,13 @@ public class EventActivity extends AppCompatActivity {
                 break;
 
             case R.id.create_new_event:
-
-                Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
-                startActivity(intent2);
-                break;
+                if (sharedPref.getString("role", "role").equals("ADMIN")) {
+                    item.getActionView().findViewById(R.id.create_new_event).setVisibility(View.VISIBLE);
+                    Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
+                    intent2.putExtra("hasNoEvent", false);
+                    startActivity(intent2);
+                    break;
+                }
 
             default:
                 return super.onOptionsItemSelected(item);

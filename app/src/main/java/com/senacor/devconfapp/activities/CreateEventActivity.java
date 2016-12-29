@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
@@ -41,13 +42,19 @@ import com.senacor.devconfapp.handlers.EventHandler;
         setContentView(R.layout.create_event);
 
         eventHandler = new EventHandler(this);
-        //read EventDate
+        //assign fields to view
+        final TextView title = (TextView) findViewById(R.id.createEventHeadline);
         final EditText eventName = (EditText) findViewById(R.id.event_name);
         final EditText eventPlace = (EditText) findViewById(R.id.event_place);
         final EditText eventDate = (EditText) findViewById(R.id.event_date);
 
         final Button createEvent = (Button) findViewById(R.id.create_button);
         final Button cancelEvent = (Button) findViewById(R.id.cancel_button);
+
+        if(getIntent().getExtras().getBoolean("hasNoEvent")){
+            title.setText("Please create first event: ");
+        }
+
 
         //process Data
         createEvent.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +68,7 @@ import com.senacor.devconfapp.handlers.EventHandler;
                 RequestParams params = new RequestParams();
                 params.put("name", name);
                 params.put("place", place);
+                //TODO date
 
                 System.out.println(" " + name);
                 System.out.println(" " + place);
@@ -79,6 +87,7 @@ import com.senacor.devconfapp.handlers.EventHandler;
             public void onClick(View v) {
 
                 //action on click
+
                 Intent i = new Intent(getApplicationContext(), EventActivity.class);
                 startActivity(i);
                 System.out.println("Cancel Button is pressed");

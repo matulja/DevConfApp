@@ -16,11 +16,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.clients.AuthRestClient;
 import com.senacor.devconfapp.clients.AsynchRestClient;
+import com.senacor.devconfapp.clients.AuthRestClient;
 import com.senacor.devconfapp.models.Token;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("userId", token.getUserId());
                     editor.commit();
                     getCurrentEvent();
-
                 }
             }
 
@@ -112,9 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                         .create()
                         .show();
             }
-
-
-
         });
     }
 
@@ -124,21 +119,23 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                 String url = "";
                 try {
-                    JSONArray jsonArray = response.getJSONArray("links");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        if (jsonArray.getJSONObject(i).getString("rel").equals("self")) {
-                            url = jsonArray.getJSONObject(i).getString("href");
-                        }
-                    }
+                    url = response.getString("eventId");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println(url);
-                intent.putExtra("url", url);
+                Intent intent;
+
+                if (url.equals("noEvent")) {
+                    intent = new Intent(LoginActivity.this, CreateEventActivity.class);
+                    intent.putExtra("hasNoEvent", true);
+
+                }else{
+                    intent = new Intent(LoginActivity.this, EventActivity.class);
+                    intent.putExtra("url",IPAddress.IPevent + "/" + url);
+                }
                 LoginActivity.this.startActivity(intent);
             }
 
