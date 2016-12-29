@@ -43,6 +43,7 @@ public class EventHandler{
     SharedPreferences sharedPref;
     ListView eventList;
     TextView noEvents;
+    public static boolean eventsPresent = true;
 
     public EventHandler(Activity activity) {
         this.activity = activity;
@@ -111,6 +112,7 @@ public class EventHandler{
 
                         if (response.length() == 0) {
                             noEvents.setVisibility(VISIBLE);
+                            eventsPresent = false;
                         }else {
                             ArrayList<Event> eventListArray = new ArrayList<>();
                             EventListAdapter eventListAdapter = new EventListAdapter(activity, eventListArray);

@@ -52,7 +52,6 @@ public class EventActivity extends AppCompatActivity {
 
             case R.id.create_new_event:
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
-                intent2.putExtra("hasNoEvent", false);
                 startActivity(intent2);
                 return true;
 

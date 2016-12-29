@@ -17,7 +17,7 @@ import static com.senacor.devconfapp.R.layout.activity_events;
  * Created by Berlina on 30.11.16.
  */
 
-public class EventListActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class EventListActivity extends AppCompatActivity {
 
     EventHandler eventHandler = new EventHandler(this);
     public SharedPreferences sharedPref;
@@ -36,33 +36,25 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
-/*
-            //not relevant in this window
-            case R.id.list_all_events:
-
-                Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
-                EventListActivity.this.startActivity(intent);
-                break;
-*/
-
             case R.id.create_new_event:
 
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
-                intent2.putExtra("hasNoEvent", false);
                 startActivity(intent2);
-                break;
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
 
-        return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem newEvent = menu.findItem(R.id.create_new_event);
         newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
+
+        MenuItem showAllEvents = menu.findItem(R.id.list_all_events);
+        showAllEvents.setVisible(false);
         return true;
     }
 
@@ -77,11 +69,6 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
         super.onStart();
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        return false;
-    }
-    
 
 
 }

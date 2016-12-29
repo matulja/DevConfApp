@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sharedPref =PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         final EditText etUsername = (EditText) findViewById(R.id.username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(final String username, String password) {
         params = new RequestParams();
-        if(!username.isEmpty() && !password.isEmpty()){
+        if (!username.isEmpty() && !password.isEmpty()) {
             params.put("username", username);
             params.put("password", password);
         }
@@ -72,12 +72,11 @@ public class LoginActivity extends AppCompatActivity {
 
         AuthRestClient.post(this, IPAddress.IPuser + "/auth", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject)
-            {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                 System.out.println("post login on success");
                 prgDialog.hide();
-                if(statusCode == 200){
+                if (statusCode == 200) {
                     Token token = new Token(jsonObject);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("tokenId", token.getTokenId());
@@ -127,20 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Intent intent;
-
                 //no events present yet
                 if (url.equals("noEvent")) {
-                    //when user = ADMIN, next intent is "create new event" otherwise user will be directed to list all events
-                    if(sharedPref.getString("role", "role").equals("ADMIN")){
-                        intent = new Intent(LoginActivity.this, CreateEventActivity.class);
-                        intent.putExtra("hasNoEvent", true);
-                    }else{
-                        intent = new Intent(LoginActivity.this, EventListActivity.class);
-                    }
-                 //otherwise user and admin are always routed to the current event
-                }else{
+                    intent = new Intent(LoginActivity.this, EventListActivity.class);
+
+                } else {
                     intent = new Intent(LoginActivity.this, EventActivity.class);
-                    intent.putExtra("url",IPAddress.IPevent + "/" + url);
+                    intent.putExtra("url", IPAddress.IPevent + "/" + url);
                 }
                 LoginActivity.this.startActivity(intent);
             }

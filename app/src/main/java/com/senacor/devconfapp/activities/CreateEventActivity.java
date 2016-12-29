@@ -1,9 +1,10 @@
 package com.senacor.devconfapp.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +18,10 @@ import com.senacor.devconfapp.handlers.EventHandler;
  * Created by Marynasuprun on 12.12.2016.
  */
 
-    public class CreateEventActivity extends Activity {
+    public class CreateEventActivity extends AppCompatActivity {
 
     EventHandler eventHandler;
+
 
    /* public static CreateEventActivity newInstance(Event event) {
         CreateEventActivity eventActivity = new CreateEventActivity();
@@ -40,7 +42,6 @@ import com.senacor.devconfapp.handlers.EventHandler;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-
         eventHandler = new EventHandler(this);
         //assign fields to view
         final TextView title = (TextView) findViewById(R.id.createEventHeadline);
@@ -50,11 +51,6 @@ import com.senacor.devconfapp.handlers.EventHandler;
 
         final Button createEvent = (Button) findViewById(R.id.create_button);
         final Button cancelEvent = (Button) findViewById(R.id.cancel_button);
-
-        if(getIntent().getExtras().getBoolean("hasNoEvent")){
-            title.setText("Please create first event: ");
-        }
-
 
         //process Data
         createEvent.setOnClickListener(new View.OnClickListener() {
@@ -97,12 +93,33 @@ import com.senacor.devconfapp.handlers.EventHandler;
     }
 
 
-    //Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+
+            case R.id.list_all_events:
+                Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);
+                CreateEventActivity.this.startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem newEvent = menu.findItem(R.id.create_new_event);
+        newEvent.setVisible(false);
+        return true;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
 }
 
