@@ -1,5 +1,6 @@
 package com.senacor.devconfapp.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.fragments.DateDialog;
 import com.senacor.devconfapp.handlers.EventHandler;
 
 /**
@@ -21,20 +23,16 @@ import com.senacor.devconfapp.handlers.EventHandler;
     public class CreateEventActivity extends AppCompatActivity {
 
     EventHandler eventHandler;
-
-
    /* public static CreateEventActivity newInstance(Event event) {
         CreateEventActivity eventActivity = new CreateEventActivity();
         Bundle args = new Bundle();
         if (event != null) {
             args.putString("eventId", event.getEventId());
             args.putString("name", event.getName());
-            args.putString("place", event.getPlace());
+            argS.putString("place", event.getPlace());
             args.putString("date", event.getDate());
             eventActivity.setArguments(args);
-
         }
-
         return eventActivity;
     }*/
 
@@ -48,10 +46,20 @@ import com.senacor.devconfapp.handlers.EventHandler;
         final EditText eventName = (EditText) findViewById(R.id.event_name);
         final EditText eventPlace = (EditText) findViewById(R.id.event_place);
         final EditText eventDate = (EditText) findViewById(R.id.event_date);
+        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    DateDialog dialog = new DateDialog(v);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    dialog.show(ft,"DatePicker");
+                }
+            }
+        });
 
         final Button createEvent = (Button) findViewById(R.id.create_button);
         final Button cancelEvent = (Button) findViewById(R.id.cancel_button);
-
         //process Data
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +72,7 @@ import com.senacor.devconfapp.handlers.EventHandler;
                 RequestParams params = new RequestParams();
                 params.put("name", name);
                 params.put("place", place);
-                //TODO date
+                params.put("date", date);
 
                 System.out.println(" " + name);
                 System.out.println(" " + place);
