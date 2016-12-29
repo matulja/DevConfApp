@@ -1,11 +1,12 @@
 package com.senacor.devconfapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
@@ -19,24 +20,26 @@ import static com.senacor.devconfapp.R.layout.activity_events;
 
 public class EventListActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
-    ListView eventList;
     EventHandler eventHandler = new EventHandler(this);
     public static String URL = IPAddress.IPevent;
+    public SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
         eventHandler.getEventList(URL);
     }
 
     // in jeder Activity überschreiben, oder von TabActivity(default--> alle Methods) erben
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch(id) {
+        switch(item.getItemId()) {
 
 /*
+            //not relevant in this window
             case R.id.list_all_events:
 
                 Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
@@ -58,6 +61,12 @@ public class EventListActivity extends AppCompatActivity implements MenuItem.OnM
         return true;
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem newEvent = menu.findItem(R.id.create_new_event);
+        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
