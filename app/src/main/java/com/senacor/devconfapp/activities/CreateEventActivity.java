@@ -1,6 +1,5 @@
 package com.senacor.devconfapp.activities;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.fragments.DateDialog;
 import com.senacor.devconfapp.handlers.EventHandler;
+
+import org.joda.time.LocalDate;
 
 /**
  * Created by Marynasuprun on 12.12.2016.
@@ -22,6 +23,9 @@ import com.senacor.devconfapp.handlers.EventHandler;
     public class CreateEventActivity extends AppCompatActivity {
 
     EventHandler eventHandler;
+    DatePicker eventDatePicker;
+    EditText eventName, eventPlace;
+    Button createEvent, cancelEvent;
    /* public static CreateEventActivity newInstance(Event event) {
         CreateEventActivity eventActivity = new CreateEventActivity();
         Bundle args = new Bundle();
@@ -41,10 +45,12 @@ import com.senacor.devconfapp.handlers.EventHandler;
         setContentView(R.layout.create_event);
         eventHandler = new EventHandler(this);
         //assign fields to view
-        final EditText eventName = (EditText) findViewById(R.id.event_name);
-        final EditText eventPlace = (EditText) findViewById(R.id.event_place);
-        final EditText eventDate = (EditText) findViewById(R.id.event_date);
-        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        eventName = (EditText) findViewById(R.id.event_name);
+        eventPlace = (EditText) findViewById(R.id.event_place);
+        eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
+
+
+        /*eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -55,9 +61,9 @@ import com.senacor.devconfapp.handlers.EventHandler;
                 }
             }
         });
-
-        final Button createEvent = (Button) findViewById(R.id.create_button);
-        final Button cancelEvent = (Button) findViewById(R.id.cancel_button);
+*/
+        createEvent = (Button) findViewById(R.id.create_button);
+        cancelEvent = (Button) findViewById(R.id.cancel_button);
         //process Data
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +71,15 @@ import com.senacor.devconfapp.handlers.EventHandler;
 
                 final String name = eventName.getText().toString();
                 final String place = eventPlace.getText().toString();
-                final String date = eventDate.getText().toString();
+
+                int day = eventDatePicker.getDayOfMonth();
+                int month = eventDatePicker.getMonth();
+                int year = eventDatePicker.getYear();
 
                 RequestParams params = new RequestParams();
                 params.put("name", name);
                 params.put("place", place);
-                params.put("date", date);
+                params.put("date", new LocalDate(year, month, day));
 
                 eventHandler.addEvent(params);
             }
@@ -84,6 +93,7 @@ import com.senacor.devconfapp.handlers.EventHandler;
             }
         });
     }
+
 
 
     @Override
@@ -112,7 +122,5 @@ import com.senacor.devconfapp.handlers.EventHandler;
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 }
 

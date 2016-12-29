@@ -69,12 +69,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
-            <EditText
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/newEvent_label_date"/>
+
+            <DatePicker
+                android:id="@+id/eventDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/senacorWhite"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
+
+            <!--<EditText
                 android:id="@+id/event_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Event Date"/>
+                android:hint="Event Date"/>-->
 
             <GridLayout
                 android:layout_width="match_parent"
