@@ -37,7 +37,7 @@ public class Event{
     public Event() {
 
     }
-    //Setter
+    //Setter & Getter
 
 
     public void setName(String name) {

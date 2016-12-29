@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
@@ -42,7 +41,6 @@ import com.senacor.devconfapp.handlers.EventHandler;
         setContentView(R.layout.create_event);
         eventHandler = new EventHandler(this);
         //assign fields to view
-        final TextView title = (TextView) findViewById(R.id.createEventHeadline);
         final EditText eventName = (EditText) findViewById(R.id.event_name);
         final EditText eventPlace = (EditText) findViewById(R.id.event_place);
         final EditText eventDate = (EditText) findViewById(R.id.event_date);
@@ -74,28 +72,15 @@ import com.senacor.devconfapp.handlers.EventHandler;
                 params.put("place", place);
                 params.put("date", date);
 
-                System.out.println(" " + name);
-                System.out.println(" " + place);
-                System.out.println(" " + date);
-
                 eventHandler.addEvent(params);
             }
         });
 
-        //Handler for Buttons
-        //TODO switch case
-
-
         cancelEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //action on click
-
-                Intent i = new Intent(getApplicationContext(), EventActivity.class);
-                startActivity(i);
+                eventHandler.getCurrentEvent();
                 System.out.println("Cancel Button is pressed");
-
             }
         });
     }

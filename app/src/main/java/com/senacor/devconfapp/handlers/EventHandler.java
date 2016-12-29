@@ -17,6 +17,7 @@ import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
+import com.senacor.devconfapp.activities.EventListActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -47,6 +48,38 @@ public class EventHandler{
 
     public EventHandler(Activity activity) {
         this.activity = activity;
+    }
+
+    public void getCurrentEvent() {
+        AsynchRestClient.get(activity, IPAddress.IPevent + "/currentEvent", null, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                String url = "";
+                try {
+                    url = response.getString("eventId");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent;
+                //no events present yet
+                if (url.equals("noEvent")) {
+                    intent = new Intent(activity, EventListActivity.class);
+
+                } else {
+                    intent = new Intent(activity, EventActivity.class);
+                    intent.putExtra("url", IPAddress.IPevent + "/" + url);
+                }
+                activity.startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
     }
 
 

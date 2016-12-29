@@ -2,12 +2,10 @@ package com.senacor.devconfapp.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +14,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.clients.AuthRestClient;
+import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.models.Token;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -33,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog prgDialog;
     private RequestParams params;
     private SharedPreferences sharedPref;
+    EventHandler eventHandler;
 
 
     @Override
@@ -40,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        eventHandler = new EventHandler(this);
 
         final EditText etUsername = (EditText) findViewById(R.id.username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
@@ -83,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("role", token.getRole());
                     editor.putString("userId", token.getUserId());
                     editor.commit();
-                    getCurrentEvent();
+                    eventHandler.getCurrentEvent();
                 }
             }
 
@@ -112,38 +111,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getCurrentEvent() {
-        AsynchRestClient.get(this, IPAddress.IPevent + "/currentEvent", null, new JsonHttpResponseHandler() {
-
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                String url = "";
-                try {
-                    url = response.getString("eventId");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Intent intent;
-                //no events present yet
-                if (url.equals("noEvent")) {
-                    intent = new Intent(LoginActivity.this, EventListActivity.class);
-
-                } else {
-                    intent = new Intent(LoginActivity.this, EventActivity.class);
-                    intent.putExtra("url", IPAddress.IPevent + "/" + url);
-                }
-                LoginActivity.this.startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Failed: ", "" + statusCode);
-                Log.d("Error : ", "" + throwable);
-            }
-        });
-    }
 
     @Override
     public void onStart() {
