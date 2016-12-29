@@ -68,7 +68,7 @@ public class EventHandler{
                         eventPlace.setText(event.getPlace());
 
                         TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
-                        eventDate.setText(event.getDate());
+                        eventDate.setText(event.dateToString());
 
                         ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
 

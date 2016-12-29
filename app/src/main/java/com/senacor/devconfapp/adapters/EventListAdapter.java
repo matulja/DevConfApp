@@ -54,7 +54,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
-        viewHolder.date.setText(event.getDate());
+        viewHolder.date.setText(event.dateToString());
         return convertView;
     }
 }
