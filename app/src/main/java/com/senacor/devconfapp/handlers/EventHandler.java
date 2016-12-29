@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
@@ -140,6 +141,37 @@ public class EventHandler{
                         Log.d("Error : ", "" + throwable);
                     }
                 });
+    }
+
+    public void addEvent(RequestParams params) {
+        AsynchRestClient.post(activity, IPAddress.IPevent + "/createEvent", params, new JsonHttpResponseHandler() {
+
+            //returns the id of the created event
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i("Information", "in speechhandler add speech method");
+                Log.i("Information", "speeches were successfully added");
+                Intent intent = new Intent(activity, EventActivity.class);
+                String eventId = "";
+                try {
+                    eventId = response.getString("eventId");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                intent.putExtra("url", IPAddress.IPevent + "/" + eventId);
+                activity.startActivity(intent);
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+                Log.d("Failed: ", "could not add event");
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
+
+
     }
 
 

@@ -30,7 +30,6 @@ public class AsynchRestClient {
 
     }
 
-
     public static void post(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         System.out.println("in post method");
         System.out.println(params.toString());
