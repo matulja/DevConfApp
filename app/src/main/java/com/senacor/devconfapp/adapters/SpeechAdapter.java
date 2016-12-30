@@ -98,7 +98,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
                 @Override
                 public void onClick(View v) {
                     System.out.println("clicklistener edit speech button: speech id = " + speech.getSpeechId());
-                    DialogFragment speechFragment = SpeechDialog.newInstance(speech);
+                    DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, false);
                     Activity activity = (Activity) getContext();
                     speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                 }
