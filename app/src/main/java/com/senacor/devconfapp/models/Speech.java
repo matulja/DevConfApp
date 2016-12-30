@@ -1,5 +1,8 @@
 package com.senacor.devconfapp.models;
 
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,8 +15,8 @@ public class Speech{
 
     private String speechId;
     private String speechTitle;
-    private String startTime;
-    private String endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String speechRoom;
     private String speaker;
     private String speakerInfo;
@@ -26,8 +29,8 @@ public class Speech{
         try {
            // this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
-            this.startTime = jsonObject.getString("startTime");
-            this.endTime = jsonObject.getString("endTime");
+            this.startTime = LocalTime.parse(jsonObject.getString("startTime"));
+            this.endTime = LocalTime.parse(jsonObject.getString("endTime"));
             this.speechRoom = jsonObject.getString("speechRoom");
             this.speaker = jsonObject.getString("speaker");
             this.speakerInfo = jsonObject.getString("speakerInfo");
@@ -67,18 +70,28 @@ public class Speech{
         this.speechTitle = speechTitle;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {this.startTime = startTime;}
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
     public String getSpeechRoom() {
@@ -119,6 +132,11 @@ public class Speech{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String dateToString(LocalTime time) {
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
+        return time.toString( fmt );
     }
 
 }

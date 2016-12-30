@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Speech;
+
+import org.joda.time.LocalTime;
 
 
 /**
@@ -27,12 +30,13 @@ public class SpeechDialog extends DialogFragment{
     TextView headline;
     EditText etSpeechTitle, etSpeaker, etRoom;
     TextView tvSpeechId;
-    //Timepicker tpStartTime, tpEndTime;
+    TimePicker tpStartTime, tpEndTime;
 
     public SpeechDialog() {
 
     }
 
+    //needed for editing existing speech
     public static SpeechDialog newInstance(Speech speech) {
         SpeechDialog speechDialog = new SpeechDialog();
         Bundle args = new Bundle();
@@ -67,7 +71,10 @@ public class SpeechDialog extends DialogFragment{
         etRoom = (EditText) view.findViewById(R.id.addRoom);
         headline = (TextView) view.findViewById(R.id.createSpeechHeadline);
 
-        //tpStartTime = (TimePicker) view.findViewById(R.id.startTime);
+        tpStartTime = (TimePicker) view.findViewById(R.id.time_picker_start);
+        tpStartTime.setIs24HourView(true);
+        tpEndTime = (TimePicker) view.findViewById(R.id.time_picker_end);
+        tpEndTime.setIs24HourView(true);
 
 
         if (getArguments()!= null) {
@@ -91,13 +98,24 @@ public class SpeechDialog extends DialogFragment{
                                 final String speechTitle = etSpeechTitle.getText().toString();
                                 final String speechSpeaker = etSpeaker.getText().toString();
                                 final String room = etRoom.getText().toString();
-                               // final String startTime = tpStartTime.getHour() + ":" + tpStartTime.getMinute();
+
+
+                                int startHour = tpStartTime.getHour();
+                                int startMin = tpStartTime.getMinute();
+                                final LocalTime startTime = new LocalTime(startHour, startMin);
+
+                                int endHour = tpEndTime.getHour();
+                                int endMin = tpEndTime.getMinute();
+                                final LocalTime endTime = new LocalTime(endHour, endMin);
+
+
 
                                 RequestParams params = new RequestParams();
                                 params.put("speechTitle", speechTitle);
                                 params.put("speechRoom", room);
                                 params.put("speaker", speechSpeaker);
-                                //TODO put start and end time
+                                params.put("startTime", startTime);
+                                params.put("endTime", endTime);
 
                                 if (getArguments()!=null) {
                                     params.put("speechId", tvSpeechId.getText().toString());
