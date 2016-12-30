@@ -78,8 +78,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.speaker.setText(speech.getSpeaker());
         viewHolder.speakerInfo.setText(speech.getSpeakerInfo());
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
-        viewHolder.startTime.setText(speech.getStartTime());
-        viewHolder.endTime.setText(speech.getEndTime());
+        viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
+        viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final String role = sharedPref.getString("role", "role");
         if (role.equals("ADMIN")) {

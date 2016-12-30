@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * Created by Berlina on 14.11.16.
  */
 
-public class Speech{
+public class Speech {
 
     private String speechId;
     private String speechTitle;
@@ -27,8 +27,10 @@ public class Speech{
 
     public Speech(JSONObject jsonObject) {
         try {
-           // this.speechId = jsonObject.getString("speechId");
+            // this.speechId = jsonObject.getString("speechId");
             this.speechTitle = jsonObject.getString("speechTitle");
+            String start = jsonObject.getString("startTime");
+
             this.startTime = LocalTime.parse(jsonObject.getString("startTime"));
             this.endTime = LocalTime.parse(jsonObject.getString("endTime"));
             this.speechRoom = jsonObject.getString("speechRoom");
@@ -38,13 +40,13 @@ public class Speech{
 //            this.eventId = jsonObject.getString("eventId");
             JSONArray array = jsonObject.getJSONArray("links");
             for (int i = 0; i < array.length(); i++) {
-                if(array.getJSONObject(i).getString("rel").equals("self")){
+                if (array.getJSONObject(i).getString("rel").equals("self")) {
                     this.url = array.getJSONObject(i).getString("href");
                     System.out.println(url);
 
                 }
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -134,9 +136,9 @@ public class Speech{
         this.url = url;
     }
 
-    public String dateToString(LocalTime time) {
+    public String timeToString(LocalTime time) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
-        return time.toString( fmt );
+        return time.toString(fmt);
     }
 
 }

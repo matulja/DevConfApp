@@ -73,7 +73,7 @@ import org.joda.time.LocalDate;
                 final String place = eventPlace.getText().toString();
 
                 int day = eventDatePicker.getDayOfMonth();
-                int month = eventDatePicker.getMonth();
+                int month = eventDatePicker.getMonth() + 1;
                 int year = eventDatePicker.getYear();
 
                 RequestParams params = new RequestParams();

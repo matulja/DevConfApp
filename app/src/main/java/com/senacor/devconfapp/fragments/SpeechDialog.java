@@ -24,7 +24,7 @@ import org.joda.time.LocalTime;
  * Created by saba on 25.12.16.
  */
 
-public class SpeechDialog extends DialogFragment{
+public class SpeechDialog extends DialogFragment {
 
     SpeechHandler speechHandler;
     TextView headline;
@@ -77,7 +77,7 @@ public class SpeechDialog extends DialogFragment{
         tpEndTime.setIs24HourView(true);
 
 
-        if (getArguments()!= null) {
+        if (getArguments() != null) {
             tvSpeechId.setText(getArguments().getString("speechId"));
             etSpeechTitle.setText(getArguments().getString("speechTitle"));
             etSpeaker.setText(getArguments().getString("speaker"));
@@ -86,51 +86,51 @@ public class SpeechDialog extends DialogFragment{
 
         }
         // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-                builder.setView(view)
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(view)
 
-                        // Add action buttons
-                        .setPositiveButton(R.string.saveSpeech, new DialogInterface.OnClickListener() {
+                // Add action buttons
+                .setPositiveButton(R.string.saveSpeech, new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
 
-                                final String speechTitle = etSpeechTitle.getText().toString();
-                                final String speechSpeaker = etSpeaker.getText().toString();
-                                final String room = etRoom.getText().toString();
-
-
-                                int startHour = tpStartTime.getHour();
-                                int startMin = tpStartTime.getMinute();
-                                final LocalTime startTime = new LocalTime(startHour, startMin);
-
-                                int endHour = tpEndTime.getHour();
-                                int endMin = tpEndTime.getMinute();
-                                final LocalTime endTime = new LocalTime(endHour, endMin);
+                        final String speechTitle = etSpeechTitle.getText().toString();
+                        final String speechSpeaker = etSpeaker.getText().toString();
+                        final String room = etRoom.getText().toString();
 
 
+                        int startHour = tpStartTime.getHour();
+                        int startMin = tpStartTime.getMinute();
+                        final LocalTime startTime = new LocalTime(startHour, startMin);
 
-                                RequestParams params = new RequestParams();
-                                params.put("speechTitle", speechTitle);
-                                params.put("speechRoom", room);
-                                params.put("speaker", speechSpeaker);
-                                params.put("startTime", startTime);
-                                params.put("endTime", endTime);
+                        int endHour = tpEndTime.getHour();
+                        int endMin = tpEndTime.getMinute();
+                        final LocalTime endTime = new LocalTime(endHour, endMin);
 
-                                if (getArguments()!=null) {
-                                    params.put("speechId", tvSpeechId.getText().toString());
-                                    speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
-                                }else{
-                                    speechHandler.addSpeech(params);
-                                }
+                        
 
-                            }
-                        })
-                        .setNegativeButton(R.string.cancelSpeech, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                SpeechDialog.this.getDialog().cancel();
-                            }
-                        });
+                        RequestParams params = new RequestParams();
+                        params.put("speechTitle", speechTitle);
+                        params.put("speechRoom", room);
+                        params.put("speaker", speechSpeaker);
+                        params.put("startTime", startTime);
+                        params.put("endTime", endTime);
+
+                        if (getArguments() != null) {
+                            params.put("speechId", tvSpeechId.getText().toString());
+                            speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
+                        } else {
+                            speechHandler.addSpeech(params);
+                        }
+
+                    }
+                })
+                .setNegativeButton(R.string.cancelSpeech, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        SpeechDialog.this.getDialog().cancel();
+                    }
+                });
 
         return builder.create();
 
