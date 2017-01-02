@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -31,23 +30,26 @@ public class SpeechDialog extends DialogFragment {
 
     SpeechHandler speechHandler;
     ValidationHandler validationHandler;
-    TextView headline, labelStartTime, labelEndTime;
+    TextView headline, labelStartTime, labelEndTime, tvSpeechId, tvSpeechColliding, tvStartEndTime;
     EditText etSpeechTitle, etSpeaker, etRoom;
-    TextView tvSpeechId;
     TimePicker tpStartTime, tpEndTime;
     boolean editing = false;
+    boolean needsValidation = false;
 
     public SpeechDialog() {
 
     }
 
     //needed for editing existing speech
-    public static SpeechDialog newInstance(Speech speech, boolean isBeingEdited, boolean wasNotValidated) {
+    public static SpeechDialog newInstance(Speech speech, boolean isBeingEdited, boolean wasNotValidated, String validationError) {
         SpeechDialog speechDialog = new SpeechDialog();
         Bundle args = new Bundle();
         if (speech != null) {
             if (isBeingEdited) {
                 args.putString("speechId", speech.getSpeechId());
+            }
+            if (wasNotValidated) {
+                args.putString("validationError", validationError);
             }
             args.putString("speechTitle", speech.getSpeechTitle());
             args.putString("speaker", speech.getSpeaker());
@@ -79,6 +81,8 @@ public class SpeechDialog extends DialogFragment {
         headline = (TextView) view.findViewById(R.id.createSpeechHeadline);
         labelStartTime = (TextView) view.findViewById(R.id.label_startTime);
         labelEndTime = (TextView) view.findViewById(R.id.label_endTime);
+        tvSpeechColliding = (TextView) view.findViewById(R.id.warning_speechValidation);
+        tvStartEndTime = (TextView) view.findViewById(R.id.warning_startEndTime);
 
 
         etSpeechTitle = (EditText) view.findViewById(R.id.addSpeechTitle);
@@ -91,9 +95,13 @@ public class SpeechDialog extends DialogFragment {
         tpEndTime = (TimePicker) view.findViewById(R.id.time_picker_end);
         tpEndTime.setIs24HourView(true);
 
-
         if (getArguments() != null) {
-            tvSpeechId.setText(getArguments().getString("speechId"));
+            editing = getArguments().getBoolean("isBeingEdited");
+            needsValidation = getArguments().getBoolean("wasNotValidated");
+
+        }
+
+        if (editing || needsValidation) {
             etSpeechTitle.setText(getArguments().getString("speechTitle"));
             etSpeaker.setText(getArguments().getString("speaker"));
             etRoom.setText(getArguments().getString("room"));
@@ -104,17 +112,22 @@ public class SpeechDialog extends DialogFragment {
             tpStartTime.setMinute(Integer.parseInt(partsStart[1]));
 
             String endTime = getArguments().getString("speechEndTime");
-            String[] partsEnd = startTime.split(":");
+            String[] partsEnd = endTime.split(":");
             tpEndTime.setHour(Integer.parseInt(partsEnd[0]));
             tpEndTime.setMinute(Integer.parseInt(partsEnd[1]));
 
-            headline.setText("Edit Speech");
-            editing = getArguments().getBoolean("isBeingEdited");
+            if (editing) {
+                headline.setText("Edit Speech");
+                tvSpeechId.setText(getArguments().getString("speechId"));
+            }
 
             // if this dialogue opens because of wrong validation the labels for times are highlighted in red
-            if (getArguments().getBoolean("wasNotValidated")) {
-                labelEndTime.setTextColor(Color.RED);
-                labelStartTime.setTextColor(Color.RED);
+            if (needsValidation) {
+                if (getArguments().getString("validationError").equals("colliding")) {
+                    tvSpeechColliding.setVisibility(View.VISIBLE);
+                }else{
+                    tvStartEndTime.setVisibility(View.VISIBLE);
+                }
             }
 
         }
@@ -152,7 +165,9 @@ public class SpeechDialog extends DialogFragment {
                             params.put("endTime", endTime);
 
                             if (editing) {
+                                System.out.println("in editing, speechId saved: " + tvSpeechId.getText().toString());
                                 params.put("speechId", tvSpeechId.getText().toString());
+                                System.out.println(getArguments().getString("speechUrl"));
                                 speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
                             } else {
                                 speechHandler.addSpeech(params);
@@ -161,7 +176,7 @@ public class SpeechDialog extends DialogFragment {
                             //if endtime < starttime the dialogue will be opened again. Data is prefilled
                             System.out.println("endtime before starttime");
                             Speech speech = new Speech();
-                            if (getArguments() != null) {
+                            if (editing) {
                                 speech.setSpeechId(tvSpeechId.getText().toString());
                             }
                             speech.setSpeechTitle(speechTitle);
@@ -169,7 +184,7 @@ public class SpeechDialog extends DialogFragment {
                             speech.setSpeechRoom(room);
                             speech.setStartTime(startTime);
                             speech.setEndTime(endTime);
-                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true);
+                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true, "startEndTime");
                             Activity activity = (Activity) getContext();
                             speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                         }
