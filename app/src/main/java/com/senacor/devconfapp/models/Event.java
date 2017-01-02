@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,13 +22,26 @@ public class Event{
     @JsonProperty
     private LocalDate date;
 
+    private String url;
 
-    public Event(JSONObject object) {
+
+    public Event(JSONObject jsonObject) {
         try {
             //this.eventId = (String) object.get("eventId");
-            this.name = object.getString("name");
-            this.place = object.getString("place");
-            this.date = LocalDate.parse(object.getString("date"));
+            this.name = jsonObject.getString("name");
+            this.place = jsonObject.getString("place");
+            this.date = LocalDate.parse(jsonObject.getString("date"));
+
+            JSONArray array = jsonObject.getJSONArray("links");
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    if (array.getJSONObject(i).getString("rel").equals("self")) {
+                        this.url = array.getJSONObject(i).getString("href");
+                        System.out.println(url);
+
+                    }
+                }
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -71,6 +85,14 @@ public class Event{
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String dateToString() {
