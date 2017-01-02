@@ -18,16 +18,15 @@
         android:text="@string/createEvent_title"
         android:ems="10"
         android:id="@+id/createEventHeadline"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
-        style="@style/Widget.AppCompat.EditText"
         android:selectAllOnFocus="false"
         android:layout_weight="0.21" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="167dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
@@ -43,10 +42,10 @@
                 android:id="@+id/event_validationError"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 android:textColor="@color/senacorRed"
                 android:textStyle="bold|italic"
-                android:text="@string/event_validationError"/>
+                android:text="@string/event_validationError"
+                android:visibility="gone" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -93,17 +92,10 @@
                 <DatePicker
                     android:id="@+id/eventDatePicker"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="117dp"
                     android:background="@color/senacorWhite"
                     android:datePickerMode="spinner"
                     android:calendarViewShown="false" />
-
-                <!--<EditText
-                    android:id="@+id/event_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Event Date"/>-->
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -117,7 +109,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="147dp">
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp">
 
 
         <Button
@@ -144,10 +137,7 @@
             android:textColor="@color/senacorWhite"
             android:background="@color/colorPrimary"
             android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="19dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />
 
     </RelativeLayout>

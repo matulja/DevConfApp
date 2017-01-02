@@ -63,12 +63,14 @@ import org.joda.time.LocalDate;
 
             eventName.setText(info.getString("name"));
             eventPlace.setText(info.getString("place"));
-            String dateAsString = info.getString("date");
-            LocalDate date = LocalDate.parse(dateAsString);
-            eventDatePicker.updateDate(date.getYear(),date.getMonthOfYear(), date.getDayOfMonth());
+            LocalDate date = LocalDate.parse(info.getString("date"));
+            int year = date.getYear();
+            int month = date.getMonthOfYear();
+            int day = date.getDayOfMonth();
 
-            if (getIntent().hasExtra("validationError")) {
-                System.out.println("setting warning visible");
+            eventDatePicker.updateDate(year, (month-1), day);
+
+            if (info.getBoolean("validationError")) {
                 invalidEventData.setVisibility(View.VISIBLE);
             }
         }
@@ -111,18 +113,18 @@ import org.joda.time.LocalDate;
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
-                    params.put("date", eventDate.toString());
+                    params.put("date", eventDate);
                     eventHandler.addEvent(params);
                 } else{
                     System.out.println("date is before current date");
                     Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
-
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
+                    System.out.println(eventDate);
                     intent.putExtra("date", eventDate.toString());
-                    intent.putExtra("validationError", "inPast");
+                    intent.putExtra("validationError", true);
                     startActivity(intent);
-                    
+
 
                 }
 
