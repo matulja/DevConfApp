@@ -216,5 +216,9 @@ public class EventHandler{
 
     }
 
+    public void editEvent(RequestParams params){
+        Log.i("Information", "in editEventHandler");
+    }
+
 
 }
