@@ -13,7 +13,7 @@ import com.senacor.devconfapp.IPAddress;
 
 public class AuthRestClient {
 
-    private static final String BASE_URL = IPAddress.IPuser;
+    private static final String BASE_URL = IPAddress.IPevent;
     private static AsyncHttpClient client = new AsyncHttpClient();
 
 
