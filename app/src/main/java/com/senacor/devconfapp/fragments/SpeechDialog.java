@@ -165,7 +165,9 @@ public class SpeechDialog extends DialogFragment {
                             params.put("endTime", endTime);
 
                             if (editing) {
+                                System.out.println("in editing, speechId saved: " + tvSpeechId.getText().toString());
                                 params.put("speechId", tvSpeechId.getText().toString());
+                                System.out.println(getArguments().getString("speechUrl"));
                                 speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
                             } else {
                                 speechHandler.addSpeech(params);

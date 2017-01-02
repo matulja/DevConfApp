@@ -127,7 +127,8 @@ public class SpeechHandler {
 
     }
 
-    public void editSpeech(String url, RequestParams params) {
+    public void editSpeech(final String url, RequestParams params) {
+
 
         AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler(){
 
@@ -145,6 +146,8 @@ public class SpeechHandler {
                 }
                 if (statusCode == 409) {
                     Speech speech = new Speech(errorResponse);
+                    speech.setUrl(url);
+                    speech.extractAndSaveSpeechId();
                     DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, true, "colliding");
                     speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                 }

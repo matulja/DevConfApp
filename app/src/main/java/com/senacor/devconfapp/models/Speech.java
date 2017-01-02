@@ -39,13 +39,16 @@ public class Speech {
             this.speechSummary = jsonObject.getString("speechSummary");
 //            this.eventId = jsonObject.getString("eventId");
             JSONArray array = jsonObject.getJSONArray("links");
-            for (int i = 0; i < array.length(); i++) {
-                if (array.getJSONObject(i).getString("rel").equals("self")) {
-                    this.url = array.getJSONObject(i).getString("href");
-                    System.out.println(url);
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    if (array.getJSONObject(i).getString("rel").equals("self")) {
+                        this.url = array.getJSONObject(i).getString("href");
+                        System.out.println(url);
 
+                    }
                 }
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -139,6 +142,12 @@ public class Speech {
     public String timeToString(LocalTime time) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
         return time.toString(fmt);
+    }
+
+    public String extractAndSaveSpeechId() {
+        String[] urlElements = this.url.split("/");
+        this.speechId = urlElements[urlElements.length - 1];
+        return this.speechId;
     }
 
 }
