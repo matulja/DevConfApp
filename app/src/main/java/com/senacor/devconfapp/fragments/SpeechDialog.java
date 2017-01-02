@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.handlers.ValidationHandler;
 import com.senacor.devconfapp.models.Speech;
@@ -56,7 +57,6 @@ public class SpeechDialog extends DialogFragment {
             args.putString("room", speech.getSpeechRoom());
             args.putString("speechStartTime", speech.getStartTime().toString());
             args.putString("speechEndTime", speech.getEndTime().toString());
-            args.putString("speechUrl", speech.getUrl());
             args.putBoolean("isBeingEdited", isBeingEdited);
             args.putBoolean("wasNotValidated", wasNotValidated);
             speechDialog.setArguments(args);
@@ -165,10 +165,12 @@ public class SpeechDialog extends DialogFragment {
                             params.put("endTime", endTime);
 
                             if (editing) {
-                                System.out.println("in editing, speechId saved: " + tvSpeechId.getText().toString());
-                                params.put("speechId", tvSpeechId.getText().toString());
-                                System.out.println(getArguments().getString("speechUrl"));
-                                speechHandler.editSpeech(getArguments().getString("speechUrl"), params);
+                                String speechId = tvSpeechId.getText().toString();
+                                params.put("speechId", speechId);
+                                String url = EventActivity.URL + "/speeches/" + speechId;
+                                System.out.println(url);
+
+                                speechHandler.editSpeech(url, params);
                             } else {
                                 speechHandler.addSpeech(params);
                             }
