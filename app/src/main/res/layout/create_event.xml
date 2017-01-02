@@ -33,68 +33,85 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_weight="0.80">
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/addEventNameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:id="@+id/event_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Event Name"/>
-
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/addEventPlaceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:id="@+id/event_place"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Event Place"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/addEventDateLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/event_validationError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:textColor="@color/senacorRed"
+                android:textStyle="bold|italic"
+                android:text="@string/event_validationError"/>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEventNameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/newEvent_label_date"/>
+                android:layout_marginTop="10dp">
 
-            <DatePicker
-                android:id="@+id/eventDatePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/senacorWhite"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"/>
+                <EditText
+                    android:id="@+id/event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Event Name" />
 
-            <!--<EditText
-                android:id="@+id/event_date"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEventPlaceLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Event Date"/>-->
+                android:layout_marginTop="10dp">
 
-            <GridLayout
+                <EditText
+                    android:id="@+id/event_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Event Place" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEventDateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
-            </GridLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/newEvent_label_date" />
 
+                <DatePicker
+                    android:id="@+id/eventDatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/senacorWhite"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false" />
+
+                <!--<EditText
+                    android:id="@+id/event_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Event Date"/>-->
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </GridLayout>
+
+            </android.support.design.widget.TextInputLayout>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 

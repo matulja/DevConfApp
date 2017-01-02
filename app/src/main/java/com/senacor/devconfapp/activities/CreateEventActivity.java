@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.EventHandler;
+import com.senacor.devconfapp.handlers.ValidationHandler;
 
 import org.joda.time.LocalDate;
 
@@ -26,15 +28,18 @@ import org.joda.time.LocalDate;
     DatePicker eventDatePicker;
     EditText eventName, eventPlace;
     Button createEvent, cancelEvent;
-   /* public static CreateEventActivity newInstance(Event event) {
+    ValidationHandler validationHandler;
+    TextView invalidEventData;
+
+   /*public static CreateEventActivity newInstance(Event event) {
         CreateEventActivity eventActivity = new CreateEventActivity();
         Bundle args = new Bundle();
         if (event != null) {
-            args.putString("eventId", event.getEventId());
+            //args.putString("eventId", event.getEventId()); -> for editing
             args.putString("name", event.getName());
-            argS.putString("place", event.getPlace());
+            args.putString("place", event.getPlace());
             args.putString("date", event.getDate());
-            eventActivity.setArguments(args);
+
         }
         return eventActivity;
     }*/
@@ -44,10 +49,31 @@ import org.joda.time.LocalDate;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
         eventHandler = new EventHandler(this);
+        validationHandler = new ValidationHandler();
         //assign fields to view
         eventName = (EditText) findViewById(R.id.event_name);
         eventPlace = (EditText) findViewById(R.id.event_place);
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
+        invalidEventData = (TextView) findViewById(R.id.event_validationError);
+
+        Bundle info = getIntent().getExtras();
+
+        if (info != null) {
+
+
+            eventName.setText(info.getString("name"));
+            eventPlace.setText(info.getString("place"));
+            String dateAsString = info.getString("date");
+            LocalDate date = LocalDate.parse(dateAsString);
+            eventDatePicker.updateDate(date.getYear(),date.getMonthOfYear(), date.getDayOfMonth());
+
+            if (getIntent().hasExtra("validationError")) {
+                System.out.println("setting warning visible");
+                invalidEventData.setVisibility(View.VISIBLE);
+            }
+        }
+
+
 
 
         /*eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
@@ -62,10 +88,10 @@ import org.joda.time.LocalDate;
             }
         });
 */
-        if (getIntent().getExtras().getBoolean("eventEdit")){
+/*        if (getIntent().getExtras().getBoolean("eventEdit")){
             //ToDo Event name, place, date must be set with  choosen event
 
-        }
+        }*/
         createEvent = (Button) findViewById(R.id.create_button);
         cancelEvent = (Button) findViewById(R.id.cancel_button);
         //process Data
@@ -80,12 +106,27 @@ import org.joda.time.LocalDate;
                 int month = eventDatePicker.getMonth() + 1;
                 int year = eventDatePicker.getYear();
 
-                RequestParams params = new RequestParams();
-                params.put("name", name);
-                params.put("place", place);
-                params.put("date", new LocalDate(year, month, day));
+                LocalDate eventDate = new LocalDate(year, month, day);
+                if (validationHandler.isInFuture(eventDate)) {
+                    RequestParams params = new RequestParams();
+                    params.put("name", name);
+                    params.put("place", place);
+                    params.put("date", eventDate.toString());
+                    eventHandler.addEvent(params);
+                } else{
+                    System.out.println("date is before current date");
+                    Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
 
-                eventHandler.addEvent(params);
+                    intent.putExtra("name", name);
+                    intent.putExtra("place", place);
+                    intent.putExtra("date", eventDate.toString());
+                    intent.putExtra("validationError", "inPast");
+                    startActivity(intent);
+                    
+
+                }
+
+
             }
         });
 

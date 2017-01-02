@@ -27,6 +27,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
     SpeechHandler speechHandler;
 
+
     public static class ViewHolder{
         TextView speechId;
         TextView speechTitle;
