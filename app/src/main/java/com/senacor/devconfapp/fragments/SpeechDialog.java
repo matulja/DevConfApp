@@ -112,7 +112,7 @@ public class SpeechDialog extends DialogFragment {
             tpStartTime.setMinute(Integer.parseInt(partsStart[1]));
 
             String endTime = getArguments().getString("speechEndTime");
-            String[] partsEnd = startTime.split(":");
+            String[] partsEnd = endTime.split(":");
             tpEndTime.setHour(Integer.parseInt(partsEnd[0]));
             tpEndTime.setMinute(Integer.parseInt(partsEnd[1]));
 
