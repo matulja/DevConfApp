@@ -62,6 +62,10 @@ import org.joda.time.LocalDate;
             }
         });
 */
+        if (getIntent().getExtras().getBoolean("eventEdit")){
+            //ToDo Event name, place, date must be set with  choosen event
+
+        }
         createEvent = (Button) findViewById(R.id.create_button);
         cancelEvent = (Button) findViewById(R.id.cancel_button);
         //process Data
