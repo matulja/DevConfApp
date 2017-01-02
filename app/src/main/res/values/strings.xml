@@ -50,5 +50,7 @@
     <string name="allEvents_title"> All Events </string>
     <string name="info_noEvent">Sorry, there are no conferences planned at the moment.</string>
     <string name="newEvent_label_date">Date:</string>
+    <string name="warning_speechColliding">The times entered for this speech collide with another speech. Please check and change the starting/end time.</string>
+    <string name="speech_endBeforeStartTime">Start time cannot be after end time. Please check.</string>
 
 </resources>

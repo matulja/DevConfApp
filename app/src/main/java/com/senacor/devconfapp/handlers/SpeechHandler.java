@@ -1,9 +1,9 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -12,6 +12,7 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
+import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Speech;
 
 import org.json.JSONArray;
@@ -105,6 +106,18 @@ public class SpeechHandler {
             }
 
             @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                for (Header header: headers) {
+                    System.out.println(header.getName() + header.getValue());
+                }
+                if (statusCode == 409) {
+                    Speech speech = new Speech(errorResponse);
+                    DialogFragment speechFragment = SpeechDialog.newInstance(speech, false, true, "colliding");
+                    speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+                }
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
@@ -126,7 +139,20 @@ public class SpeechHandler {
             }
 
             @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                for (Header header: headers) {
+                    System.out.println(header.getName() + header.getValue());
+                }
+                if (statusCode == 409) {
+                    Speech speech = new Speech(errorResponse);
+                    DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, true, "colliding");
+                    speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+                }
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
             }
