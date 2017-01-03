@@ -228,7 +228,7 @@ public class EventHandler {
 
     }
 
-      /*public void deleteEvent (String url) {
+      public void deleteEvent (final String url) {
 
         AsynchRestClient.delete(activity, url, new JsonHttpResponseHandler(){
 
@@ -236,10 +236,8 @@ public class EventHandler {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                 System.out.println("in event handler/url");
-                super.onSuccess(statusCode, headers, response);
                 System.out.println("in delete event");
-                Intent intent = new Intent(activity, EventActivity.class);
-                intent.putExtra("url", EventActivity.URL);
+                Intent intent = new Intent(activity, EventListActivity.class);
                 activity.startActivity(intent);
             }
 
@@ -249,7 +247,7 @@ public class EventHandler {
                 System.out.println("in delete event: " + throwable);
             }
         });
-    }*/
+    }
 
     public void editEvent(RequestParams params){
         Log.i("Information", "in editEventHandler");

@@ -32,17 +32,15 @@ public class Event{
             this.place = object.getString("place");
             this.date = LocalDate.parse(object.getString("date"));
 
-            /*JSONArray array = object.getJSONArray("links");
+            JSONArray array = object.getJSONArray("links");
             if (array != null) {
                 for (int i = 0; i < array.length(); i++) {
                     if (array.getJSONObject(i).getString("rel").equals("self")) {
                         this.url = array.getJSONObject(i).getString("href");
-                        System.out.println(url);
 
                     }
                 }
             }
-            System.out.println("url saved for event = " + this.url);*/
 
         } catch (JSONException e) {
             e.printStackTrace();
