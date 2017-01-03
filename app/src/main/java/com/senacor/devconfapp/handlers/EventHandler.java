@@ -86,7 +86,6 @@ public class EventHandler{
                     Intent intent = new Intent(activity, LoginActivity.class);
                     activity.startActivity(intent);
 
-
                     CharSequence text = "Your session has expired, please log in again.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText((Context)activity, text, duration);
@@ -257,16 +256,6 @@ public class EventHandler{
                     intent.putExtra("validationError", true);
                     activity.startActivity(intent);
                 }
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
-                    Context context = (Context)activity;
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
