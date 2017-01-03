@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
+import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.handlers.LogInOutHandler;
@@ -91,10 +92,11 @@ import org.joda.time.LocalDate;
                     params.put("place", place);
                     params.put("date", eventDate);
                     if (info != null) {
-                        if (info.getString("eventId") != null){
-                            params.put("eventId", eventId);
-                            eventHandler.editEvent(params);
-                        }
+                    if (info.getString("eventId") != null) {
+                        params.put("eventId", eventId);
+                        String url = IPAddress.IPevent + eventId;
+                        eventHandler.editEvent(url, params);
+                    }
                     }
 
                     else{

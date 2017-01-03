@@ -41,7 +41,7 @@ import static android.view.View.VISIBLE;
  * Created by saba on 13.12.16.
  */
 
-public class EventHandler {
+public class EventHandler{
 
     private Event event;
     private Activity activity;
@@ -317,10 +317,24 @@ public class EventHandler {
         });
     }
 
-    public void editEvent(RequestParams params){
-        Log.i("Information", "in editEventHandler");
-    }
+    public void editEvent(String url, RequestParams params){
+        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.i("Information", "in editEventHandler");
+                getEventList();
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.d("Failed: ", "could not edit event");
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
+    }
 
 
 }
