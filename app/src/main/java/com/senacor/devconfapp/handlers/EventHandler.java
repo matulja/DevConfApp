@@ -2,6 +2,7 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -19,6 +21,7 @@ import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.CreateEventActivity;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
+import com.senacor.devconfapp.activities.LoginActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -46,7 +49,6 @@ public class EventHandler {
     ListView eventList;
     TextView noEvents;
     public static boolean eventsPresent = true;
-    public static boolean eventDateUsed = false;
 
     public EventHandler(Activity activity) {
         this.activity = activity;
@@ -80,6 +82,16 @@ public class EventHandler {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+
+
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText((Context)activity, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -128,6 +140,15 @@ public class EventHandler {
                 System.out.println(statusCode);
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    Context context = (Context)activity;
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -170,6 +191,7 @@ public class EventHandler {
                                     String url = IPAddress.IPevent + "/" + event.getEventId();
                                     intent.putExtra("url", url);
                                     activity.startActivity(intent);
+
                                 }
 
                             });
@@ -181,6 +203,16 @@ public class EventHandler {
                         Log.d("Failed: ", " cannot get all events ");
                         Log.d("Failed: ", "" + statusCode);
                         Log.d("Error : ", "" + throwable);
+
+                        if (statusCode == 401) {
+                            Intent intent = new Intent(activity, LoginActivity.class);
+                            activity.startActivity(intent);
+                            Context context = (Context)activity;
+                            CharSequence text = "Your session has expired, please log in again.";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        }
                     }
                 });
     }
@@ -211,18 +243,20 @@ public class EventHandler {
                     intent.putExtra("place", event.getPlace());
                     intent.putExtra("date", event.getDate().toString());
                     intent.putExtra("validationError", true);
-                    //intent.putExtra("eventId", event.extractAndSaveEventId());
                     activity.startActivity(intent);
+                }
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    Context context = (Context)activity;
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
 
             }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
-                Log.d("Failed: ", "could not add event");
-                Log.d("Failed: ", "" + statusCode);
-                Log.d("Error : ", "" + throwable);
-            }
         });
 
 
@@ -244,7 +278,8 @@ public class EventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                System.out.println("in delete event: " + throwable);
+                Log.e("Error", String.valueOf(throwable));
+                Log.e("Information", responseString);
             }
         });
     }

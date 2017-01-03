@@ -13,6 +13,10 @@ public class Token {
     private String userId;
     private String role;
 
+    public Token() {
+
+    }
+
     public Token(JSONObject jsonObject) {
         try {
             this.tokenId = jsonObject.getString("tokenId");

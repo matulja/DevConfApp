@@ -6,22 +6,19 @@ package com.senacor.devconfapp.models;
 public class User {
 
 
-
     private String username;
     private String password;
     private String userId;
 
 
-
-
-
     public User() {
 
     }
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
+
 
     public String getUsername() {
         return username;

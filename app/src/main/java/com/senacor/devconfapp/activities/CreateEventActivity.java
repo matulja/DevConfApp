@@ -1,7 +1,9 @@
 package com.senacor.devconfapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.EventHandler;
+import com.senacor.devconfapp.handlers.LogInOutHandler;
 import com.senacor.devconfapp.handlers.ValidationHandler;
 
 import org.joda.time.LocalDate;
@@ -30,12 +33,14 @@ import org.joda.time.LocalDate;
     Button createEvent, cancelEvent;
     ValidationHandler validationHandler;
     TextView invalidEventData;
+    SharedPreferences sharedPref;
     private String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler = new EventHandler(this);
         validationHandler = new ValidationHandler();
         //assign fields to view
@@ -85,10 +90,13 @@ import org.joda.time.LocalDate;
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
-                    if (info.getString("eventId") != null){
-                        params.put("eventId", eventId);
-                        eventHandler.editEvent(params);
+                    if (info != null) {
+                        if (info.getString("eventId") != null){
+                            params.put("eventId", eventId);
+                            eventHandler.editEvent(params);
+                        }
                     }
+
                     else{
                         eventHandler.addEvent(params);
                     }
@@ -124,6 +132,15 @@ import org.joda.time.LocalDate;
             case R.id.list_all_events:
                 Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);
                 CreateEventActivity.this.startActivity(intent);
+                return true;
+
+            case R.id.action_log_out:
+                LogInOutHandler logInOutHandler = new LogInOutHandler(this);
+                RequestParams params = new RequestParams();
+                params.put("tokenId",sharedPref.getString("tokenId", "tokenId"));
+                params.put("role", sharedPref.getString("role", "role"));
+                params.put("userId", sharedPref.getString("userId", "userId"));
+                logInOutHandler.logout(params);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

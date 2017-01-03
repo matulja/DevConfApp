@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.EventHandler;
+import com.senacor.devconfapp.handlers.LogInOutHandler;
 
 import static com.senacor.devconfapp.R.layout.activity_events;
 
@@ -42,6 +44,14 @@ public class EventListActivity extends AppCompatActivity {
                 startActivity(intent2);
                 return true;
 
+            case R.id.action_log_out:
+                LogInOutHandler logInOutHandler = new LogInOutHandler(this);
+                RequestParams params = new RequestParams();
+                params.put("tokenId",sharedPref.getString("tokenId", "tokenId"));
+                params.put("role", sharedPref.getString("role", "role"));
+                params.put("userId", sharedPref.getString("userId", "userId"));
+                logInOutHandler.logout(params);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

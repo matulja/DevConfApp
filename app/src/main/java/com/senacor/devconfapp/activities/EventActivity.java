@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.handlers.AttendanceHandler;
 import com.senacor.devconfapp.handlers.EventHandler;
+import com.senacor.devconfapp.handlers.LogInOutHandler;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 
 import static com.senacor.devconfapp.R.layout.event;
@@ -53,6 +55,15 @@ public class EventActivity extends AppCompatActivity {
             case R.id.create_new_event:
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
                 startActivity(intent2);
+                return true;
+
+            case R.id.action_log_out:
+                LogInOutHandler logInOutHandler = new LogInOutHandler(this);
+                RequestParams params = new RequestParams();
+                params.put("tokenId",sharedPref.getString("tokenId", "tokenId"));
+                params.put("role", sharedPref.getString("role", "role"));
+                params.put("userId", sharedPref.getString("userId", "userId"));
+                logInOutHandler.logout(params);
                 return true;
 
             default:
