@@ -31,19 +31,6 @@ import org.joda.time.LocalDate;
     ValidationHandler validationHandler;
     TextView invalidEventData;
 
-   /*public static CreateEventActivity newInstance(Event event) {
-        CreateEventActivity eventActivity = new CreateEventActivity();
-        Bundle args = new Bundle();
-        if (event != null) {
-            //args.putString("eventId", event.getEventId()); -> for editing
-            args.putString("name", event.getName());
-            args.putString("place", event.getPlace());
-            args.putString("date", event.getDate());
-
-        }
-        return eventActivity;
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,21 +62,6 @@ import org.joda.time.LocalDate;
             }
         }
 
-
-
-
-        /*eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft,"DatePicker");
-                }
-            }
-        });
-*/
 /*        if (getIntent().getExtras().getBoolean("eventEdit")){
             //ToDo Event name, place, date must be set with  choosen event
 
@@ -116,15 +88,12 @@ import org.joda.time.LocalDate;
                     params.put("date", eventDate);
                     eventHandler.addEvent(params);
                 } else{
-                    System.out.println("date is before current date");
                     Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
-                    System.out.println(eventDate);
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationError", true);
                     startActivity(intent);
-
 
                 }
 

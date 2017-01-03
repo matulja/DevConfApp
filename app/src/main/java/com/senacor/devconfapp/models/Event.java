@@ -21,6 +21,8 @@ public class Event{
     @JsonProperty
     private LocalDate date;
 
+    private String url;
+
 
     public Event(JSONObject object) {
         try {
@@ -28,6 +30,18 @@ public class Event{
             this.name = object.getString("name");
             this.place = object.getString("place");
             this.date = LocalDate.parse(object.getString("date"));
+
+            /*JSONArray array = object.getJSONArray("links");
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    if (array.getJSONObject(i).getString("rel").equals("self")) {
+                        this.url = array.getJSONObject(i).getString("href");
+                        System.out.println(url);
+
+                    }
+                }
+            }
+            System.out.println("url saved for event = " + this.url);*/
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -73,9 +87,23 @@ public class Event{
         this.eventId = eventId;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String dateToString() {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
         return getDate().toString( fmt );
     }
+
+   /* public String extractAndSaveEventId() {
+        String[] urlElements = this.url.split("/");
+        this.eventId = urlElements[urlElements.length - 1];
+        return this.eventId;
+    }*/
 
 }

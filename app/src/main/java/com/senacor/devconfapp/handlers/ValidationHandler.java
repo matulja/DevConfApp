@@ -22,7 +22,7 @@ public class ValidationHandler {
     }
 
     public boolean isInFuture(LocalDate date) {
-        System.out.println(LocalDate.now());
         return date.isAfter(LocalDate.now());
     }
+
 }

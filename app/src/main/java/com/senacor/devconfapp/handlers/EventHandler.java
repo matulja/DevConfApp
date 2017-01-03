@@ -16,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.activities.CreateEventActivity;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
@@ -37,7 +38,7 @@ import static android.view.View.VISIBLE;
  * Created by saba on 13.12.16.
  */
 
-public class EventHandler{
+public class EventHandler {
 
     private Event event;
     private Activity activity;
@@ -45,6 +46,7 @@ public class EventHandler{
     ListView eventList;
     TextView noEvents;
     public static boolean eventsPresent = true;
+    public static boolean eventDateUsed = false;
 
     public EventHandler(Activity activity) {
         this.activity = activity;
@@ -88,47 +90,46 @@ public class EventHandler{
 
         AsynchRestClient.get(activity, url, null, new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-                        sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
 
-                        event = new Event(jsonObject);
-                        System.out.println("eventhandler on success " + event.getName());
-                        TextView eventName = (TextView) activity.findViewById(R.id.event_name);
-                        eventName.setText(event.getName());
+                event = new Event(jsonObject);
+                System.out.println("eventhandler on success " + event.getName());
+                TextView eventName = (TextView) activity.findViewById(R.id.event_name);
+                eventName.setText(event.getName());
 
-                        TextView eventPlace = (TextView) activity.findViewById(R.id.event_place);
-                        eventPlace.setText(event.getPlace());
+                TextView eventPlace = (TextView) activity.findViewById(R.id.event_place);
+                eventPlace.setText(event.getPlace());
 
-                        TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
-                        eventDate.setText(event.dateToString());
+                TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
+                eventDate.setText(event.dateToString());
 
-                        ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
+                ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
 
 
-                        if (sharedPref.getString("role", "role").equals("ADMIN")) {
-                            addSpeechButton.setVisibility(VISIBLE);
-                            addSpeechButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
-                                    speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+                if (sharedPref.getString("role", "role").equals("ADMIN")) {
+                    addSpeechButton.setVisibility(VISIBLE);
+                    addSpeechButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
+                            speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
 
-                                }
-                            });
                         }
+                    });
+                }
 
 
+            }
 
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        System.out.println(statusCode);
-                        Log.d("Failed: ", "" + statusCode);
-                        Log.d("Error : ", "" + throwable);
-                    }
-                });
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                System.out.println(statusCode);
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+            }
+        });
     }
 
 
@@ -146,10 +147,9 @@ public class EventHandler{
                         if (response.length() == 0) {
                             noEvents.setVisibility(VISIBLE);
                             eventsPresent = false;
-                        }else {
+                        } else {
                             ArrayList<Event> eventListArray = new ArrayList<>();
                             EventListAdapter eventListAdapter = new EventListAdapter(activity, eventListArray);
-
                             for (int i = 0; i < response.length(); i++) {
                                 try {
                                     Event event = new Event(response.getJSONObject(i));
@@ -193,17 +193,29 @@ public class EventHandler{
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i("Information", "in speechhandler add speech method");
                 Log.i("Information", "speeches were successfully added");
-                Intent intent = new Intent(activity, EventActivity.class);
-                String eventId = "";
-                try {
-                    eventId = response.getString("eventId");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                event = new Event(response);
+                if (event != null) {
+                    Intent intent = new Intent(activity, EventActivity.class);
+                    intent.putExtra("url",event.getUrl());
+                    activity.startActivity(intent);
                 }
-                intent.putExtra("url", IPAddress.IPevent + "/" + eventId);
-                activity.startActivity(intent);
+
             }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (statusCode == 409) {
+                    event = new Event(errorResponse);
+                    Intent intent = new Intent(activity, CreateEventActivity.class);
+                    intent.putExtra("name", event.getName());
+                    intent.putExtra("place", event.getPlace());
+                    intent.putExtra("date", event.getDate().toString());
+                    intent.putExtra("validationError", true);
+                    //intent.putExtra("eventId", event.extractAndSaveEventId());
+                    activity.startActivity(intent);
+                }
+
+            }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
@@ -215,6 +227,7 @@ public class EventHandler{
 
 
     }
+
 
 
 }
