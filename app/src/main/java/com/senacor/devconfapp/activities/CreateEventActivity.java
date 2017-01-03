@@ -30,6 +30,7 @@ import org.joda.time.LocalDate;
     Button createEvent, cancelEvent;
     ValidationHandler validationHandler;
     TextView invalidEventData;
+    private String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,12 @@ import org.joda.time.LocalDate;
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
         invalidEventData = (TextView) findViewById(R.id.event_validationError);
 
-        Bundle info = getIntent().getExtras();
+        final Bundle info = getIntent().getExtras();
 
         if (info != null) {
-
-
+           if (info.getString("eventId") !=null){
+                eventId = info.getString("eventId");
+            }
             eventName.setText(info.getString("name"));
             eventPlace.setText(info.getString("place"));
             LocalDate date = LocalDate.parse(info.getString("date"));
@@ -62,10 +64,7 @@ import org.joda.time.LocalDate;
             }
         }
 
-/*        if (getIntent().getExtras().getBoolean("eventEdit")){
-            //ToDo Event name, place, date must be set with  choosen event
 
-        }*/
         createEvent = (Button) findViewById(R.id.create_button);
         cancelEvent = (Button) findViewById(R.id.cancel_button);
         //process Data
@@ -86,7 +85,13 @@ import org.joda.time.LocalDate;
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
-                    eventHandler.addEvent(params);
+                    if (info.getString("eventId") != null){
+                        params.put("eventId", eventId);
+                        eventHandler.editEvent(params);
+                    }
+                    else{
+                        eventHandler.addEvent(params);
+                    }
                 } else{
                     Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
                     intent.putExtra("name", name);
