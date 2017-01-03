@@ -2,14 +2,17 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
+import com.senacor.devconfapp.activities.LoginActivity;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -39,40 +42,52 @@ public class SpeechHandler {
 
         AsynchRestClient.get(activity, speechesUrl, null, new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        System.out.println("in getSpeeches");
-                        ArrayList<Speech> speechArray = new ArrayList<>();
-                        SpeechAdapter speechAdapter = new SpeechAdapter(activity, speechArray);
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                System.out.println("in getSpeeches");
+                ArrayList<Speech> speechArray = new ArrayList<>();
+                SpeechAdapter speechAdapter = new SpeechAdapter(activity, speechArray);
 
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                Speech speech = new Speech(response.getJSONObject(i));
-                                String id = response.getJSONObject(i).getString("speechId");
-                                System.out.println(id);
-                                speech.setSpeechId(id);
-                                speechAdapter.add(speech);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
-                        speechlist.setAdapter(speechAdapter);
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        Speech speech = new Speech(response.getJSONObject(i));
+                        String id = response.getJSONObject(i).getString("speechId");
+                        System.out.println(id);
+                        speech.setSpeechId(id);
+                        speechAdapter.add(speech);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("Failed: ", "" + statusCode);
-                        Log.d("Error : ", "" + throwable);
-                    }
-                });
+                ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
+                speechlist.setAdapter(speechAdapter);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Failed: ", "" + statusCode);
+                Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+
+
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText((Context) activity, text, duration);
+                    toast.show();
+                }
+            }
+
+
+        });
     }
 
 
     public void deleteSpeech(String url) {
 
-        AsynchRestClient.delete(activity, url, new JsonHttpResponseHandler(){
+        AsynchRestClient.delete(activity, url, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -85,8 +100,17 @@ public class SpeechHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
                 System.out.println("in delete speech: " + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+
+
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText((Context) activity, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -102,12 +126,12 @@ public class SpeechHandler {
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 Log.i("Information", "in speechhandler add speech method");
                 Log.i("Information", "speeches were successfully added");
-                getSpeeches(EventActivity.URL+"/speeches");
+                getSpeeches(EventActivity.URL + "/speeches");
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                for (Header header: headers) {
+                for (Header header : headers) {
                     System.out.println(header.getName() + header.getValue());
                 }
                 if (statusCode == 409) {
@@ -121,6 +145,16 @@ public class SpeechHandler {
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+
+
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText((Context) activity, text, duration);
+                    toast.show();
+                }
             }
         });
 
@@ -130,18 +164,18 @@ public class SpeechHandler {
     public void editSpeech(final String url, RequestParams params) {
 
 
-        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler(){
+        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 Log.i("Information", "in speechhandler edit speech method");
                 Log.i("Information", "speeches were successfully edited");
-                getSpeeches(EventActivity.URL+"/speeches");
+                getSpeeches(EventActivity.URL + "/speeches");
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                for (Header header: headers) {
+                for (Header header : headers) {
                     System.out.println(header.getName() + header.getValue());
                 }
                 if (statusCode == 409) {
@@ -155,9 +189,18 @@ public class SpeechHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
-
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+
+
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText((Context) activity, text, duration);
+                    toast.show();
+                }
             }
 
         });

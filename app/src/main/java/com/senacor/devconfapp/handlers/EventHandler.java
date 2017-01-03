@@ -136,20 +136,19 @@ public class EventHandler {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                System.out.println(statusCode);
-                Log.d("Failed: ", "" + statusCode);
-                Log.d("Error : ", "" + throwable);
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 if (statusCode == 401) {
                     Intent intent = new Intent(activity, LoginActivity.class);
                     activity.startActivity(intent);
                     Context context = (Context)activity;
                     CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_SHORT;
+                    int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
             }
+
+
         });
     }
 
@@ -209,7 +208,20 @@ public class EventHandler {
                             activity.startActivity(intent);
                             Context context = (Context)activity;
                             CharSequence text = "Your session has expired, please log in again.";
-                            int duration = Toast.LENGTH_SHORT;
+                            int duration = Toast.LENGTH_LONG;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        if (statusCode == 401) {
+                            Intent intent = new Intent(activity, LoginActivity.class);
+                            activity.startActivity(intent);
+                            Context context = (Context)activity;
+                            CharSequence text = "Your session has expired, please log in again.";
+                            int duration = Toast.LENGTH_LONG;
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.show();
                         }
@@ -250,11 +262,23 @@ public class EventHandler {
                     activity.startActivity(intent);
                     Context context = (Context)activity;
                     CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_SHORT;
+                    int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
 
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    Context context = (Context)activity;
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
 
         });
@@ -280,6 +304,15 @@ public class EventHandler {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.e("Error", String.valueOf(throwable));
                 Log.e("Information", responseString);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    Context context = (Context)activity;
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
