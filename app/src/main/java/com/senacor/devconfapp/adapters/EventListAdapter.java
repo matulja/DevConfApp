@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.CreateEventActivity;
+import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.models.Event;
 
 import java.util.ArrayList;
@@ -26,8 +27,10 @@ import java.util.ArrayList;
 
 public class EventListAdapter extends ArrayAdapter<Event>  {
 
+    EventHandler eventHandler;
+
     private static class ViewHolder {
-        TextView eventId;
+        //TextView eventId;
         TextView name;
         TextView place;
         TextView date;
@@ -37,6 +40,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
     public EventListAdapter(Context context, ArrayList<Event> events) {
         super(context, R.layout.item_event, events);
+        eventHandler = new EventHandler((Activity) context);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_event, parent, false);
 
-            viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_eventId);
+            //viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_eventId);
             viewHolder.name = (TextView) convertView.findViewById(R.id.value_event_name);
             viewHolder.place = (TextView) convertView.findViewById(R.id.value_event_place);
             viewHolder.date = (TextView) convertView.findViewById(R.id.value_event_date);
@@ -61,7 +65,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        //viewHolder.eventId.setText(event.getEventId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
         viewHolder.date.setText(event.dateToString());
@@ -73,8 +77,8 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
             @Override
             public void onClick(View v) {
-                //speechHandler.deleteSpeech(speech.getUrl());
-                System.out.println("Delete Event");
+                System.out.println("Delete Event " + event.getUrl());
+                eventHandler.deleteEvent(event.getUrl());
             }
         });
 
