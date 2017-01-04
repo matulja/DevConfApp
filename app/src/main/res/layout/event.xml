@@ -80,7 +80,15 @@
         android:layout_alignLeft="@id/event_date"
         android:layout_alignStart="@id/event_date"/>
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/info_noSpeech"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="@string/info_noSpeech"
+        android:gravity="center"/>
     <ListView
         android:id="@+id/list_speeches"
         android:layout_width="match_parent"
