@@ -113,8 +113,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationError", true);
                     startActivity(intent);
-                    finish();
-
                 }
 
 
