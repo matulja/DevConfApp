@@ -86,7 +86,8 @@ import org.joda.time.LocalDate;
                 int year = eventDatePicker.getYear();
 
                 LocalDate eventDate = new LocalDate(year, month, day);
-                if (validationHandler.isInFuture(eventDate)) {
+                if (validationHandler.isInFuture(eventDate) && validationHandler.isFilled(name) &&
+                        validationHandler.isFilled(place)) {
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
