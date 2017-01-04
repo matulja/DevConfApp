@@ -122,15 +122,10 @@ public class CreateEventActivity extends AppCompatActivity {
                     } else {
                         eventHandler.addEvent(params);
                     }
-
-                }
                 }
 
 
-
-
-
-
+            }
         });
 
         cancelEvent.setOnClickListener(new View.OnClickListener() {
