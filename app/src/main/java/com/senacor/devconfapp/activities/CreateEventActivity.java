@@ -94,7 +94,8 @@ import org.joda.time.LocalDate;
                     if (info != null) {
                     if (info.getString("eventId") != null) {
                         params.put("eventId", eventId);
-                        String url = IPAddress.IPevent + eventId;
+                        String url = IPAddress.IPevent +"/"+ eventId;
+                        System.out.println(url);
                         eventHandler.editEvent(url, params);
                     }
                     }

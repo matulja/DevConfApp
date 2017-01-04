@@ -331,6 +331,16 @@ public class EventHandler{
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
+                if (statusCode == 409) {
+                    event = new Event(errorResponse);
+                    Intent intent = new Intent(activity, CreateEventActivity.class);
+                    intent.putExtra("eventId",event.getEventId());
+                    intent.putExtra("name", event.getName());
+                    intent.putExtra("place", event.getPlace());
+                    intent.putExtra("date", event.getDate().toString());
+                    intent.putExtra("validationError", true);
+                    activity.startActivity(intent);
+                }
             }
         });
     }
