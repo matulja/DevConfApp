@@ -40,6 +40,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -65,7 +66,7 @@ public class CreateEventActivity extends AppCompatActivity {
             int day = date.getDayOfMonth();
 
             eventDatePicker.updateDate(year, (month - 1), day);
-
+            System.out.println("Validation error flag ist set = " + info.getBoolean("validationError"));
             if (info.getBoolean("validationError")) {
                 invalidEventData.setVisibility(View.VISIBLE);
             }
@@ -87,31 +88,32 @@ public class CreateEventActivity extends AppCompatActivity {
                 int year = eventDatePicker.getYear();
 
                 LocalDate eventDate = new LocalDate(year, month, day);
-                if (validationHandler.isInFuture(eventDate) && validationHandler.isFilled(name) &&
-                        validationHandler.isFilled(place)) {
+                if (validationHandler.isInFuture(eventDate)) {
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
                     if (info != null) {
-                    if (info.getString("eventId") != null) {
-                        params.put("eventId", eventId);
-                        String url = IPAddress.IPevent +"/"+ eventId;
-                        System.out.println(url);
-                        eventHandler.editEvent(url, params);
-                    }
-                    }
+                        if (info.getString("eventId") != null) {
+                            params.put("eventId", eventId);
+                            String url = IPAddress.IPevent + "/" + eventId;
+                            System.out.println(url);
+                            eventHandler.editEvent(url, params);
+                        } else{
+                            eventHandler.addEvent(params);
+                        }
 
-                    else{
+                    } else {
                         eventHandler.addEvent(params);
                     }
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+                    Intent intent = new Intent(CreateEventActivity.this, CreateEventActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationError", true);
                     startActivity(intent);
+                    finish();
 
                 }
 
@@ -131,7 +133,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.list_all_events:
                 Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);
