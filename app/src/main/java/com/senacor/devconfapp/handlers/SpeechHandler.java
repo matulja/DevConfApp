@@ -5,7 +5,9 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,6 +35,7 @@ import cz.msebera.android.httpclient.Header;
 public class SpeechHandler {
 
     private Activity activity;
+    private TextView noSpeeches;
 
     public SpeechHandler(Activity activity) {
         this.activity = activity;
@@ -45,23 +48,34 @@ public class SpeechHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 System.out.println("in getSpeeches");
-                ArrayList<Speech> speechArray = new ArrayList<>();
-                SpeechAdapter speechAdapter = new SpeechAdapter(activity, speechArray);
+                noSpeeches=(TextView) activity.findViewById(R.id.info_noSpeech);
+                if(response.length()== 0){
+                    noSpeeches.setVisibility(View.VISIBLE);
+                    System.out.println("passt");
+                }
+                else {
+                    noSpeeches.setVisibility(View.GONE);
+                    ArrayList<Speech> speechArray = new ArrayList<>();
+                    SpeechAdapter speechAdapter = new SpeechAdapter(activity, speechArray);
 
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        Speech speech = new Speech(response.getJSONObject(i));
-                        String id = response.getJSONObject(i).getString("speechId");
-                        System.out.println(id);
-                        speech.setSpeechId(id);
-                        speechAdapter.add(speech);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            Speech speech = new Speech(response.getJSONObject(i));
+                            String id = response.getJSONObject(i).getString("speechId");
+                            System.out.println(id);
+                            speech.setSpeechId(id);
+                            speechAdapter.add(speech);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
+                    speechlist.setAdapter(speechAdapter);
+
+
                 }
 
-                ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
-                speechlist.setAdapter(speechAdapter);
             }
 
             @Override
