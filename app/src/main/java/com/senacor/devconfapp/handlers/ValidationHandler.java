@@ -11,7 +11,7 @@ import org.joda.time.LocalTime;
 public class ValidationHandler {
 
 
-    public ValidationHandler(){
+    public ValidationHandler() {
 
     }
 
@@ -21,12 +21,12 @@ public class ValidationHandler {
         return startTime.isBefore(endTime);
     }
 
-    public boolean isInFuture(LocalDate date) {
+    public boolean isNotInFuture(LocalDate date) {
         return !date.isBefore(LocalDate.now());
     }
 
-    public boolean isFilled(String input){
-    return !input.isEmpty();
-}
+    public boolean isNotFilled(String input) {
+        return input.isEmpty();
+    }
 
 }

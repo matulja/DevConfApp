@@ -66,9 +66,11 @@ public class CreateEventActivity extends AppCompatActivity {
             int day = date.getDayOfMonth();
 
             eventDatePicker.updateDate(year, (month - 1), day);
-            System.out.println("Validation error flag ist set = " + info.getBoolean("validationError"));
-            if (info.getBoolean("validationError")) {
+            if (info.getBoolean("validationErrorDate")) {
                 invalidEventData.setVisibility(View.VISIBLE);
+            }
+            if(info.getBoolean("validationErrorInput")){
+
             }
         }
 
@@ -88,7 +90,21 @@ public class CreateEventActivity extends AppCompatActivity {
                 int year = eventDatePicker.getYear();
 
                 LocalDate eventDate = new LocalDate(year, month, day);
-                if (validationHandler.isInFuture(eventDate)) {
+
+
+                if (validationHandler.isNotInFuture(eventDate) || validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)) {
+                    Intent intent = new Intent(CreateEventActivity.this, CreateEventActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("place", place);
+                    intent.putExtra("date", eventDate.toString());
+                    startActivity(intent);
+                    if (validationHandler.isNotInFuture(eventDate)) {
+                        intent.putExtra("validationErrorDate", true);
+                    }
+                    if (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)) {
+                        intent.putExtra("validationErrorInput", true);
+                    }
+                }else{
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
@@ -106,17 +122,15 @@ public class CreateEventActivity extends AppCompatActivity {
                     } else {
                         eventHandler.addEvent(params);
                     }
-                } else {
-                    Intent intent = new Intent(CreateEventActivity.this, CreateEventActivity.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("place", place);
-                    intent.putExtra("date", eventDate.toString());
-                    intent.putExtra("validationError", true);
-                    startActivity(intent);
+
+                }
                 }
 
 
-            }
+
+
+
+
         });
 
         cancelEvent.setOnClickListener(new View.OnClickListener() {
