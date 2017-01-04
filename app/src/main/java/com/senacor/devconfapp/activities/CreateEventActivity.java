@@ -31,7 +31,7 @@ import org.joda.time.LocalDate;
     EventHandler eventHandler;
     DatePicker eventDatePicker;
     EditText eventName, eventPlace;
-    Button createEvent, cancelEvent;
+    Button saveEvent, cancelEvent;
     ValidationHandler validationHandler;
     TextView invalidEventData;
     SharedPreferences sharedPref;
@@ -71,10 +71,10 @@ import org.joda.time.LocalDate;
         }
 
 
-        createEvent = (Button) findViewById(R.id.create_button);
+        saveEvent = (Button) findViewById(R.id.save_button);
         cancelEvent = (Button) findViewById(R.id.cancel_button);
         //process Data
-        createEvent.setOnClickListener(new View.OnClickListener() {
+        saveEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
