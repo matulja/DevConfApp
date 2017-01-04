@@ -52,7 +52,8 @@
     <string name="newEvent_label_date">Date:</string>
     <string name="warning_speechColliding">The times entered for this speech collide with another speech. Please check and change the starting/end time.</string>
     <string name="speech_endBeforeStartTime">Start time cannot be after end time. Please check.</string>
-    <string name="event_validationError">The date you entered is either in the past or there is already an event on that date. Please check.</string>
+    <string name="event_validationErrorDate">The date you entered is either in the past or there is already an event on that date. Please check.</string>
     <string name="info_noSpeech">There are no speeches at this moment. For adding speeches click on \'+\'.</string>
+    <string name="event_validationErrorInput">Fields cannot be empty!</string>
 
 </resources>

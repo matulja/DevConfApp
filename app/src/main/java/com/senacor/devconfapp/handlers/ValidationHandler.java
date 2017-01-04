@@ -22,7 +22,7 @@ public class ValidationHandler {
     }
 
     public boolean isNotInFuture(LocalDate date) {
-        return !date.isBefore(LocalDate.now());
+        return date.isBefore(LocalDate.now());
     }
 
     public boolean isNotFilled(String input) {

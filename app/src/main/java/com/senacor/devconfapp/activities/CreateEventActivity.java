@@ -33,7 +33,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText eventName, eventPlace;
     Button saveEvent, cancelEvent;
     ValidationHandler validationHandler;
-    TextView invalidEventData;
+    TextView invalidEventData, invalidEventInput;
     SharedPreferences sharedPref;
     private String eventId;
 
@@ -50,8 +50,8 @@ public class CreateEventActivity extends AppCompatActivity {
         eventName = (EditText) findViewById(R.id.event_name);
         eventPlace = (EditText) findViewById(R.id.event_place);
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
-        invalidEventData = (TextView) findViewById(R.id.event_validationError);
-
+        invalidEventData = (TextView) findViewById(R.id.event_validationErrorDate);
+        invalidEventInput =(TextView) findViewById(R.id.event_validationErrorInput);
         final Bundle info = getIntent().getExtras();
 
         if (info != null) {
@@ -70,7 +70,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 invalidEventData.setVisibility(View.VISIBLE);
             }
             if(info.getBoolean("validationErrorInput")){
-
+                invalidEventInput.setVisibility(View.VISIBLE);
             }
         }
 
@@ -97,13 +97,14 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
-                    startActivity(intent);
                     if (validationHandler.isNotInFuture(eventDate)) {
                         intent.putExtra("validationErrorDate", true);
                     }
                     if (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)) {
                         intent.putExtra("validationErrorInput", true);
                     }
+                    startActivity(intent);
+                    finish();
                 }else{
                     RequestParams params = new RequestParams();
                     params.put("name", name);
