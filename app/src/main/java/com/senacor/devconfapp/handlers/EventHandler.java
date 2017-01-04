@@ -312,7 +312,8 @@ public class EventHandler{
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.i("Information", "in editEventHandler");
-                getEventList();
+                Intent intent = new Intent(activity,EventListActivity.class);
+                activity.startActivity(intent);
             }
 
             @Override
@@ -321,6 +322,25 @@ public class EventHandler{
                 Log.d("Failed: ", "could not edit event");
                 Log.d("Failed: ", "" + statusCode);
                 Log.d("Error : ", "" + throwable);
+                if (statusCode == 401) {
+                    Intent intent = new Intent(activity, LoginActivity.class);
+                    activity.startActivity(intent);
+                    Context context = (Context)activity;
+                    CharSequence text = "Your session has expired, please log in again.";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+                if (statusCode == 409) {
+                    event = new Event(errorResponse);
+                    Intent intent = new Intent(activity, CreateEventActivity.class);
+                    intent.putExtra("eventId",event.getEventId());
+                    intent.putExtra("name", event.getName());
+                    intent.putExtra("place", event.getPlace());
+                    intent.putExtra("date", event.getDate().toString());
+                    intent.putExtra("validationError", true);
+                    activity.startActivity(intent);
+                }
             }
         });
     }

@@ -31,7 +31,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EventHandler eventHandler;
     DatePicker eventDatePicker;
     EditText eventName, eventPlace;
-    Button createEvent, cancelEvent;
+    Button saveEvent, cancelEvent;
     ValidationHandler validationHandler;
     TextView invalidEventData;
     SharedPreferences sharedPref;
@@ -72,13 +72,10 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
 
-        createEvent = (Button) findViewById(R.id.create_button);
+        saveEvent = (Button) findViewById(R.id.save_button);
         cancelEvent = (Button) findViewById(R.id.cancel_button);
-
-        createEvent.setClickable(true);
-        cancelEvent.setClickable(true);
         //process Data
-        createEvent.setOnClickListener(new View.OnClickListener() {
+        saveEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -90,18 +87,22 @@ public class CreateEventActivity extends AppCompatActivity {
                 int year = eventDatePicker.getYear();
 
                 LocalDate eventDate = new LocalDate(year, month, day);
-                if (validationHandler.isInFuture(eventDate)) {
+                if (validationHandler.isInFuture(eventDate) && validationHandler.isFilled(name) &&
+                        validationHandler.isFilled(place)) {
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
                     if (info != null) {
-                        if (info.getString("eventId") != null) {
-                            params.put("eventId", eventId);
-                            String url = IPAddress.IPevent + eventId;
-                            eventHandler.editEvent(url, params);
-                        }
-                    } else {
+                    if (info.getString("eventId") != null) {
+                        params.put("eventId", eventId);
+                        String url = IPAddress.IPevent +"/"+ eventId;
+                        System.out.println(url);
+                        eventHandler.editEvent(url, params);
+                    }
+                    }
+
+                    else{
                         eventHandler.addEvent(params);
                     }
                 } else {
@@ -110,22 +111,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationError", true);
-                    /*{
-                        RequestParams params = new RequestParams();
-                        params.put("name", name);
-                        params.put("place", place);
-                        params.put("date", eventDate);
-                        if (info != null) {
-                            if (info.getString("eventId") != null) {
-                                params.put("eventId", eventId);
-                                String url = IPAddress.IPevent + eventId;
-                              //  eventHandler.editEvent(url, params);
-                            }
-                        } else {
-                           // eventHandler.addEvent(params);
-                        }
-                    }*/
-                    getBaseContext().startActivity(intent);
+                    startActivity(intent);
 
                 }
 
@@ -145,7 +131,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
 
             case R.id.list_all_events:
                 Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);

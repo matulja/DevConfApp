@@ -99,10 +99,10 @@ public class Event{
         return getDate().toString( fmt );
     }
 
-   /* public String extractAndSaveEventId() {
+   public String extractAndSaveEventId() {
         String[] urlElements = this.url.split("/");
         this.eventId = urlElements[urlElements.length - 1];
         return this.eventId;
-    }*/
+    }
 
 }

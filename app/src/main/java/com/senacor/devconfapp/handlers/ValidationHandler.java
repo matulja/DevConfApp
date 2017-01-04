@@ -25,4 +25,8 @@ public class ValidationHandler {
         return !date.isBefore(LocalDate.now());
     }
 
+    public boolean isFilled(String input){
+    return !input.isEmpty();
+}
+
 }
