@@ -1,13 +1,13 @@
 package com.senacor.devconfapp.listeners;
 
 import android.app.Activity;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
@@ -44,8 +44,43 @@ public class AttendanceClickListener implements View.OnClickListener {
         if (v.getId() == R.id.joinButton) {
 
             clickedButton = (Button) v;
+            //Opens Toast text with info about conference registration
+            if (clickedButton.getText().equals("Join")){
+                Context context = (Context)activity;
+                CharSequence text = "You successfully registered for the conference.";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+            else{
+                Context context = (Context)activity;
+                CharSequence text = "You successfully unregistered for the conference.";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+            String url = EventActivity.URL + "/attendees/" + sharedPref.getString("userId", "userId");
+            AsynchRestClient.put(clickedButton.getContext(), url, null, new JsonHttpResponseHandler(){
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    System.out.println("putting attendance successful");
+                    String url = EventActivity.URL + "/attendees/" + sharedPref.getString("userId", "userId");
+                    attendanceHandler = new AttendanceHandler(activity);
+                    attendanceHandler.setAttendanceButton(url);
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d("Failed: ", "" + statusCode);
+                    Log.d("Error : ", "" + throwable);
+                    System.out.println("putting attendance not successful");
+                }
+            });
+
             //Opens dialog when Button "Join" get clicked to register/unregister for the conference
-            AlertDialog.Builder builder = new AlertDialog.Builder(clickedButton.getContext());
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(clickedButton.getContext());
             builder.setTitle("Conference Registration");
             if(clickedButton.getText().equals("Join")){
                 builder.setMessage("You successfully registered for the conference.");
@@ -82,7 +117,7 @@ public class AttendanceClickListener implements View.OnClickListener {
                         }
                     });
             builder.create()
-                    .show();
+                    .show();*/
         }
     }
 }
