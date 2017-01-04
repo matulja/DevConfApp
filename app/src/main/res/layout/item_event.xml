@@ -43,7 +43,7 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:src="@drawable/ic_editspeechbutton_circle_green_24dp"
+        android:src="@drawable/ic_mode_edit_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_date"
