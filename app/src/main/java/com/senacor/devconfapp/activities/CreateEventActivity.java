@@ -26,7 +26,7 @@ import org.joda.time.LocalDate;
  * Created by Marynasuprun on 12.12.2016.
  */
 
-    public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity {
 
     EventHandler eventHandler;
     DatePicker eventDatePicker;
@@ -37,8 +37,10 @@ import org.joda.time.LocalDate;
     SharedPreferences sharedPref;
     private String eventId;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -53,7 +55,7 @@ import org.joda.time.LocalDate;
         final Bundle info = getIntent().getExtras();
 
         if (info != null) {
-           if (info.getString("eventId") !=null){
+            if (info.getString("eventId") != null) {
                 eventId = info.getString("eventId");
             }
             eventName.setText(info.getString("name"));
@@ -63,8 +65,8 @@ import org.joda.time.LocalDate;
             int month = date.getMonthOfYear();
             int day = date.getDayOfMonth();
 
-            eventDatePicker.updateDate(year, (month-1), day);
-
+            eventDatePicker.updateDate(year, (month - 1), day);
+            System.out.println("Validation error flag ist set = " + info.getBoolean("validationError"));
             if (info.getBoolean("validationError")) {
                 invalidEventData.setVisibility(View.VISIBLE);
             }
@@ -86,32 +88,31 @@ import org.joda.time.LocalDate;
                 int year = eventDatePicker.getYear();
 
                 LocalDate eventDate = new LocalDate(year, month, day);
-                if (validationHandler.isInFuture(eventDate) && validationHandler.isFilled(name) &&
-                        validationHandler.isFilled(place)) {
+                if (validationHandler.isInFuture(eventDate)) {
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
                     if (info != null) {
-                    if (info.getString("eventId") != null) {
-                        params.put("eventId", eventId);
-                        String url = IPAddress.IPevent +"/"+ eventId;
-                        System.out.println(url);
-                        eventHandler.editEvent(url, params);
-                    }
-                    }
+                        if (info.getString("eventId") != null) {
+                            params.put("eventId", eventId);
+                            String url = IPAddress.IPevent + "/" + eventId;
+                            System.out.println(url);
+                            eventHandler.editEvent(url, params);
+                        } else{
+                            eventHandler.addEvent(params);
+                        }
 
-                    else{
+                    } else {
                         eventHandler.addEvent(params);
                     }
-                } else{
-                    Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+                } else {
+                    Intent intent = new Intent(CreateEventActivity.this, CreateEventActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationError", true);
                     startActivity(intent);
-
                 }
 
 
@@ -128,10 +129,9 @@ import org.joda.time.LocalDate;
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.list_all_events:
                 Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);
@@ -141,7 +141,7 @@ import org.joda.time.LocalDate;
             case R.id.action_log_out:
                 LogInOutHandler logInOutHandler = new LogInOutHandler(this);
                 RequestParams params = new RequestParams();
-                params.put("tokenId",sharedPref.getString("tokenId", "tokenId"));
+                params.put("tokenId", sharedPref.getString("tokenId", "tokenId"));
                 params.put("role", sharedPref.getString("role", "role"));
                 params.put("userId", sharedPref.getString("userId", "userId"));
                 logInOutHandler.logout(params);
