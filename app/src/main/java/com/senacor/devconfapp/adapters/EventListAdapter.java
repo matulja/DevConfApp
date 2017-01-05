@@ -2,7 +2,9 @@ package com.senacor.devconfapp.adapters;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.CreateEventActivity;
+import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.models.Event;
 
@@ -77,8 +80,30 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
             @Override
             public void onClick(View v) {
-                System.out.println("Delete Event " + event.getUrl());
-                eventHandler.deleteEvent(event.getUrl());
+
+                //Alert Dialog
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                System.out.println("Delete Event " + event.getUrl());
+                                eventHandler.deleteEvent(event.getUrl());
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                System.out.println("Event is not deleted" );
+                                dialog.cancel();
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setMessage("Do you want delete this event?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener)
+                        .show();
             }
         });
 
