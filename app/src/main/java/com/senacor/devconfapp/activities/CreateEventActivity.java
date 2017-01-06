@@ -97,12 +97,8 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
-                    if (validationHandler.isNotInFuture(eventDate)) {
-                        intent.putExtra("validationErrorDate", true);
-                    }
-                    if (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)) {
-                        intent.putExtra("validationErrorInput", true);
-                    }
+                    intent.putExtra("validationErrorDate", validationHandler.isNotInFuture(eventDate));
+                    intent.putExtra("validationErrorInput", (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)));
                     startActivity(intent);
                     finish();
                 }else{
