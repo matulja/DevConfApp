@@ -154,6 +154,10 @@ public class SpeechDialog extends DialogFragment {
                         int endMin = tpEndTime.getMinute();
                         final LocalTime endTime = new LocalTime(endHour, endMin);
 
+                       /* Versuch umsetzung leere Felder abfangen
+                       if (validationHandler.isNotFilled(speechTitle) || validationHandler.isNotFilled(speechSpeaker) || validationHandler.isNotFilled(room)) {
+
+                        }*/
                         //check if times were entered in correct order (starttime < endtime)
                         if (validationHandler.isInRightOrder(startTime, endTime)) {
                             System.out.println("times are in right order");

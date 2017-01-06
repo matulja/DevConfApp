@@ -113,6 +113,16 @@
                     android:textStyle="bold"
                     android:visibility="gone"
                     android:layout_marginTop="20dp"/>
+                <TextView
+                    android:id="@+id/warning_NoInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/warning_NoInput"
+                    android:textColor="@color/senacorRed"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"/>
+
 
                 <LinearLayout
                 android:layout_width="wrap_content"
