@@ -338,7 +338,7 @@ public class EventHandler{
                     intent.putExtra("name", event.getName());
                     intent.putExtra("place", event.getPlace());
                     intent.putExtra("date", event.getDate().toString());
-                    intent.putExtra("validationError", true);
+                    intent.putExtra("validationErrorDate", true);
                     activity.startActivity(intent);
                 }
             }

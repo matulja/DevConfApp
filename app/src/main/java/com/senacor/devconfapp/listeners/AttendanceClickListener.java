@@ -45,6 +45,7 @@ public class AttendanceClickListener implements View.OnClickListener {
 
             clickedButton = (Button) v;
             //Opens Toast text with info about conference registration
+            // TODO put this if-/else-part in attendancehandler onSuccess to make sure it is only shown when attendance was successfully registered!
             if (clickedButton.getText().equals("Join")){
                 Context context = (Context)activity;
                 CharSequence text = "You successfully registered for the conference.";
@@ -78,46 +79,6 @@ public class AttendanceClickListener implements View.OnClickListener {
                     System.out.println("putting attendance not successful");
                 }
             });
-
-            //Opens dialog when Button "Join" get clicked to register/unregister for the conference
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(clickedButton.getContext());
-            builder.setTitle("Conference Registration");
-            if(clickedButton.getText().equals("Join")){
-                builder.setMessage("You successfully registered for the conference.");
-            }else{
-                builder.setMessage("You successfully unregistered for the conference.");
-            }
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                public void onClick(final DialogInterface dialog, int id) {
-                    String url = EventActivity.URL + "/attendees/" + sharedPref.getString("userId", "userId");
-                    AsynchRestClient.put(clickedButton.getContext(), url, null, new JsonHttpResponseHandler(){
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            System.out.println("putting attendance successful");
-                            String url = EventActivity.URL + "/attendees/" + sharedPref.getString("userId", "userId");
-                            attendanceHandler = new AttendanceHandler(activity);
-                            attendanceHandler.setAttendanceButton(url);
-
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            Log.d("Failed: ", "" + statusCode);
-                            Log.d("Error : ", "" + throwable);
-                            System.out.println("putting attendance not successful");
-                        }
-                    });
-
-                }})
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            builder.create()
-                    .show();*/
         }
     }
 }
