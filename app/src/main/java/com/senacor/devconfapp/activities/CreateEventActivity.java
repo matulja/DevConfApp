@@ -36,6 +36,8 @@ public class CreateEventActivity extends AppCompatActivity {
     TextView invalidEventData, invalidEventInput;
     SharedPreferences sharedPref;
     private String eventId;
+    boolean editing = false;
+    boolean needsValidation = false;
 
 
     @Override
@@ -51,12 +53,14 @@ public class CreateEventActivity extends AppCompatActivity {
         eventPlace = (EditText) findViewById(R.id.event_place);
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
         invalidEventData = (TextView) findViewById(R.id.event_validationErrorDate);
-        invalidEventInput =(TextView) findViewById(R.id.event_validationErrorInput);
+        invalidEventInput = (TextView) findViewById(R.id.event_validationErrorInput);
         final Bundle info = getIntent().getExtras();
 
         if (info != null) {
+            needsValidation = true;
             if (info.getString("eventId") != null) {
                 eventId = info.getString("eventId");
+                editing = true;
             }
             eventName.setText(info.getString("name"));
             eventPlace.setText(info.getString("place"));
@@ -69,7 +73,7 @@ public class CreateEventActivity extends AppCompatActivity {
             if (info.getBoolean("validationErrorDate")) {
                 invalidEventData.setVisibility(View.VISIBLE);
             }
-            if(info.getBoolean("validationErrorInput")){
+            if (info.getBoolean("validationErrorInput")) {
                 invalidEventInput.setVisibility(View.VISIBLE);
             }
         }
@@ -99,23 +103,21 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("date", eventDate.toString());
                     intent.putExtra("validationErrorDate", validationHandler.isNotInFuture(eventDate));
                     intent.putExtra("validationErrorInput", (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)));
+                    if (editing) {
+                        intent.putExtra("eventId", eventId);
+                    }
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     RequestParams params = new RequestParams();
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
-                    if (info != null) {
-                        if (info.getString("eventId") != null) {
-                            params.put("eventId", eventId);
-                            String url = IPAddress.IPevent + "/" + eventId;
-                            System.out.println(url);
-                            eventHandler.editEvent(url, params);
-                        } else{
-                            eventHandler.addEvent(params);
-                        }
-
+                    if (editing) {
+                        params.put("eventId", eventId);
+                        String url = IPAddress.IPevent + "/" + eventId;
+                        System.out.println(url);
+                        eventHandler.editEvent(url, params);
                     } else {
                         eventHandler.addEvent(params);
                     }
