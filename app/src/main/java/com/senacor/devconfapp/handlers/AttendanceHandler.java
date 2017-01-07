@@ -1,8 +1,10 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.R;
@@ -39,8 +41,18 @@ public class AttendanceHandler {
                         try {
                             if (response.getBoolean("isAttending")) {
                                 joinButton.setText("Joined");
+                                Context context = (Context)activity;
+                                CharSequence text = "You are registered for this conference.";
+                                int duration = Toast.LENGTH_LONG;
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
                             } else {
                                 joinButton.setText("Join");
+                                Context context = (Context)activity;
+                                CharSequence text = "You are not registered for this conference.";
+                                int duration = Toast.LENGTH_LONG;
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
