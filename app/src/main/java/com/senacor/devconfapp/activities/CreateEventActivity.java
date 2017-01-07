@@ -33,7 +33,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText eventName, eventPlace;
     Button saveEvent, cancelEvent;
     ValidationHandler validationHandler;
-    TextView invalidEventData, invalidEventInput;
+    TextView invalidEventData, invalidEventInput, createEventHeadline;
     SharedPreferences sharedPref;
     private String eventId;
     boolean editing = false;
@@ -54,12 +54,14 @@ public class CreateEventActivity extends AppCompatActivity {
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
         invalidEventData = (TextView) findViewById(R.id.event_validationErrorDate);
         invalidEventInput = (TextView) findViewById(R.id.event_validationErrorInput);
+        createEventHeadline = (TextView) findViewById(R.id.createEventHeadline);
         final Bundle info = getIntent().getExtras();
 
         if (info != null) {
             needsValidation = true;
             if (info.getString("eventId") != null) {
                 eventId = info.getString("eventId");
+                createEventHeadline.setText("Edit Event");
                 editing = true;
             }
             eventName.setText(info.getString("name"));
