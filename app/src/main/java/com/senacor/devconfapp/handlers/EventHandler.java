@@ -18,10 +18,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.activities.CreateEventActivity;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
-import com.senacor.devconfapp.activities.LoginActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -41,7 +39,7 @@ import static android.view.View.VISIBLE;
  * Created by saba on 13.12.16.
  */
 
-public class EventHandler{
+public class EventHandler {
 
     private Event event;
     private Activity activity;
@@ -80,17 +78,8 @@ public class EventHandler{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Failed: ", "" + statusCode);
-                Log.d("Error : ", "" + throwable);
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
+                errorWithoutJson(statusCode);
 
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText((Context)activity, text, duration);
-                    toast.show();
-                }
             }
         });
     }
@@ -136,15 +125,7 @@ public class EventHandler{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
-                    Context context = (Context)activity;
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
+                errorWithoutJson(statusCode);
             }
 
 
@@ -179,7 +160,6 @@ public class EventHandler{
                                     e.printStackTrace();
                                 }
                             }
-
                             eventList.setAdapter(eventListAdapter);
                             eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
@@ -196,42 +176,19 @@ public class EventHandler{
                         }
                     }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("Failed: ", " cannot get all events ");
-                        Log.d("Failed: ", "" + statusCode);
-                        Log.d("Error : ", "" + throwable);
-
-                        if (statusCode == 401) {
-                            Intent intent = new Intent(activity, LoginActivity.class);
-                            activity.startActivity(intent);
-                            Context context = (Context)activity;
-                            CharSequence text = "Your session has expired, please log in again.";
-                            int duration = Toast.LENGTH_LONG;
-                            Toast toast = Toast.makeText(context, text, duration);
-                            toast.show();
-                        }
-                    }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        if (statusCode == 401) {
-                            Intent intent = new Intent(activity, LoginActivity.class);
-                            activity.startActivity(intent);
-                            Context context = (Context)activity;
-                            CharSequence text = "Your session has expired, please log in again.";
-                            int duration = Toast.LENGTH_LONG;
-                            Toast toast = Toast.makeText(context, text, duration);
-                            toast.show();
-                        }
+                        errorWithoutJson(statusCode);
                     }
                 });
+
+
     }
 
     public void addEvent(RequestParams params) {
         AsynchRestClient.post(activity, IPAddress.IPevent + "/createEvent", params, new JsonHttpResponseHandler() {
 
-            //returns the id of the created event
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i("Information", "in speechhandler add speech method");
@@ -239,7 +196,7 @@ public class EventHandler{
                 event = new Event(response);
                 if (event != null) {
                     Intent intent = new Intent(activity, EventActivity.class);
-                    intent.putExtra("url",event.getUrl());
+                    intent.putExtra("url", event.getUrl());
                     activity.startActivity(intent);
                 }
 
@@ -247,37 +204,19 @@ public class EventHandler{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (statusCode == 409) {
-                    event = new Event(errorResponse);
-                    Intent intent = new Intent(activity, CreateEventActivity.class);
-                    intent.putExtra("name", event.getName());
-                    intent.putExtra("place", event.getPlace());
-                    intent.putExtra("date", event.getDate().toString());
-                    intent.putExtra("validationError", true);
-                    activity.startActivity(intent);
-                }
+                errorWithJson(statusCode, errorResponse);
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
-                    Context context = (Context)activity;
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
+                errorWithoutJson(statusCode);
             }
 
         });
-
-
     }
 
-      public void deleteEvent (final String url) {
-
-        AsynchRestClient.delete(activity, url, new JsonHttpResponseHandler(){
+    public void deleteEvent(final String url) {
+        AsynchRestClient.delete(activity, url, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -290,60 +229,66 @@ public class EventHandler{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e("Error", String.valueOf(throwable));
-                Log.e("Information", responseString);
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
-                    Context context = (Context)activity;
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
+                errorWithoutJson(statusCode);
             }
         });
     }
 
-    public void editEvent(String url, RequestParams params){
-        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler(){
+    public void editEvent(String url, RequestParams params) {
+        AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.i("Information", "in editEventHandler");
-                Intent intent = new Intent(activity,EventListActivity.class);
+                Intent intent = new Intent(activity, EventListActivity.class);
                 activity.startActivity(intent);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Log.d("Failed: ", "could not edit event");
-                Log.d("Failed: ", "" + statusCode);
-                Log.d("Error : ", "" + throwable);
-                if (statusCode == 401) {
-                    Intent intent = new Intent(activity, LoginActivity.class);
-                    activity.startActivity(intent);
-                    Context context = (Context)activity;
-                    CharSequence text = "Your session has expired, please log in again.";
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-                if (statusCode == 409) {
-                    event = new Event(errorResponse);
-                    Intent intent = new Intent(activity, CreateEventActivity.class);
-                    intent.putExtra("eventId",event.getEventId());
-                    intent.putExtra("name", event.getName());
-                    intent.putExtra("place", event.getPlace());
-                    intent.putExtra("date", event.getDate().toString());
-                    intent.putExtra("validationErrorDate", true);
-                    activity.startActivity(intent);
-                }
+                errorWithJson(statusCode, errorResponse);
             }
         });
     }
 
+    private void errorWithoutJson(int statusCode) {
+        switch (statusCode) {
+            case 401:
+                ErrorHandler.handleUnauthorizedError(activity);
+                break;
+            default:
+                CharSequence text = "Sorry, your request could not be handled. Please try again.";
+                int duration = Toast.LENGTH_LONG;
+                Context context = (Context) activity;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                activity.finish();
+                break;
+        }
+
+    }
+
+    private void errorWithJson(int statusCode, JSONObject errorResponse) {
+        switch (statusCode) {
+            case 401:
+                ErrorHandler.handleUnauthorizedError(activity);
+                break;
+            case 409:
+                Event event = new Event(errorResponse);
+                ErrorHandler.handleConflictError(event, activity);
+                break;
+            default:
+                CharSequence text = "Sorry, your request could not be handled. Please try again.";
+                int duration = Toast.LENGTH_LONG;
+                Context context = (Context) activity;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                activity.finish();
+                break;
+        }
+    }
 
 }
+
+
+

@@ -21,20 +21,22 @@ import cz.msebera.android.httpclient.Header;
 public class AttendanceHandler {
 
     private Activity activity;
+    Button joinButton;
 
     public AttendanceHandler(Activity activity) {
         this.activity = activity;
     }
 
-    public void setAttendanceButton (String attendanceUrl) {
+    public void setAttendanceButton (final String attendanceUrl) {
+        joinButton = (Button) activity.findViewById(R.id.joinButton);
+        joinButton.setOnClickListener(new AttendanceClickListener(activity));
+
         AsynchRestClient.get(activity, attendanceUrl,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
-                            Button joinButton = (Button) activity.findViewById(R.id.joinButton);
-                            joinButton.setOnClickListener(new AttendanceClickListener(activity));
                             if (response.getBoolean("isAttending")) {
                                 joinButton.setText("Joined");
                             } else {
@@ -49,9 +51,8 @@ public class AttendanceHandler {
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         Log.d("Failed: ", "" + statusCode);
                         Log.d("Error : ", "" + throwable);
+                        joinButton.setText("Error, please reload.");
                     }
-
-
                 });
     }
 
