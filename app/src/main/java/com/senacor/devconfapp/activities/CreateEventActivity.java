@@ -132,7 +132,7 @@ public class CreateEventActivity extends AppCompatActivity {
         cancelEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventHandler.getCurrentEvent();
+                finish();
                 System.out.println("Cancel Button is pressed");
             }
         });

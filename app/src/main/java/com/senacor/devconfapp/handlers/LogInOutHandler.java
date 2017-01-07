@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -74,9 +73,6 @@ public class LogInOutHandler {
                         .setNegativeButton("Retry", null)
                         .create()
                         .show();
-                System.out.println(statusCode + " ");
-                System.out.println(throwable.toString());
-                System.out.println("Unexpected Error");
 
             }
 
@@ -103,9 +99,6 @@ public class LogInOutHandler {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                System.out.println("post logout on success");
-
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.clear();
                 editor.commit();
@@ -114,7 +107,7 @@ public class LogInOutHandler {
                 activity.startActivity(intent3);
 
                 CharSequence text = "You logged out successfully. Goodbye! ";
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText((Context)activity, text, duration);
                 toast.show();
 
@@ -123,10 +116,11 @@ public class LogInOutHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.i("Information", "in logout method");
-                //Log.e("Error", responseString);
-                Log.i("Information", throwable.getMessage());
-                System.out.println(responseString);
+                CharSequence text = "Logout failed. Please try again.";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText((Context)activity, text, duration);
+                toast.show();
+                activity.finish();
             }
         });
 
