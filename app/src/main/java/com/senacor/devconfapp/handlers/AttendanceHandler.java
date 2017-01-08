@@ -3,6 +3,7 @@ package com.senacor.devconfapp.handlers;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class AttendanceHandler {
 
     public void setAttendanceButton (final String attendanceUrl) {
         joinButton = (Button) activity.findViewById(R.id.joinButton);
+        joinButton.setVisibility(View.VISIBLE);
         joinButton.setOnClickListener(new AttendanceClickListener(activity));
 
         AsynchRestClient.get(activity, attendanceUrl,

@@ -67,7 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lineDevCon"
         android:layout_alignEnd="@+id/event_name"
-        android:layout_alignRight="@+id/event_name"/>
+        android:layout_alignRight="@+id/event_name"
+        android:visibility="invisible"/>
 
     <!-- Agenda-->
     <TextView

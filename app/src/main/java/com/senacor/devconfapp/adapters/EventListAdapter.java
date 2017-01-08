@@ -17,9 +17,10 @@ import android.widget.TextView;
 
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.CreateEventActivity;
-import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.models.Event;
+
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 //import org.joda.time.LocalDate;
@@ -74,7 +75,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         viewHolder.date.setText(event.dateToString());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final String role = sharedPref.getString("role", "role");
-        if (role.equals("ADMIN")){
+        if (role.equals("ADMIN") && !(event.getDate().isBefore(LocalDate.now()))){
             viewHolder.deleteEventButton.setVisibility(View.VISIBLE);
             viewHolder.deleteEventButton.setOnClickListener(new View.OnClickListener(){
 

@@ -83,7 +83,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final String role = sharedPref.getString("role", "role");
-        if (role.equals("ADMIN")) {
+        final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
+        if (role.equals("ADMIN") && isInFuture) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
 

@@ -10,10 +10,8 @@ import android.view.MenuItem;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
-import com.senacor.devconfapp.handlers.AttendanceHandler;
 import com.senacor.devconfapp.handlers.EventHandler;
 import com.senacor.devconfapp.handlers.LogInOutHandler;
-import com.senacor.devconfapp.handlers.SpeechHandler;
 
 import static com.senacor.devconfapp.R.layout.event;
 
@@ -24,9 +22,6 @@ public class EventActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     public static String URL;
     EventHandler eventHandler = new EventHandler(EventActivity.this);
-    public SpeechHandler speechHandler = new SpeechHandler(EventActivity.this);
-    AttendanceHandler attendanceHandler = new AttendanceHandler(EventActivity.this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +29,7 @@ public class EventActivity extends AppCompatActivity {
         setContentView(event);
         URL = getIntent().getExtras().getString("url");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
         eventHandler.getEvent(URL);
-        speechHandler.getSpeeches(URL + "/speeches");
-        attendanceHandler.setAttendanceButton(URL + "/attendees/" + sharedPref.getString("userId", "userId"));
-
     }
 
 

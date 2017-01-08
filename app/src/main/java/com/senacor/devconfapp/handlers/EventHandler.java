@@ -25,6 +25,7 @@ import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Event;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 import static android.view.View.VISIBLE;
+import static com.senacor.devconfapp.activities.EventActivity.URL;
 
 /**
  * Created by saba on 13.12.16.
@@ -47,6 +49,9 @@ public class EventHandler {
     ListView eventList;
     TextView noEvents;
     public static boolean eventsPresent = true;
+    AttendanceHandler attendanceHandler;
+    SpeechHandler speechHandler;
+
 
     public EventHandler(Activity activity) {
         this.activity = activity;
@@ -93,6 +98,8 @@ public class EventHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
+                attendanceHandler = new AttendanceHandler(activity);
+                speechHandler = new SpeechHandler(activity);
 
                 event = new Event(jsonObject);
                 System.out.println("eventhandler on success " + event.getName());
@@ -104,22 +111,32 @@ public class EventHandler {
 
                 TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
                 eventDate.setText(event.dateToString());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("isInFuture", !(event.getDate().isBefore(LocalDate.now())));
+                editor.commit();
 
+                speechHandler.getSpeeches(URL + "/speeches");
                 ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
 
+                if (sharedPref.getBoolean("isInFuture", true)) {
 
-                if (sharedPref.getString("role", "role").equals("ADMIN")) {
-                    addSpeechButton.setVisibility(VISIBLE);
-                    addSpeechButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
-                            speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+                    attendanceHandler.setAttendanceButton(URL + "/attendees/" + sharedPref.getString("userId", "userId"));
 
-                        }
-                    });
+                    if (sharedPref.getString("role", "role").equals("ADMIN")) {
+                        addSpeechButton.setVisibility(VISIBLE);
+                        addSpeechButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
+                                speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+
+                            }
+                        });
+
+                    }
+
+
                 }
-
 
             }
 
