@@ -31,7 +31,7 @@ public class SpeechDialog extends DialogFragment {
 
     SpeechHandler speechHandler;
     ValidationHandler validationHandler;
-    TextView headline, labelStartTime, labelEndTime, tvSpeechId, tvSpeechColliding, tvStartEndTime;
+    TextView headline, labelStartTime, labelEndTime, tvSpeechId, tvSpeechColliding, tvStartEndTime, tvwarning_NoInput;
     EditText etSpeechTitle, etSpeaker, etRoom;
     TimePicker tpStartTime, tpEndTime;
     boolean editing = false;
@@ -83,6 +83,7 @@ public class SpeechDialog extends DialogFragment {
         labelEndTime = (TextView) view.findViewById(R.id.label_endTime);
         tvSpeechColliding = (TextView) view.findViewById(R.id.warning_speechValidation);
         tvStartEndTime = (TextView) view.findViewById(R.id.warning_startEndTime);
+        tvwarning_NoInput=(TextView)view.findViewById(R.id.warning_NoInput);
 
 
         etSpeechTitle = (EditText) view.findViewById(R.id.addSpeechTitle);
@@ -154,10 +155,18 @@ public class SpeechDialog extends DialogFragment {
                         int endMin = tpEndTime.getMinute();
                         final LocalTime endTime = new LocalTime(endHour, endMin);
 
-                       /* Versuch umsetzung leere Felder abfangen
+                       //check if fields are empty
                        if (validationHandler.isNotFilled(speechTitle) || validationHandler.isNotFilled(speechSpeaker) || validationHandler.isNotFilled(room)) {
+                           System.out.println("fields are empty");
+                           RequestParams params = new RequestParams();
+                           params.put("speechTitle", speechTitle);
+                           params.put("speechRoom", room);
+                           params.put("speaker", speechSpeaker);
+                           params.put("startTime", startTime);
+                           params.put("endTime", endTime);
+                           params.put("warning_NoInput", validationHandler.isNotFilled(speechTitle)||validationHandler.isNotFilled(speechSpeaker)||validationHandler.isNotFilled(room));
 
-                        }*/
+                        }
                         //check if times were entered in correct order (starttime < endtime)
                         if (validationHandler.isInRightOrder(startTime, endTime)) {
                             System.out.println("times are in right order");
