@@ -68,34 +68,33 @@
         android:layout_marginTop="11dp" />
 
     <ImageView
-        android:src="@drawable/ic_remove_circle_black_24dp"
+        android:src="@drawable/ic_mode_edit_green_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/speechRoom"
-        android:layout_alignLeft="@+id/speechRoom"
-        android:layout_alignStart="@+id/speechRoom"
-        android:layout_marginTop="11dp"
-        android:id="@+id/button_delete"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:src="@drawable/ic_editspeechbutton_circle_green_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speechRoom"
-        android:layout_toRightOf="@+id/button_delete"
-        android:layout_marginTop="11dp"
+        android:layout_alignTop="@+id/speechRoom"
+        android:layout_toLeftOf="@+id/button_delete"
         android:id="@+id/button_editSpeech"
         android:visibility="gone"
         android:adjustViewBounds="false" />
 
-    <!--ohne Inhalte, daher visibility: gone-->
+    <ImageView
+        android:src="@drawable/ic_clear_x_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/speechRoom"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:id="@+id/button_delete"
+        android:visibility="gone"/>
+
+
     <TextView
         android:id="@+id/speakerInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/speakerName"
         android:visibility="gone"/>
+
     <TextView
         android:id="@+id/speechSummary"
         android:layout_width="wrap_content"

@@ -18,6 +18,16 @@
         android:layout_weight="1"
         android:textSize="20sp"/>
 
+    <ImageView
+        android:id="@+id/create_new_event"
+        android:src="@drawable/ic_mode_edit_green_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible" />
+
     <!-- TextField für Event Id-->
     <TextView
         android:id="@+id/value_event_eventId"

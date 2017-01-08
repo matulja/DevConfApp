@@ -37,10 +37,25 @@
         android:layout_marginRight="5dp"
         android:textSize="24sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/event_date" />
 
-    <!-- folgende Linie zum Beginn der Seite hat keinerlei relationen-->
+
+    <ImageView
+        android:src="@drawable/ic_mode_edit_green_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignEnd="@+id/lineDevCon"
+        android:visibility="visible"
+        android:adjustViewBounds="false"
+        android:id="@+id/button_editEvent"/>
+    <!--
+        visibility auf gone setzen! -> sictbarkeit nur für admins
+        -->
+
+
     <View
         android:id="@+id/lineDevCon"
         android:layout_height="3dp"
@@ -49,16 +64,15 @@
         android:layout_below="@+id/event_name"
         android:layout_alignLeft="@+id/event_name"
         android:layout_alignStart="@+id/event_name"
-        android:layout_alignEnd="@+id/event_name"
-        android:layout_alignRight="@+id/event_name"/>
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/event_place"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@+id/lineDevCon"
-        android:layout_alignLeft="@+id/event_name"
-        android:layout_alignStart="@+id/event_name"
+        android:layout_alignLeft="@+id/lineDevCon"
+        android:layout_alignStart="@+id/lineDevCon"
         android:layout_toLeftOf="@+id/joinButton" />
 
     <Button
@@ -66,9 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lineDevCon"
-        android:layout_alignEnd="@+id/event_name"
-        android:layout_alignRight="@+id/event_name"
-        android:visibility="invisible"/>
+        android:layout_alignEnd="@+id/lineDevCon"
+        android:layout_alignRight="@+id/lineDevCon"
+        android:textColor="@color/senacorWhite"/>
 
     <!-- Agenda-->
     <TextView
@@ -107,6 +121,7 @@
         android:layout_alignParentRight="true"
         android:src="@android:drawable/ic_input_add"
         android:visibility="gone"/>
+
 
 </RelativeLayout>
 
