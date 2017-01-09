@@ -75,6 +75,26 @@
         android:layout_toLeftOf="@+id/joinButton"
         android:textColor="@color/senacorBlue"/>
 
+    <TextView
+        android:id="@+id/event_streetAndNumber"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/event_place"
+        android:layout_alignLeft="@+id/event_place"
+        android:layout_alignStart="@+id/event_place"
+        android:layout_toLeftOf="@+id/joinButton"
+        android:textColor="@color/senacorBlue"/>
+
+    <TextView
+        android:id="@+id/event_postalCodeAndCity"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/event_streetAndNumber"
+        android:layout_alignLeft="@+id/event_streetAndNumber"
+        android:layout_alignStart="@+id/event_streetAndNumber"
+        android:layout_toLeftOf="@+id/joinButton"
+        android:textColor="@color/senacorBlue"/>
+
     <Button
         android:id="@+id/joinButton"
         android:layout_width="65dp"
@@ -93,7 +113,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_below="@+id/joinButton"
+        android:layout_below="@+id/event_postalCodeAndCity"
         android:layout_alignLeft="@id/event_date"
         android:layout_alignStart="@id/event_date"/>
 
