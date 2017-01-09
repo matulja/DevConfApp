@@ -105,7 +105,8 @@
         android:layout_alignRight="@+id/lineDevCon"
         android:layout_marginTop="5dp"
         android:textColor="@color/senacorWhite"
-        android:background="@drawable/roundedbutton" />
+        android:background="@drawable/roundedbutton"
+        android:visibility="invisible"/>
 
     <!-- Agenda-->
     <TextView
