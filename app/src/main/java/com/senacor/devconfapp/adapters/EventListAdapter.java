@@ -40,8 +40,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         TextView date;
         TextView streetAndNumber;
         TextView postalCodeAndCity;
-        ImageView editEventButton;
-        ImageView deleteEventButton;
+        ImageView editEventButton, deleteEventButton;
     }
 
     public EventListAdapter(Context context, ArrayList<Event> events) {
