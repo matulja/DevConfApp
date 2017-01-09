@@ -38,8 +38,9 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         TextView name;
         TextView place;
         TextView date;
-        ImageView editEventButton;
-        ImageView deleteEventButton;
+        TextView streetAndNumber;
+        TextView postalCodeAndCity;
+        ImageView editEventButton, deleteEventButton;
     }
 
     public EventListAdapter(Context context, ArrayList<Event> events) {
@@ -61,6 +62,8 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
             //viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_eventId);
             viewHolder.name = (TextView) convertView.findViewById(R.id.value_event_name);
             viewHolder.place = (TextView) convertView.findViewById(R.id.value_event_place);
+            viewHolder.streetAndNumber = (TextView) convertView.findViewById(R.id.value_event_streetAndNumber);
+            viewHolder.postalCodeAndCity = (TextView) convertView.findViewById(R.id.value_event_postalCodeAndCity);
             viewHolder.date = (TextView) convertView.findViewById(R.id.value_event_date);
             viewHolder.editEventButton = (ImageView) convertView.findViewById(R.id.button_editEvent);
             viewHolder.deleteEventButton = (ImageView) convertView.findViewById(R.id.button_deleteEvent);
@@ -72,6 +75,8 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         //viewHolder.eventId.setText(event.getEventId());
         viewHolder.name.setText(event.getName());
         viewHolder.place.setText(event.getPlace());
+        viewHolder.streetAndNumber.setText(event.getStreetAndNumber());
+        viewHolder.postalCodeAndCity.setText(event.getPostalCodeAndCity());
         viewHolder.date.setText(event.dateToString());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final String role = sharedPref.getString("role", "role");
@@ -118,6 +123,8 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
                 intent.putExtra("name", event.getName());
                 intent.putExtra("place", event.getPlace());
                 intent.putExtra("date", event.getDate().toString());
+                intent.putExtra("streetAndNumber",event.getStreetAndNumber());
+                intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
                 intent.putExtra("eventId", event.getEventId());
                 activity.startActivity(intent);
             }

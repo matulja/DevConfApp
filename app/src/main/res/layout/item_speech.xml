@@ -7,17 +7,19 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/speechBackgroundLtBlue"
+    android:fadingEdge="horizontal">
     
     <!--Uhrzeit-->
     <TextView
         android:id="@+id/value_startTime"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-        android:layout_width="60dp"
+        android:layout_width="45dp"
         android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/value_endTime"
@@ -28,7 +30,9 @@
         android:layout_alignLeft="@+id/value_startTime"
         android:layout_alignStart="@+id/value_startTime"
         android:layout_alignRight="@+id/value_startTime"
-        android:layout_alignEnd="@+id/value_startTime"/>
+        android:layout_alignEnd="@+id/value_startTime"
+        android:lineSpacingExtra="5dp"
+        />
 
     <!-- Details zum Vortrag, initiale größe für die spalte festlegen-->
     <TextView
@@ -46,7 +50,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/value_startTime"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:lineSpacingExtra="5dp"/>
 
     <TextView
         android:id="@+id/speakerName"
@@ -56,24 +61,34 @@
         android:layout_alignStart="@+id/speechTitle"
         android:layout_alignEnd="@+id/speechTitle"
         android:layout_alignLeft="@+id/speechTitle"
-        android:layout_alignRight="@+id/speechTitle"/>
+        android:layout_alignRight="@+id/speechTitle"
+        android:layout_marginBottom="11dp"/>
 
     <TextView
-        android:id="@+id/speechRoom"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/speakerName"
         android:layout_alignLeft="@+id/speakerName"
         android:layout_alignStart="@+id/speakerName"
+        android:text="@string/speechLocation"
+        android:layout_marginRight="5dp"
+        android:id="@+id/stringLocation"/>
+
+    <TextView
+        android:id="@+id/speechLocation"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/speakerName"
+        android:layout_marginRight="35dp"
+        android:layout_toRightOf="@+id/stringLocation"
         android:layout_alignEnd="@+id/speakerName"
-        android:layout_alignRight="@+id/speakerName"
-        android:layout_marginTop="11dp" />
+        android:layout_alignRight="@+id/speakerName" />
 
     <ImageView
-        android:src="@drawable/ic_mode_edit_yellow_24dp"
+        android:src="@drawable/ic_mode_edit_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/speechRoom"
+        android:layout_alignTop="@+id/speechLocation"
         android:layout_toLeftOf="@+id/button_delete"
         android:id="@+id/button_editSpeech"
         android:visibility="gone"
@@ -83,7 +98,7 @@
         android:src="@drawable/ic_clear_x_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/speechRoom"
+        android:layout_alignTop="@+id/speechLocation"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:id="@+id/button_delete"

@@ -12,17 +12,6 @@
     android:weightSum="1">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/createEvent_title"
-        android:ems="10"
-        android:id="@+id/createEventHeadline"
-        android:textSize="20sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textAlignment="center"
-        android:selectAllOnFocus="false"
-        android:layout_weight="0.21" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,124 +19,161 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_weight="0.80">
+        android:paddingRight="20dp">
 
-        <android.support.design.widget.TextInputLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:text="@string/createEvent_title"
+            android:ems="10"
+            android:id="@+id/createEventHeadline"
+            android:textSize="20sp"
+            android:textColor="@color/senacorBlue"
+            android:textAlignment="center"
+            android:selectAllOnFocus="false"/>
 
-            <TextView
-                android:id="@+id/event_validationErrorDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/senacorRed"
-                android:textStyle="bold|italic"
-                android:text="@string/event_validationErrorDate"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/event_validationErrorInput"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/senacorRed"
-                android:textStyle="bold|italic"
-                android:text="@string/event_validationErrorInput"
-                android:visibility="gone" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrolbar1">
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/addEventNameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/event_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Event Name" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addEventPlaceLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/event_place"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Event Place" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/addEventDateLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/event_validationErrorDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/senacorRed"
+                    android:textStyle="bold|italic"
+                    android:text="@string/event_validationErrorDate"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/event_validationErrorInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/senacorRed"
+                    android:textStyle="bold|italic"
+                    android:text="@string/event_validationErrorInput"
+                    android:visibility="gone" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/addEventNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/event_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Event Name" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/addEventPlaceLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/newEvent_label_date" />
+                    android:layout_marginTop="10dp">
 
-                <DatePicker
-                    android:id="@+id/eventDatePicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="117dp"
-                    android:background="@color/senacorWhite"
-                    android:datePickerMode="spinner"
-                    android:calendarViewShown="false" />
+                    <EditText
+                        android:id="@+id/event_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Event Place" />
 
-                <GridLayout
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/addEventStreetAndNumberLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
-                </GridLayout>
+                    <EditText
+                        android:id="@+id/event_streetNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Event Street + Street Number" />
 
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/addEventPostalCodeAndCityLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/event_postalCodeCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Event Postal Code + City" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/addEventDateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/newEvent_label_date" />
+
+                    <DatePicker
+                        android:id="@+id/eventDatePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="117dp"
+                        android:background="@color/senacorWhite"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false" />
+
+
+
+
+
+                </android.support.design.widget.TextInputLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <Button android:id="@+id/save_button"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:text="Save"
+                        android:textColor="@color/senacorWhite"
+                        android:background="@drawable/roundedbutton"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="24dp"/>
+
+                    <Button
+                        android:id="@+id/cancel_button"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:text="Cancel"
+                        android:textColor="@color/senacorWhite"
+                        android:background="@drawable/roundedbutton"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
             </android.support.design.widget.TextInputLayout>
-        </android.support.design.widget.TextInputLayout>
+
+        </ScrollView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp">
-
-
-        <Button
-            android:id="@+id/cancel_button"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:textColor="@color/senacorWhite"
-            android:background="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_alignBaseline="@+id/save_button"
-            android:layout_alignBottom="@+id/save_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            style="@style/Widget.AppCompat.Button"
-            android:fontFamily="sans-serif-medium"
-            android:elevation="0dp" />
-
-        <Button android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:textColor="@color/senacorWhite"
-            android:background="@color/colorPrimary"
-            android:layout_marginLeft="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
-
-    </LinearLayout>
 
 </LinearLayout>
