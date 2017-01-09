@@ -41,7 +41,7 @@
 
 
     <ImageView
-        android:src="@drawable/ic_mode_edit_green_24dp"
+        android:src="@drawable/ic_mode_edit_yellow_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
@@ -104,6 +104,7 @@
         android:visibility="gone"
         android:text="@string/info_noSpeech"
         android:gravity="center"/>
+
     <ListView
         android:id="@+id/list_speeches"
         android:layout_width="match_parent"
@@ -119,9 +120,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_mode_plus_green_24dp"
         android:visibility="gone"/>
 
+    <!--> optional -->
+    <ImageView
+        android:id="@+id/create_new_speech"
+        android:src="@drawable/ic_mode_plus_green_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:visibility="visible" />
 
 </RelativeLayout>
 
