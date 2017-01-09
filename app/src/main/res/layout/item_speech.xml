@@ -59,24 +59,32 @@
         android:layout_alignStart="@+id/speechTitle"
         android:layout_alignEnd="@+id/speechTitle"
         android:layout_alignLeft="@+id/speechTitle"
-        android:layout_alignRight="@+id/speechTitle"/>
+        android:layout_alignRight="@+id/speechTitle"
+        android:layout_marginBottom="11dp"/>
 
     <TextView
-        android:id="@+id/speechRoom"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/speakerName"
         android:layout_alignLeft="@+id/speakerName"
         android:layout_alignStart="@+id/speakerName"
+        android:text="@string/speechLocation"
+        android:id="@+id/stringLocation"/>
+
+    <TextView
+        android:id="@+id/speechLocation"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/speakerName"
+        android:layout_toRightOf="@+id/stringLocation"
         android:layout_alignEnd="@+id/speakerName"
-        android:layout_alignRight="@+id/speakerName"
-        android:layout_marginTop="11dp" />
+        android:layout_alignRight="@+id/speakerName" />
 
     <ImageView
         android:src="@drawable/ic_mode_edit_yellow_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/speechRoom"
+        android:layout_alignTop="@+id/speechLocation"
         android:layout_toLeftOf="@+id/button_delete"
         android:id="@+id/button_editSpeech"
         android:visibility="gone"
@@ -86,7 +94,7 @@
         android:src="@drawable/ic_clear_x_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/speechRoom"
+        android:layout_alignTop="@+id/speechLocation"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:id="@+id/button_delete"
