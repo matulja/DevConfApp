@@ -15,6 +15,7 @@
 
     <TextView
         android:id="@+id/value_event_name"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_eventId" />
@@ -25,11 +26,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_name"/>
 
-    <TextView
-        android:id="@+id/value_event_date"
+   <TextView
+        android:id="@+id/value_event_streetAndNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/value_event_place"/>
+
+    <TextView
+        android:id="@+id/value_event_postalCodeAndCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value_event_streetAndNumber"/>
+
+    <TextView
+        android:id="@+id/value_event_date"
+        android:textColor="@color/senacorRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value_event_postalCodeAndCity"/>
 
     <ImageView
         android:src="@drawable/ic_mode_edit_yellow_24dp"

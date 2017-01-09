@@ -30,7 +30,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     EventHandler eventHandler;
     DatePicker eventDatePicker;
-    EditText eventName, eventPlace;
+    EditText eventName, eventPlace, eventStreetAndNumber, eventPostalCodeAndCity;
     Button saveEvent, cancelEvent;
     ValidationHandler validationHandler;
     TextView invalidEventData, invalidEventInput, createEventHeadline;
@@ -51,6 +51,8 @@ public class CreateEventActivity extends AppCompatActivity {
         //assign fields to view
         eventName = (EditText) findViewById(R.id.event_name);
         eventPlace = (EditText) findViewById(R.id.event_place);
+        eventStreetAndNumber = (EditText) findViewById(R.id.event_streetNumber);
+        eventPostalCodeAndCity= (EditText) findViewById(R.id.event_postalCodeCity);
         eventDatePicker = (DatePicker) findViewById(R.id.eventDatePicker);
         invalidEventData = (TextView) findViewById(R.id.event_validationErrorDate);
         invalidEventInput = (TextView) findViewById(R.id.event_validationErrorInput);
@@ -66,6 +68,8 @@ public class CreateEventActivity extends AppCompatActivity {
             }
             eventName.setText(info.getString("name"));
             eventPlace.setText(info.getString("place"));
+            eventStreetAndNumber.setText(info.getString("streetAndNumber"));
+            eventPostalCodeAndCity.setText(info.getString("postalCodeAndCity"));
             LocalDate date = LocalDate.parse(info.getString("date"));
             int year = date.getYear();
             int month = date.getMonthOfYear();
@@ -90,6 +94,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
                 final String name = eventName.getText().toString();
                 final String place = eventPlace.getText().toString();
+                final String streetAndNumber = eventStreetAndNumber.getText().toString();
+                final String postalCodeAndCity = eventPostalCodeAndCity.getText().toString();
 
                 int day = eventDatePicker.getDayOfMonth();
                 int month = eventDatePicker.getMonth() + 1;
@@ -103,6 +109,8 @@ public class CreateEventActivity extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
                     intent.putExtra("date", eventDate.toString());
+                    intent.putExtra("streetAndNumber", streetAndNumber);
+                    intent.putExtra("postalCodeAndCity", postalCodeAndCity);
                     intent.putExtra("validationErrorDate", validationHandler.isNotInFuture(eventDate));
                     intent.putExtra("validationErrorInput", (validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)));
                     if (editing) {
@@ -115,6 +123,8 @@ public class CreateEventActivity extends AppCompatActivity {
                     params.put("name", name);
                     params.put("place", place);
                     params.put("date", eventDate);
+                    params.put("streetAndNumber", streetAndNumber);
+                    params.put("postalCodeAndCity", postalCodeAndCity);
                     if (editing) {
                         params.put("eventId", eventId);
                         String url = IPAddress.IPevent + "/" + eventId;

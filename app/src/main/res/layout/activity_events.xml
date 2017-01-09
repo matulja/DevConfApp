@@ -43,8 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_allEvents"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.70" />
+        android:layout_marginTop="10dp" />
 
         <ImageView
             android:id="@+id/create_new_event"
