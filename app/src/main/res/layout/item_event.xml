@@ -43,13 +43,14 @@
         android:textColor="@color/senacorRed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_event_postalCodeAndCity"/>
+        android:layout_below="@+id/value_event_postalCodeAndCity"
+        android:layout_marginRight="35dp"/>
 
     <ImageView
-        android:src="@drawable/ic_mode_edit_yellow_24dp"
+        android:src="@drawable/ic_mode_edit_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/value_event_name"
+        android:layout_alignBottom="@+id/value_event_date"
         android:layout_toLeftOf="@+id/button_deleteEvent"
         android:id="@+id/button_editEvent"
         android:visibility="gone"
@@ -68,8 +69,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_deleteEvent"
-        android:layout_below="@+id/value_event_name"
         android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/value_event_date"
         android:visibility="gone"/>
 
 </RelativeLayout>

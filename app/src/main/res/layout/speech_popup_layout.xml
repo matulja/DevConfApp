@@ -24,7 +24,7 @@
         android:text="Create new Speech"
 
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/senacorBlue"
         android:textSize="20dp" />
 
     <LinearLayout

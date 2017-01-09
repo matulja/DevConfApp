@@ -14,7 +14,7 @@
         android:id="@+id/value_startTime"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-        android:layout_width="60dp"
+        android:layout_width="45dp"
         android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -69,6 +69,7 @@
         android:layout_alignLeft="@+id/speakerName"
         android:layout_alignStart="@+id/speakerName"
         android:text="@string/speechLocation"
+        android:layout_marginRight="5dp"
         android:id="@+id/stringLocation"/>
 
     <TextView
@@ -76,12 +77,13 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@+id/speakerName"
+        android:layout_marginRight="35dp"
         android:layout_toRightOf="@+id/stringLocation"
         android:layout_alignEnd="@+id/speakerName"
         android:layout_alignRight="@+id/speakerName" />
 
     <ImageView
-        android:src="@drawable/ic_mode_edit_yellow_24dp"
+        android:src="@drawable/ic_mode_edit_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/speechLocation"
