@@ -17,7 +17,7 @@
         android:layout_width="60dp"
         android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/value_endTime"
@@ -28,7 +28,9 @@
         android:layout_alignLeft="@+id/value_startTime"
         android:layout_alignStart="@+id/value_startTime"
         android:layout_alignRight="@+id/value_startTime"
-        android:layout_alignEnd="@+id/value_startTime"/>
+        android:layout_alignEnd="@+id/value_startTime"
+        android:lineSpacingExtra="5dp"
+        />
 
     <!-- Details zum Vortrag, initiale größe für die spalte festlegen-->
     <TextView
@@ -46,7 +48,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/value_startTime"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:lineSpacingExtra="5dp"/>
 
     <TextView
         android:id="@+id/speakerName"
