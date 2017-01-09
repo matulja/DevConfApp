@@ -18,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.activities.CreateEventActivity;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
@@ -167,6 +168,7 @@ public class EventHandler {
                         System.out.println("in getEventList");
                         eventList = (ListView) activity.findViewById(R.id.list_events);
                         noEvents = (TextView) activity.findViewById(R.id.info_noEvent);
+                        sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
 
                         if (response.length() == 0) {
                             noEvents.setVisibility(VISIBLE);
@@ -197,6 +199,20 @@ public class EventHandler {
                                 }
 
                             });
+                            ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
+                            if(sharedPref.getString("role", "role").equals("ADMIN")){
+                                addEventButton.setVisibility(View.VISIBLE);
+                                addEventButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        //Activity activity = new Activity();
+                                        Intent intent1 = new Intent(activity, CreateEventActivity.class);
+                                        activity.startActivity(intent1);
+
+                                    }
+                                });
+
+                            }
                         }
                     }
 
