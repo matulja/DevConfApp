@@ -68,7 +68,7 @@ public class SpeechDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
         speechHandler = new SpeechHandler(getActivity());
         validationHandler = new ValidationHandler();
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -83,7 +83,7 @@ public class SpeechDialog extends DialogFragment {
         labelEndTime = (TextView) view.findViewById(R.id.label_endTime);
         tvSpeechColliding = (TextView) view.findViewById(R.id.warning_speechValidation);
         tvStartEndTime = (TextView) view.findViewById(R.id.warning_startEndTime);
-        tvwarning_NoInput=(TextView)view.findViewById(R.id.warning_NoInput);
+        tvwarning_NoInput = (TextView) view.findViewById(R.id.warning_NoInput);
 
 
         etSpeechTitle = (EditText) view.findViewById(R.id.addSpeechTitle);
@@ -125,16 +125,21 @@ public class SpeechDialog extends DialogFragment {
             // if this dialogue opens because of wrong validation the labels for times are highlighted in red
             if (needsValidation) {
                 if (getArguments().getString("validationError").equals("colliding")) {
+                    System.out.println("speech is colliding text field put visible.");
                     tvSpeechColliding.setVisibility(View.VISIBLE);
-                }else{
+
+                } else {
                     tvStartEndTime.setVisibility(View.VISIBLE);
                 }
             }
+            System.out.println("view will be set");
 
         }
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
+
         builder.setView(view)
+
 
                 // Add action buttons
                 .setPositiveButton(R.string.saveSpeech, new DialogInterface.OnClickListener() {
@@ -155,20 +160,25 @@ public class SpeechDialog extends DialogFragment {
                         int endMin = tpEndTime.getMinute();
                         final LocalTime endTime = new LocalTime(endHour, endMin);
 
-                       //check if fields are empty
-                       if (validationHandler.isNotFilled(speechTitle) || validationHandler.isNotFilled(speechSpeaker) || validationHandler.isNotFilled(room)) {
-                           System.out.println("fields are empty");
-                           RequestParams params = new RequestParams();
-                           params.put("speechTitle", speechTitle);
-                           params.put("speechRoom", room);
-                           params.put("speaker", speechSpeaker);
-                           params.put("startTime", startTime);
-                           params.put("endTime", endTime);
-                           params.put("warning_NoInput", validationHandler.isNotFilled(speechTitle)||validationHandler.isNotFilled(speechSpeaker)||validationHandler.isNotFilled(room));
-
+                        //check if fields are empty
+                        if (validationHandler.isNotInRightOrder(startTime, endTime) || validationHandler.isNotFilled(speechTitle)
+                                || validationHandler.isNotFilled(speechSpeaker) || validationHandler.isNotFilled(room)) {
+                            System.out.println("client-side validation errors");
+                            Speech speech = new Speech();
+                            if (editing) {
+                                speech.setSpeechId(tvSpeechId.getText().toString());
+                            }
+                            speech.setSpeechTitle(speechTitle);
+                            speech.setSpeaker(speechSpeaker);
+                            speech.setSpeechRoom(room);
+                            speech.setStartTime(startTime);
+                            speech.setEndTime(endTime);
+                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true, "clientValidation");
+                            Activity activity = (Activity) getContext();
+                            speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                         }
                         //check if times were entered in correct order (starttime < endtime)
-                        if (validationHandler.isInRightOrder(startTime, endTime)) {
+                        else {
                             System.out.println("times are in right order");
                             RequestParams params = new RequestParams();
                             params.put("speechTitle", speechTitle);
@@ -187,24 +197,7 @@ public class SpeechDialog extends DialogFragment {
                             } else {
                                 speechHandler.addSpeech(params);
                             }
-                        }else{
-                            //if endtime < starttime the dialogue will be opened again. Data is prefilled
-                            System.out.println("endtime before starttime");
-                            Speech speech = new Speech();
-                            if (editing) {
-                                speech.setSpeechId(tvSpeechId.getText().toString());
-                            }
-                            speech.setSpeechTitle(speechTitle);
-                            speech.setSpeaker(speechSpeaker);
-                            speech.setSpeechRoom(room);
-                            speech.setStartTime(startTime);
-                            speech.setEndTime(endTime);
-                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true, "startEndTime");
-                            Activity activity = (Activity) getContext();
-                            speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                         }
-
-
                     }
                 })
                 .setNegativeButton(R.string.cancelSpeech, new DialogInterface.OnClickListener() {
@@ -212,6 +205,7 @@ public class SpeechDialog extends DialogFragment {
                         SpeechDialog.this.getDialog().cancel();
                     }
                 });
+
 
         return builder.create();
 

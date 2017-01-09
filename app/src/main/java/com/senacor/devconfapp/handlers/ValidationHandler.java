@@ -16,9 +16,9 @@ public class ValidationHandler {
     }
 
 
-    public boolean isInRightOrder(LocalTime startTime, LocalTime endTime) {
+    public boolean isNotInRightOrder(LocalTime startTime, LocalTime endTime) {
 
-        return startTime.isBefore(endTime);
+        return !startTime.isBefore(endTime);
     }
 
     public boolean isNotInFuture(LocalDate date) {
