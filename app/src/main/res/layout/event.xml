@@ -45,8 +45,9 @@
         android:src="@drawable/ic_mode_edit_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/lineDevCon"
+        android:layout_above="@+id/lineDevCon"
+        android:layout_marginBottom="6dp"
         android:visibility="visible"
         android:adjustViewBounds="false"
         android:id="@+id/button_editEvent"/>
@@ -104,7 +105,7 @@
         android:layout_alignRight="@+id/lineDevCon"
         android:layout_marginTop="5dp"
         android:textColor="@color/senacorWhite"
-        android:background="@color/senacorBlueLight" />
+        android:background="@drawable/roundedbutton" />
 
     <!-- Agenda-->
     <TextView
@@ -158,8 +159,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginBottom="10dp"
         android:visibility="gone" />
 
 </RelativeLayout>
