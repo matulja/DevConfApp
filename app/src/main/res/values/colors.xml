@@ -16,6 +16,7 @@
 
     <color name="senacorBlack">#000000</color>
     <color name="senacorWhite">#FFFFFF</color>
+    <color name="speechBackgroundLtBlue">#f2f4f4</color>
 
     <color name="senacorGreen">#059E7F</color>
     <color name="senacorRed">#DF0917</color>
