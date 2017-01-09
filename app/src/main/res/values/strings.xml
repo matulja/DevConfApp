@@ -35,6 +35,7 @@
     <string name="speechEndTimeHint">enter end time...</string>
     <string name="saveSpeech">Save</string>
     <string name="cancelSpeech">Cancel</string>
+    <string name="speechLocation">Location: </string>
 
 
     <!-- Strings creating new Event-->

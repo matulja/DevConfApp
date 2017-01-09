@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -111,12 +111,19 @@ public class EventHandler {
 
                 TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
                 eventDate.setText(event.dateToString());
+
+                TextView eventStreetAndNumber = (TextView) activity.findViewById(R.id.event_streetAndNumber);
+                eventStreetAndNumber.setText(event.getStreetAndNumber());
+
+                TextView eventPostalCodeAndCity= (TextView) activity.findViewById(R.id.event_postalCodeAndCity);
+                eventPostalCodeAndCity.setText(event.getPostalCodeAndCity());
+
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean("isInFuture", !(event.getDate().isBefore(LocalDate.now())));
                 editor.commit();
 
                 speechHandler.getSpeeches(URL + "/speeches");
-                ImageButton addSpeechButton = (ImageButton) activity.findViewById(R.id.addSpeechButton);
+                ImageView addSpeechButton = (ImageView) activity.findViewById(R.id.addSpeechButton);
 
                 if (sharedPref.getBoolean("isInFuture", true)) {
 

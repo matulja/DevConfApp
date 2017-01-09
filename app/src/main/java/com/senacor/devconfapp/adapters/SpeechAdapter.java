@@ -61,7 +61,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
             viewHolder.speechId = (TextView) convertView.findViewById(R.id.value_speech_speechId);
             viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
-            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechRoom);
+            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechLocation);
             viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
             viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.speakerInfo);
             viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.speechSummary);

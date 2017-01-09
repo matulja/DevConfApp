@@ -22,7 +22,8 @@
         android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
         android:selectAllOnFocus="false"
-        android:layout_weight="0.21" />
+        android:layout_weight="0.21"
+        android:paddingBottom="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +36,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/event_validationErrorDate"
@@ -59,8 +59,7 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/addEventNameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/event_name"
@@ -83,6 +82,36 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Event Place" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEventStreetAndNumberLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/event_streetNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Event Street + Street Number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addEventPostalCodeAndCityLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/event_postalCodeCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Event Postal Code + City" />
 
             </android.support.design.widget.TextInputLayout>
 
