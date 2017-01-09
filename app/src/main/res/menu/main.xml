@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/list_all_events_arrow"
+        android:icon="@drawable/ic_keyboard_arrow_left_24dp"
+        android:title="Show all events"
+        android:layout_width="wrap_content"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/logo_senacor_white_png"
         android:layout_width="40dp"
         android:icon="@drawable/logow"
@@ -24,7 +32,7 @@
     <!-- Log Out Icon -->
     <item
         android:id="@+id/action_log_out"
-        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:icon="@drawable/ic_exit_to_app_24dp"
         android:title="log out icon"
         app:showAsAction="always"
         />
