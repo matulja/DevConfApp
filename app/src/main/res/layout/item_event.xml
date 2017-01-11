@@ -47,7 +47,7 @@
         android:layout_marginRight="35dp"/>
 
     <ImageView
-        android:src="@drawable/ic_mode_edit_24dp"
+        android:src="@drawable/ic_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/value_event_date"
@@ -65,7 +65,7 @@
         android:layout_RightOf="@+id/button_editEvent"-->
 
     <ImageView
-        android:src="@drawable/ic_clear_x_24dp"
+        android:src="@drawable/ic_clear_x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_deleteEvent"
