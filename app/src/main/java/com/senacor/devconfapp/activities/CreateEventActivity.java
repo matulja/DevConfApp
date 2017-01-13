@@ -66,10 +66,6 @@ public class CreateEventActivity extends AppCompatActivity {
                 createEventHeadline.setText("Edit Event");
                 editing = true;
             }
-            if (info.getString("changeToEditEventHeadline") != null){
-                createEventHeadline.setText("Edit Event");
-                editing = true;
-            }
             eventName.setText(info.getString("name"));
             eventPlace.setText(info.getString("place"));
             eventStreetAndNumber.setText(info.getString("streetAndNumber"));
