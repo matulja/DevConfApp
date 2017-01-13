@@ -1,8 +1,10 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -125,6 +127,8 @@ public class EventHandler {
 
                 speechHandler.getSpeeches(URL + "/speeches");
                 ImageView addSpeechButton = (ImageView) activity.findViewById(R.id.addSpeechButton);
+                ImageView editEventButton = (ImageView) activity.findViewById(R.id.button_editEventButton);
+                ImageView deleteEventButton = (ImageView) activity.findViewById(R.id.button_deleteEventButton);
 
                 if (sharedPref.getBoolean("isInFuture", true)) {
 
@@ -137,6 +141,53 @@ public class EventHandler {
                             public void onClick(View v) {
                                 DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
                                 speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
+
+                            }
+                        });
+
+                        editEventButton.setVisibility(VISIBLE);
+                        editEventButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, CreateEventActivity.class);
+                                intent.putExtra("name", event.getName());
+                                intent.putExtra("place", event.getPlace());
+                                intent.putExtra("date", event.getDate().toString());
+                                intent.putExtra("streetAndNumber",event.getStreetAndNumber());
+                                intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
+                                String edit = "edit";
+                                intent.putExtra("changeToEditEventHeadline", edit);
+                                activity.startActivity(intent);
+                            }
+                        });
+
+                        deleteEventButton.setVisibility(VISIBLE);
+                        deleteEventButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //Alert Dialog
+                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which){
+                                            case DialogInterface.BUTTON_POSITIVE:
+                                                System.out.println("Delete Event " + event.getUrl());
+                                                deleteEvent(event.getUrl());
+                                                break;
+
+                                            case DialogInterface.BUTTON_NEGATIVE:
+                                                System.out.println("Event is not deleted" );
+                                                dialog.cancel();
+                                                break;
+                                        }
+                                    }
+                                };
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                                builder.setMessage("Do you want delete this event?")
+                                        .setPositiveButton("Yes", dialogClickListener)
+                                        .setNegativeButton("No", dialogClickListener)
+                                        .show();
 
                             }
                         });

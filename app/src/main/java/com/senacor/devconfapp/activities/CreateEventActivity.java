@@ -61,8 +61,12 @@ public class CreateEventActivity extends AppCompatActivity {
 
         if (info != null) {
             needsValidation = true;
-            if (info.getString("eventId") != null) {
+            if (info.getString("eventId") != null){
                 eventId = info.getString("eventId");
+                createEventHeadline.setText("Edit Event");
+                editing = true;
+            }
+            if (info.getString("changeToEditEventHeadline") != null){
                 createEventHeadline.setText("Edit Event");
                 editing = true;
             }

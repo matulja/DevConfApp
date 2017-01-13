@@ -48,19 +48,19 @@
         android:layout_toLeftOf="@+id/button_deleteEvent"
         android:layout_above="@+id/lineDevCon"
         android:layout_marginBottom="6dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:adjustViewBounds="false"
-        android:id="@+id/button_editEvent"/>
+        android:id="@+id/button_editEventButton"/>
 
     <ImageView
         android:src="@drawable/ic_clear_x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_deleteEvent"
+        android:id="@+id/button_deleteEventButton"
         android:layout_alignEnd="@+id/lineDevCon"
         android:layout_above="@+id/lineDevCon"
         android:layout_marginBottom="6dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <View
         android:id="@+id/lineDevCon"
