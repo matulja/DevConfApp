@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40dp">
+
+
+    <TextView
+        android:id="@+id/RatingPopUp_ratingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/RatingHeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="false"
+        android:ems="10"
+        android:text="Rating"
+        android:textAlignment="center"
+        android:textColor="@color/senacorBlue"
+        android:textSize="20dp" />
+
+
+            <!-- Rating string: rate now -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Give us your rating"
+                android:layout_margin="25dp"
+                android:id="@+id/giveRating"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/senacorGreyShine">
+
+            <!-- 5 Stars - not rated yet. rate now-->
+            <ImageView
+                android:id="@+id/speechRatingStar1"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_star_border"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignBottom="@id/giveRating"
+                android:visibility="visible"
+                android:clickable="true"/>
+
+            <ImageView
+                android:id="@+id/speechRatingStar2"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_star_border"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/speechRatingStar1"
+                android:layout_alignBottom="@id/speechRatingStar1"
+                android:visibility="visible"
+                android:clickable="true"/>
+            <ImageView
+                android:id="@+id/speechRatingStar3"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_star_border"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/speechRatingStar2"
+                android:layout_alignBottom="@id/speechRatingStar2"
+                android:visibility="visible"
+                android:clickable="true"/>
+            <ImageView
+                android:id="@+id/speechRatingStar4"
+                android:src="@drawable/ic_star_border"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/speechRatingStar3"
+                android:layout_alignBottom="@id/speechRatingStar3"
+                android:visibility="visible"
+                android:clickable="true"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <Button android:id="@+id/save_rating_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Save"
+            android:textColor="@color/senacorWhite"
+            android:background="@drawable/roundedbutton"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="24dp"/>
+
+        <Button
+            android:id="@+id/cancel_rating_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Cancel"
+            android:textColor="@color/senacorWhite"
+            android:background="@drawable/roundedbutton"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+
+    </LinearLayout>
+
+</LinearLayout>

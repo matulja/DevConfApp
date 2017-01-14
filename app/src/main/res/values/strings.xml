@@ -58,4 +58,8 @@
     <string name="event_validationErrorInput">Fields cannot be empty!</string>
     <string name="warning_NoInput">Fields cannot be empty!</string>
 
+    <!-- Strings for Speeches -->
+    <string name="speechRate">Rate now:</string>
+    <string name="speechRated">You have rated this speech.</string>
+
 </resources>
