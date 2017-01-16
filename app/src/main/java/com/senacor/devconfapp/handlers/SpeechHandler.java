@@ -112,9 +112,8 @@ public class SpeechHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-               // errorWithJson(statusCode, errorResponse);
                 Speech speech = new Speech(errorResponse);
-                DialogFragment speechFragment = SpeechDialog.newInstance(speech, false, true, "colliding");
+                DialogFragment speechFragment = SpeechDialog.newInstance(speech, false, false);
                 speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
             }
 
@@ -142,7 +141,7 @@ public class SpeechHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Speech speech = new Speech(errorResponse);
-                DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, true, "colliding");
+                DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, false);
                 speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
             }
 

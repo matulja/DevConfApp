@@ -141,7 +141,7 @@ public class EventHandler {
                         addSpeechButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false, "");
+                                DialogFragment speechFragment = SpeechDialog.newInstance(null, false, false);
                                 speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
 
                             }
@@ -326,14 +326,18 @@ public class EventHandler {
         });
     }
 
-    public void editEvent(String url, RequestParams params) {
+    public void editEvent(final String url, RequestParams params) {
         AsynchRestClient.put(activity, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.i("Information", "in editEventHandler");
-                Intent intent = new Intent(activity, EventListActivity.class);
-                activity.startActivity(intent);
+                event = new Event(response);
+                if (event != null) {
+                    Intent intent = new Intent(activity, EventActivity.class);
+                    intent.putExtra("url", url);
+                    activity.startActivity(intent);
+                }
             }
 
             @Override

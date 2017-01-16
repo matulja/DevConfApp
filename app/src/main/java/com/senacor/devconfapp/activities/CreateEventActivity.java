@@ -104,7 +104,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 LocalDate eventDate = new LocalDate(year, month, day);
 
 
-                if (validationHandler.isNotInFuture(eventDate) || validationHandler.isNotFilled(name) || validationHandler.isNotFilled(place)) {
+                if (validationHandler.isNotInFuture(eventDate) || validationHandler.isNotFilled(name)) {
                     Intent intent = new Intent(CreateEventActivity.this, CreateEventActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("place", place);
@@ -125,10 +125,9 @@ public class CreateEventActivity extends AppCompatActivity {
                     params.put("date", eventDate);
                     params.put("streetAndNumber", streetAndNumber);
                     params.put("postalCodeAndCity", postalCodeAndCity);
+                    String url = IPAddress.IPevent + "/" + eventId;
                     if (editing) {
                         params.put("eventId", eventId);
-                        String url = IPAddress.IPevent + "/" + eventId;
-                        System.out.println(url);
                         eventHandler.editEvent(url, params);
                     } else {
                         eventHandler.addEvent(params);
