@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.loopj.android.http.RequestParams;
@@ -72,6 +73,7 @@ public class EventActivity extends AppCompatActivity {
 
         @Override
         public boolean onCreateOptionsMenu (Menu menu){
+
             getMenuInflater().inflate(R.menu.main, menu);
             return super.onCreateOptionsMenu(menu);
         }

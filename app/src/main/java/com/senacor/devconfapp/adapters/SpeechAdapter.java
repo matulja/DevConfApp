@@ -1,8 +1,10 @@
 package com.senacor.devconfapp.adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -18,6 +20,8 @@ import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
+
+import static com.senacor.devconfapp.R.layout.event;
 
 /**
  * Created by Veronika Babic on 14.11.2016.
@@ -90,9 +94,35 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
 
                 @Override
                 public void onClick(View v) {
-                    speechHandler.deleteSpeech(speech.getUrl());
+
+                    //Alert Dialog
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    System.out.println("Delete Speech " + speech.getUrl());
+                                    speechHandler.deleteSpeech(speech.getUrl());
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    System.out.println("Speech is not deleted" );
+                                    dialog.cancel();
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("Do you want delete this speech?")
+                            .setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener)
+                            .show();
                 }
             });
+            //
+                    //speechHandler.deleteSpeech(speech.getUrl());
+           //     }});
 
             viewHolder.editSpeechButton.setVisibility(View.VISIBLE);
             viewHolder.editSpeechButton.setOnClickListener(new View.OnClickListener(){
