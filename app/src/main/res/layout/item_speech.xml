@@ -121,62 +121,41 @@
 
 
     <!-- Rating string: rate now -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speechSummary"
-        android:layout_alignLeft="@+id/speakerName"
-        android:layout_alignStart="@+id/speakerName"
-        android:text="@string/speechRate"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="12dp"
-        android:id="@+id/stringRate"
-        android:textColor="@color/senacorBlueDark"/>
 
     <!-- 5 Stars - not rated yet. rate now-->
-    <ImageView
-        android:id="@+id/speechRatingStar1"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_border"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/stringRate"
-        android:layout_alignBottom="@id/stringRate"
-        android:visibility="visible"
-        android:clickable="true"/>
-    <ImageView
-        android:id="@+id/speechRatingStar2"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_border"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/speechRatingStar1"
-        android:layout_alignBottom="@id/stringRate"
-        android:visibility="visible"
-        android:clickable="true"/>
-    <ImageView
-        android:id="@+id/speechRatingStar3"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_border"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/speechRatingStar2"
-        android:layout_alignBottom="@id/stringRate"
-        android:visibility="visible"
-        android:clickable="true"/>
-    <ImageView
-        android:id="@+id/speechRatingStar4"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_border"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/speechRatingStar3"
-        android:layout_alignBottom="@id/stringRate"
-        android:visibility="visible"
-        android:clickable="true"/>
 
 
     <!-- String rated: you have rated. -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/speechSummary"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/speechSummary"
+            android:layout_alignLeft="@+id/speakerName"
+            android:layout_alignStart="@+id/speakerName"
+            android:text="@string/speechRate"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/stringRate"
+            android:textColor="@color/senacorBlueDark"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:isIndicator="true"
+            android:maxWidth="20dp"
+            android:minWidth="20dp"
+            android:numStars="5"
+            android:stepSize="1"/>
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

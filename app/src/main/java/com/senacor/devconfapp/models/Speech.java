@@ -1,6 +1,6 @@
 package com.senacor.devconfapp.models;
 
-import org.joda.time.LocalTime;
+    import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
@@ -22,6 +22,7 @@ public class Speech {
     private String speakerInfo;
     private String speechSummary;
     private String eventId;
+    private Integer rating;
 
     private String url;
 
@@ -150,4 +151,11 @@ public class Speech {
         return this.speechId;
     }
 
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
 }
