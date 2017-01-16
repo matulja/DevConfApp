@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/speechBackgroundLtBlue"
     android:fadingEdge="horizontal">
-    
-    <!--Uhrzeit-->
+
+    <!--start and end time -->
     <TextView
         android:id="@+id/value_startTime"
         android:layout_height="wrap_content"
@@ -31,10 +31,9 @@
         android:layout_alignStart="@+id/value_startTime"
         android:layout_alignRight="@+id/value_startTime"
         android:layout_alignEnd="@+id/value_startTime"
-        android:lineSpacingExtra="5dp"
         />
 
-    <!-- Details zum Vortrag, initiale größe für die spalte festlegen-->
+    <!--ID is disabled. Title and Name here-->
     <TextView
         android:id="@+id/value_speech_speechId"
         android:layout_width="wrap_content"
@@ -50,8 +49,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/value_startTime"
-        android:textStyle="bold"
-        android:lineSpacingExtra="5dp"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/speakerName"
@@ -62,8 +60,9 @@
         android:layout_alignEnd="@+id/speechTitle"
         android:layout_alignLeft="@+id/speechTitle"
         android:layout_alignRight="@+id/speechTitle"
-        android:layout_marginBottom="11dp"/>
+        android:layout_marginBottom="8dp"/>
 
+    <!-- location string + textfield -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,6 +83,7 @@
         android:layout_alignEnd="@+id/speakerName"
         android:layout_alignRight="@+id/speakerName" />
 
+    <!-- icons edit and delete -->
     <ImageView
         android:src="@drawable/ic_edit"
         android:layout_width="wrap_content"
@@ -104,19 +104,101 @@
         android:id="@+id/button_delete"
         android:visibility="gone"/>
 
-
+    <!-- unused properties -->
     <TextView
         android:id="@+id/speakerInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/speakerName"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_below="@+id/stringLocation"/>
 
     <TextView
         android:id="@+id/speechSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/speakerInfo"
+        android:visibility="gone"
+        android:layout_below="@+id/speakerInfo" />
+
+
+    <!-- Rating string: rate now -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speechSummary"
+        android:layout_alignLeft="@+id/speakerName"
+        android:layout_alignStart="@+id/speakerName"
+        android:text="@string/speechRate"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/stringRate"
+        android:textColor="@color/senacorBlueDark"/>
+
+    <!-- 5 Stars - not rated yet. rate now-->
+    <ImageView
+        android:id="@+id/speechRatingStar1"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star_border"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/stringRate"
+        android:layout_alignBottom="@id/stringRate"
+        android:visibility="visible"
+        android:clickable="true"/>
+    <ImageView
+        android:id="@+id/speechRatingStar2"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star_border"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/speechRatingStar1"
+        android:layout_alignBottom="@id/stringRate"
+        android:visibility="visible"
+        android:clickable="true"/>
+    <ImageView
+        android:id="@+id/speechRatingStar3"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star_border"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/speechRatingStar2"
+        android:layout_alignBottom="@id/stringRate"
+        android:visibility="visible"
+        android:clickable="true"/>
+    <ImageView
+        android:id="@+id/speechRatingStar4"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star_border"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/speechRatingStar3"
+        android:layout_alignBottom="@id/stringRate"
+        android:visibility="visible"
+        android:clickable="true"/>
+
+
+    <!-- String rated: you have rated. -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speechSummary"
+        android:layout_alignLeft="@+id/speakerName"
+        android:layout_alignStart="@+id/speakerName"
+        android:text="@string/speechRated"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="13dp"
+        android:id="@+id/stringRated"
+        android:textColor="@color/senacorBlue"
         android:visibility="gone"/>
 
+    <!-- 1 Star - you have rated
+    <ImageView
+        android:id="@+id/speechRated"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_star_filled"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/stringRate"
+        android:layout_alignBottom="@id/stringRate"
+        android:visibility="gone"/>
+    -->
 </RelativeLayout>
