@@ -21,8 +21,6 @@ import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
 
-import static com.senacor.devconfapp.R.layout.event;
-
 /**
  * Created by Veronika Babic on 14.11.2016.
  */
@@ -130,7 +128,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
                 @Override
                 public void onClick(View v) {
                     System.out.println("clicklistener edit speech button: speech id = " + speech.getSpeechId());
-                    DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, false, "");
+                    DialogFragment speechFragment = SpeechDialog.newInstance(speech, true, false);
                     Activity activity = (Activity) getContext();
                     speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                 }

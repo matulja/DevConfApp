@@ -42,15 +42,12 @@ public class SpeechDialog extends DialogFragment {
     }
 
     //needed for editing existing speech
-    public static SpeechDialog newInstance(Speech speech, boolean isBeingEdited, boolean wasNotValidated, String validationError) {
+    public static SpeechDialog newInstance(Speech speech, boolean isBeingEdited, boolean wasNotValidated) {
         SpeechDialog speechDialog = new SpeechDialog();
         Bundle args = new Bundle();
         if (speech != null) {
             if (isBeingEdited) {
                 args.putString("speechId", speech.getSpeechId());
-            }
-            if (wasNotValidated) {
-                args.putString("validationError", validationError);
             }
             args.putString("speechTitle", speech.getSpeechTitle());
             args.putString("speaker", speech.getSpeaker());
@@ -122,18 +119,9 @@ public class SpeechDialog extends DialogFragment {
                 tvSpeechId.setText(getArguments().getString("speechId"));
             }
 
-            // if this dialogue opens because of wrong validation the labels for times are highlighted in red
             if (needsValidation) {
-                if (getArguments().getString("validationError").equals("colliding")) {
-                    System.out.println("speech is colliding text field put visible.");
-                    tvSpeechColliding.setVisibility(View.VISIBLE);
-
-                } else {
-                    tvStartEndTime.setVisibility(View.VISIBLE);
-                }
+                tvStartEndTime.setVisibility(View.VISIBLE);
             }
-            System.out.println("view will be set");
-
         }
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -173,7 +161,7 @@ public class SpeechDialog extends DialogFragment {
                             speech.setSpeechRoom(room);
                             speech.setStartTime(startTime);
                             speech.setEndTime(endTime);
-                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true, "clientValidation");
+                            DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true);
                             Activity activity = (Activity) getContext();
                             speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                         }
