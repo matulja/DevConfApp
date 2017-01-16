@@ -93,7 +93,7 @@ public class EventHandler {
     }
 
 
-    public void getEvent(String url) {
+    public void getEvent(final String url) {
         System.out.println("in event handler/url" + url);
 
         AsynchRestClient.get(activity, url, null, new JsonHttpResponseHandler() {
@@ -103,7 +103,9 @@ public class EventHandler {
                 sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
                 attendanceHandler = new AttendanceHandler(activity);
                 speechHandler = new SpeechHandler(activity);
-
+                String[] urlElements = url.split("/");
+                final String eventId = urlElements[urlElements.length - 1];
+                System.out.println(eventId);
                 event = new Event(jsonObject);
                 System.out.println("eventhandler on success " + event.getName());
                 TextView eventName = (TextView) activity.findViewById(R.id.event_name);
@@ -155,8 +157,7 @@ public class EventHandler {
                                 intent.putExtra("date", event.getDate().toString());
                                 intent.putExtra("streetAndNumber",event.getStreetAndNumber());
                                 intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
-                                String edit = "edit";
-                                intent.putExtra("changeToEditEventHeadline", edit);
+                                intent.putExtra("eventId", eventId);
                                 activity.startActivity(intent);
                             }
                         });
