@@ -6,11 +6,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -23,10 +27,9 @@ import java.util.ArrayList;
  * Created by Veronika Babic on 14.11.2016.
  */
 
-public class SpeechAdapter extends ArrayAdapter<Speech>{
+public class SpeechAdapter extends ArrayAdapter<Speech> {
 
     SpeechHandler speechHandler;
-
 
     public static class ViewHolder{
         TextView speechId;
@@ -39,6 +42,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         TextView speechSummary;
         ImageView deleteButton;
         ImageView editSpeechButton;
+        RatingBar ratingBar;
+        Button submitRatingButton;
 
     }
 
@@ -52,7 +57,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Speech speech = getItem(position);
-        SpeechAdapter.ViewHolder viewHolder;
+        final SpeechAdapter.ViewHolder viewHolder;
 
         if (convertView == null) {
             viewHolder = new SpeechAdapter.ViewHolder();
@@ -69,6 +74,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
             viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
             viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
             viewHolder.editSpeechButton = (ImageView) convertView.findViewById(R.id.button_editSpeech);
+            viewHolder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingSpeechBar);
+            viewHolder.submitRatingButton = (Button) convertView.findViewById(R.id.submitRating_Button);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
@@ -82,6 +89,31 @@ public class SpeechAdapter extends ArrayAdapter<Speech>{
         viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // perform click event on Submitbutton
+        viewHolder.ratingBar.setFocusable(false);
+        viewHolder.ratingBar.setTag(position);
+        /*viewHolder.ratingBar.setRating(getItem(position));*/
+        viewHolder.ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("setRatingListener");
+                String totalStars = "Total Stars:: " + viewHolder.ratingBar.getNumStars();
+                String rating = "Rating :: " + viewHolder.ratingBar.getRating();
+                Toast.makeText(getContext(), totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+       /* viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // get values and then displayed in a toast
+                Activity activity = (Activity) getContext();
+                String totalStars = "Total Stars:: " + viewHolder.ratingBar.getNumStars();
+                String rating = "Rating :: " + viewHolder.ratingBar.getRating();
+                Toast.makeText(activity, totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
+
+            }
+        });*/
         final String role = sharedPref.getString("role", "role");
         final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
         if (role.equals("ADMIN") && isInFuture) {

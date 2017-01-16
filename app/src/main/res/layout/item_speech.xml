@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/speechBackgroundLtBlue"
-    android:fadingEdge="horizontal">
+    android:fadingEdge="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
 
     <!--start and end time -->
     <TextView
@@ -133,8 +135,31 @@
         android:id="@+id/stringRate"
         android:textColor="@color/senacorBlueDark"/>
 
+    <RatingBar
+        android:id="@+id/ratingSpeechBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/speechBackgroundLtBlue"
+        android:layout_below="@+id/stringRate"
+        android:layout_alignLeft="@+id/stringRate"
+        style="@style/RatingBar"
+        android:numStars="5"
+        android:isIndicator="true" />
+
+    <Button
+        android:id="@+id/submitRating_Button"
+        android:text="Submit"
+        android:layout_width="65dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ratingSpeechBar"
+        android:layout_alignLeft="@+id/speakerName"
+        android:textColor="@color/senacorWhite"
+        android:background="@drawable/roundedbutton"
+        android:visibility="visible"/>
+
     <!-- 5 Stars - not rated yet. rate now-->
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/speechRatingStar1"
         android:layout_marginRight="2dp"
         android:src="@drawable/ic_star_border"
@@ -173,7 +198,7 @@
         android:layout_toRightOf="@+id/speechRatingStar3"
         android:layout_alignBottom="@id/stringRate"
         android:visibility="visible"
-        android:clickable="true"/>
+        android:clickable="true"/>-->
 
 
     <!-- String rated: you have rated. -->
@@ -190,11 +215,12 @@
         android:textColor="@color/senacorBlue"
         android:visibility="gone"/>
 
+
     <!-- 1 Star - you have rated
     <ImageView
         android:id="@+id/speechRated"
         android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_filled"
+        android:src="@drawable/ic_star_filled_notpng"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_toRightOf="@+id/stringRate"
