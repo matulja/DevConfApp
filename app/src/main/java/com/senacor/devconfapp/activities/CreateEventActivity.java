@@ -132,10 +132,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     } else {
                         eventHandler.addEvent(params);
                     }
-                    finish();
-/*                    Intent intent = new Intent(CreateEventActivity.this, EventActivity.class);
-                    intent.putExtra("url", url);
-                    startActivity(intent);*/
                 }
 
 
