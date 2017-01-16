@@ -8,6 +8,34 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <TextView
+        android:id="@+id/warning_speechValidation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/warning_speechColliding"
+        android:textColor="@color/senacorRed"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/warning_startEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/speech_endBeforeStartTime"
+        android:textColor="@color/senacorRed"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/warning_NoInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/warning_NoInput"
+        android:textColor="@color/senacorRed"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+
 
     <TextView
         android:id="@+id/speechPopUp_speechId"
@@ -95,96 +123,67 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/warning_speechValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/warning_speechColliding"
-                    android:textColor="@color/senacorRed"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"/>
-                <TextView
-                    android:id="@+id/warning_startEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/speech_endBeforeStartTime"
-                    android:textColor="@color/senacorRed"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"/>
-                <TextView
-                    android:id="@+id/warning_NoInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/warning_NoInput"
-                    android:textColor="@color/senacorRed"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"/>
-
-
-                <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-
-                <LinearLayout
-                    android:id="@+id/time_pickers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:id="@+id/label_startTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ems="10"
-                        android:text="@string/speech_startTime_label" />
-
-
-                    <TimePicker
-                        android:id="@+id/time_picker_start"
-                        android:layout_width="157dp"
-                        android:layout_height="82dp"
-                        android:headerBackground="?attr/actionModeSplitBackground"
-                        android:isScrollContainer="true"
-                        android:keepScreenOn="false"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:timePickerMode="spinner" />
-                </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/label_endTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ems="10"
-                        android:text="@string/speech_endTime_label" />
+                    android:orientation="horizontal">
 
 
-                    <TimePicker
-                        android:id="@+id/time_picker_end"
-                        android:layout_width="142dp"
-                        android:layout_height="82dp"
-                        android:headerBackground="?attr/actionModeSplitBackground"
-                        android:isScrollContainer="true"
-                        android:keepScreenOn="false"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:timePickerMode="spinner" />
+
+                    <LinearLayout
+                        android:id="@+id/time_pickers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/label_startTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:text="@string/speech_startTime_label" />
+
+
+                        <TimePicker
+                            android:id="@+id/time_picker_start"
+                            android:layout_width="157dp"
+                            android:layout_height="82dp"
+                            android:headerBackground="?attr/actionModeSplitBackground"
+                            android:isScrollContainer="true"
+                            android:keepScreenOn="false"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:timePickerMode="spinner" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/label_endTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:text="@string/speech_endTime_label" />
+
+
+                        <TimePicker
+                            android:id="@+id/time_picker_end"
+                            android:layout_width="142dp"
+                            android:layout_height="82dp"
+                            android:headerBackground="?attr/actionModeSplitBackground"
+                            android:isScrollContainer="true"
+                            android:keepScreenOn="false"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:timePickerMode="spinner" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
             </LinearLayout>
         </android.support.design.widget.TextInputLayout>
 
@@ -192,4 +191,3 @@
 
 
 </LinearLayout>
-
