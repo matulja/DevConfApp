@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -31,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by saba on 11.12.16.
  */
 
-public class SpeechHandler {
+public class SpeechHandler extends AppCompatActivity {
 
     private Activity activity;
     private TextView noSpeeches;
@@ -54,7 +55,7 @@ public class SpeechHandler {
                 else {
                     noSpeeches.setVisibility(View.GONE);
                     ArrayList<Speech> speechArray = new ArrayList<>();
-                    SpeechAdapter speechAdapter = new SpeechAdapter(activity, speechArray);
+                    SpeechAdapter speechAdapter = new SpeechAdapter((AppCompatActivity)activity, speechArray);
 
                     for (int i = 0; i < response.length(); i++) {
                         try {

@@ -3,12 +3,11 @@ package com.senacor.devconfapp.adapters;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -24,6 +23,7 @@ import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Veronika Babic on 14.11.2016.
@@ -32,6 +32,8 @@ import java.util.ArrayList;
 public class SpeechAdapter extends ArrayAdapter<Speech> {
 
     SpeechHandler speechHandler;
+    private AppCompatActivity activity;
+    private List<Speech> speeches;
 
     public static class ViewHolder{
         TextView speechId;
@@ -47,42 +49,44 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         RatingBar ratingBar;
         Button submitRatingButton;
 
+        public ViewHolder(View view){
+            speechId = (TextView) view.findViewById(R.id.value_speech_speechId);
+            speechTitle= (TextView) view.findViewById(R.id.speechTitle);
+            speechRoom = (TextView) view.findViewById(R.id.speechLocation);
+            speaker = (TextView) view.findViewById(R.id.speakerName);
+            speakerInfo = (TextView) view.findViewById(R.id.speakerInfo);
+            speechSummary = (TextView) view.findViewById(R.id.speechSummary);
+            startTime = (TextView) view.findViewById(R.id.value_startTime);
+            endTime = (TextView) view.findViewById(R.id.value_endTime);
+            deleteButton = (ImageView) view.findViewById(R.id.button_delete);
+            editSpeechButton = (ImageView) view.findViewById(R.id.button_editSpeech);
+            ratingBar = (RatingBar) view.findViewById(R.id.ratingSpeechBar);
+            submitRatingButton = (Button) view.findViewById(R.id.submitRating_Button);
+        }
+
     }
 
-    public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
+    public SpeechAdapter(AppCompatActivity context, ArrayList<Speech> speeches) {
         super(context, R.layout.item_speech, speeches);
-        speechHandler = new SpeechHandler((Activity) getContext());
-
-
+        this.activity=context;
+        this.speeches = speeches;
+        speechHandler = new SpeechHandler(activity);
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Speech speech = getItem(position);
-        final SpeechAdapter.ViewHolder viewHolder;
+        ViewHolder viewHolder;
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            viewHolder = new SpeechAdapter.ViewHolder();
-
-            LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_speech, parent, false);
-            viewHolder.speechId = (TextView) convertView.findViewById(R.id.value_speech_speechId);
-            viewHolder.speechTitle= (TextView) convertView.findViewById(R.id.speechTitle);
-            viewHolder.speechRoom = (TextView) convertView.findViewById(R.id.speechLocation);
-            viewHolder.speaker = (TextView) convertView.findViewById(R.id.speakerName);
-            viewHolder.speakerInfo = (TextView) convertView.findViewById(R.id.speakerInfo);
-            viewHolder.speechSummary = (TextView) convertView.findViewById(R.id.speechSummary);
-            viewHolder.startTime = (TextView) convertView.findViewById(R.id.value_startTime);
-            viewHolder.endTime = (TextView) convertView.findViewById(R.id.value_endTime);
-            viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.button_delete);
-            viewHolder.editSpeechButton = (ImageView) convertView.findViewById(R.id.button_editSpeech);
-            viewHolder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingSpeechBar);
-            viewHolder.submitRatingButton = (Button) convertView.findViewById(R.id.submitRating_Button);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
         }
-        viewHolder.speechId.setText(speech.getSpeechId());
+        //viewHolder.speechId.setText(speech.getSpeechId());
         viewHolder.speechTitle.setText(speech.getSpeechTitle());
         viewHolder.speechRoom.setText(speech.getSpeechRoom());
         viewHolder.speaker.setText(speech.getSpeaker());
@@ -91,11 +95,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        // perform click event on Submitbutton
-        viewHolder.ratingBar.setFocusable(false);
+        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
         viewHolder.ratingBar.setTag(position);
+        float rating=getItem(position).getRating();
+        viewHolder.ratingBar.setRating(rating);
         /*viewHolder.ratingBar.setRating(getItem(position));*/
-        viewHolder.ratingBar.setOnTouchListener(new View.OnTouchListener() {
+        /*viewHolder.ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 System.out.println("setRatingListener");
@@ -104,7 +109,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                 Toast.makeText(getContext(), totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
                 return true;
             }
-        });
+        });*/
        /* viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,9 +155,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                             .show();
                 }
             });
-            //
-                    //speechHandler.deleteSpeech(speech.getUrl());
-           //     }});
 
             viewHolder.editSpeechButton.setVisibility(View.VISIBLE);
             viewHolder.editSpeechButton.setOnClickListener(new View.OnClickListener(){
@@ -170,5 +172,38 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         }
         return convertView;
     }
+
+    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final ViewHolder holder, final int position)
+    {
+        return new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b)
+            {
+                System.out.println("in touch listener");
+                Speech item = speeches.get(position);
+                int roundoff_rating = (int)Math.round(rating);
+                ratingBar.setRating(roundoff_rating);
+                item.setRating((roundoff_rating));
+                String totalStars = "Total Stars:: " + ratingBar.getNumStars();
+                String rate= "Rating :: " + ratingBar.getRating();
+                Toast.makeText(getContext(), totalStars + "\n" + rate, Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+    /*@Override
+    public int getCount() {
+        return speeches.size();
+    }
+
+    @Override
+    public Speech getItem(int position)
+    {
+        return speeches.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return speeches.indexOf(getItem(position));
+    }*/
 }
 
