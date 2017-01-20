@@ -22,6 +22,7 @@ public class Speech {
     private String speakerInfo;
     private String speechSummary;
     private String eventId;
+    private float rating;
 
     private String url;
 
@@ -129,6 +130,14 @@ public class Speech {
 
     public void setSpeechSummary(String speechSummary) {
         this.speechSummary = speechSummary;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getUrl() {
