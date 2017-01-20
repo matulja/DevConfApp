@@ -99,7 +99,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.ratingBar.setTag(position);
         float rating=getItem(position).getRating();
         viewHolder.ratingBar.setRating(rating);
-        /*viewHolder.ratingBar.setRating(getItem(position));*/
         /*viewHolder.ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -184,9 +183,9 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                 int roundoff_rating = (int)Math.round(rating);
                 ratingBar.setRating(roundoff_rating);
                 item.setRating((roundoff_rating));
-                String totalStars = "Total Stars:: " + ratingBar.getNumStars();
-                String rate= "Rating :: " + ratingBar.getRating();
-                Toast.makeText(getContext(), totalStars + "\n" + rate, Toast.LENGTH_LONG).show();
+                //String totalStars = "Total Stars: " + ratingBar.getNumStars();
+                String rate= "Rating : " + ratingBar.getRating();
+                Toast.makeText(getContext(), rate, Toast.LENGTH_LONG).show();
             }
         };
     }
