@@ -111,18 +111,37 @@ public class EventHandler {
                 TextView eventName = (TextView) activity.findViewById(R.id.event_name);
                 eventName.setText(event.getName());
 
-                TextView eventPlace = (TextView) activity.findViewById(R.id.event_place);
-                eventPlace.setText(event.getPlace());
 
+                TextView eventPlace = (TextView) activity.findViewById(R.id.event_place);
+                if (event.getPlace().isEmpty())
+                {
+                    eventPlace.setVisibility(View.GONE);
+                }
+                else
+                {
+                    eventPlace.setText(event.getPlace());
+                }
                 TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
                 eventDate.setText(event.dateToString());
 
                 TextView eventStreetAndNumber = (TextView) activity.findViewById(R.id.event_streetAndNumber);
-                eventStreetAndNumber.setText(event.getStreetAndNumber());
+                if (event.getStreetAndNumber().isEmpty())
+                {
+                    eventStreetAndNumber.setVisibility(View.GONE);
+                }
+                else
+                {
+                    eventStreetAndNumber.setText(event.getStreetAndNumber());
+                }
 
                 TextView eventPostalCodeAndCity= (TextView) activity.findViewById(R.id.event_postalCodeAndCity);
-                eventPostalCodeAndCity.setText(event.getPostalCodeAndCity());
-
+                if (event.getPostalCodeAndCity().isEmpty())
+                {
+                    eventPostalCodeAndCity.setVisibility(View.GONE);
+                }
+                else {
+                    eventPostalCodeAndCity.setText(event.getPostalCodeAndCity());
+                }
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean("isInFuture", !(event.getDate().isBefore(LocalDate.now())));
                 editor.commit();
