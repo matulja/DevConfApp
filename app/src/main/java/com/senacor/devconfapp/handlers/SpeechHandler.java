@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +38,7 @@ public class SpeechHandler extends AppCompatActivity {
 
     private Activity activity;
     private TextView noSpeeches;
+    private SpeechRatingHandler speechRatingHandler;
 
     public SpeechHandler(Activity activity) {
         this.activity = activity;
@@ -50,24 +53,26 @@ public class SpeechHandler extends AppCompatActivity {
                 noSpeeches=(TextView) activity.findViewById(R.id.info_noSpeech);
                 if(response.length()== 0){
                     noSpeeches.setVisibility(View.VISIBLE);
-                    System.out.println("passt");
                 }
                 else {
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
+                    final String userId = sharedPref.getString("userId", "userId");
                     noSpeeches.setVisibility(View.GONE);
                     ArrayList<Speech> speechArray = new ArrayList<>();
                     SpeechAdapter speechAdapter = new SpeechAdapter((AppCompatActivity)activity, speechArray);
+                    speechRatingHandler = new SpeechRatingHandler(activity, speechAdapter);
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             Speech speech = new Speech(response.getJSONObject(i));
                             String id = response.getJSONObject(i).getString("speechId");
-                            System.out.println(id);
                             speech.setSpeechId(id);
-                            speechAdapter.add(speech);
+                            speechRatingHandler.getSpeechRating(userId, speech);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
                     ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
                     speechlist.setAdapter(speechAdapter);
                 }

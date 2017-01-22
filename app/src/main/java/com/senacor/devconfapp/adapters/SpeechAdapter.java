@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.handlers.SpeechHandler;
+import com.senacor.devconfapp.handlers.SpeechRatingHandler;
 import com.senacor.devconfapp.models.Speech;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.List;
 public class SpeechAdapter extends ArrayAdapter<Speech> {
 
     SpeechHandler speechHandler;
+    SpeechRatingHandler speechRatingHandler;
     private AppCompatActivity activity;
     private List<Speech> speeches;
 
@@ -75,7 +77,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         final Speech speech = getItem(position);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final String role = sharedPref.getString("role", "role");
+        final String userId = sharedPref.getString("userId", "userId");
+
         ViewHolder viewHolder;
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -94,21 +101,11 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
         viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
         viewHolder.ratingBar.setTag(position);
-        float rating=getItem(position).getRating();
+        float rating=speech.getSpeechRating().getRating();
         viewHolder.ratingBar.setRating(rating);
-        /*viewHolder.ratingBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("setRatingListener");
-                String totalStars = "Total Stars:: " + viewHolder.ratingBar.getNumStars();
-                String rating = "Rating :: " + viewHolder.ratingBar.getRating();
-                Toast.makeText(getContext(), totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });*/
+
        /* viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +117,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
 
             }
         });*/
-        final String role = sharedPref.getString("role", "role");
+
         final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
         if (role.equals("ADMIN") && isInFuture) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
@@ -167,7 +164,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                 }
             });
 
-
         }
         return convertView;
     }
@@ -182,27 +178,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                 Speech item = speeches.get(position);
                 int roundoff_rating = (int)Math.round(rating);
                 ratingBar.setRating(roundoff_rating);
-                item.setRating((roundoff_rating));
+                item.getSpeechRating().setRating((roundoff_rating));
                 //String totalStars = "Total Stars: " + ratingBar.getNumStars();
                 String rate= "Rating : " + ratingBar.getRating();
                 Toast.makeText(getContext(), rate, Toast.LENGTH_LONG).show();
             }
         };
     }
-    /*@Override
-    public int getCount() {
-        return speeches.size();
-    }
-
-    @Override
-    public Speech getItem(int position)
-    {
-        return speeches.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return speeches.indexOf(getItem(position));
-    }*/
 }
 

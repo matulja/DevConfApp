@@ -1,5 +1,7 @@
 package com.senacor.devconfapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -11,6 +13,7 @@ import org.json.JSONObject;
  * Created by Berlina on 14.11.16.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Speech {
 
     private String speechId;
@@ -22,7 +25,7 @@ public class Speech {
     private String speakerInfo;
     private String speechSummary;
     private String eventId;
-    private float rating;
+    private SpeechRating speechRating;
 
     private String url;
 
@@ -132,14 +135,6 @@ public class Speech {
         this.speechSummary = speechSummary;
     }
 
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -151,6 +146,14 @@ public class Speech {
     public String timeToString(LocalTime time) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
         return time.toString(fmt);
+    }
+
+    public SpeechRating getSpeechRating() {
+        return speechRating;
+    }
+
+    public void setSpeechRating(SpeechRating speechRating) {
+        this.speechRating = speechRating;
     }
 
     public String extractAndSaveSpeechId() {

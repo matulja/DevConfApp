@@ -105,9 +105,8 @@ public class EventHandler {
                 speechHandler = new SpeechHandler(activity);
                 String[] urlElements = url.split("/");
                 final String eventId = urlElements[urlElements.length - 1];
-                System.out.println(eventId);
                 event = new Event(jsonObject);
-                System.out.println("eventhandler on success " + event.getName());
+
                 TextView eventName = (TextView) activity.findViewById(R.id.event_name);
                 eventName.setText(event.getName());
 

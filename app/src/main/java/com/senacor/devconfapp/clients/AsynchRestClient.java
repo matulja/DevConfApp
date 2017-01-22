@@ -23,6 +23,8 @@ public class AsynchRestClient {
     public static void get(Context context, String url, RequestParams params,
                            AsyncHttpResponseHandler responseHandler) {
         System.out.println("in get method");
+        System.out.println(url);
+        System.out.println(context);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         addHeaders(sharedPref);
         client.get(context, url, params, responseHandler);
