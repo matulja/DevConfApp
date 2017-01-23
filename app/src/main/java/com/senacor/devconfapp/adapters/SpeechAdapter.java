@@ -105,19 +105,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.ratingBar.setTag(position);
         float rating=speech.getSpeechRating().getRating();
         viewHolder.ratingBar.setRating(rating);
-
-       /* viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // get values and then displayed in a toast
-                Activity activity = (Activity) getContext();
-                String totalStars = "Total Stars:: " + viewHolder.ratingBar.getNumStars();
-                String rating = "Rating :: " + viewHolder.ratingBar.getRating();
-                Toast.makeText(activity, totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
-
-            }
-        });*/
-
+        viewHolder.submitRatingButton.setOnClickListener(onClickListener(viewHolder.ratingBar));
         final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
         if (role.equals("ADMIN") && isInFuture) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
@@ -174,24 +162,28 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b)
             {
-                System.out.println("in touch listener");
                 Speech item = speeches.get(position);
                 int roundoff_rating = (int)Math.round(rating);
                 ratingBar.setRating(roundoff_rating);
                 item.getSpeechRating().setRating((roundoff_rating));
-                //String totalStars = "Total Stars: " + ratingBar.getNumStars();
-                String rate= "Rating : " + ratingBar.getRating();
-                Toast.makeText(getContext(), rate, Toast.LENGTH_LONG).show();
             }
         };
     }
 
-    public List<Speech> getSpeeches() {
-        return speeches;
-    }
+    private Button.OnClickListener onClickListener(final RatingBar ratingbar) {
 
-    public void setSpeeches(List<Speech> speeches) {
-        this.speeches = speeches;
+        return new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = (Activity) getContext();
+                int roundoff_rating = (int) Math.round(ratingbar.getRating());
+                System.out.println(String.valueOf(roundoff_rating));
+                String rating = "Your submitted rating : " + roundoff_rating;
+                Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
+                //SpeechRatingHandler.postSpeechRating(roundoff_rating);
+            }
+
+        };
     }
 }
 
