@@ -2,11 +2,13 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
+import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.models.Speech;
@@ -67,5 +69,33 @@ public class SpeechRatingHandler {
                         System.out.println(throwable);
                     }
                 });
+    }
+
+    public void putSpeechRating(final String url) {
+
+
+        AsynchRestClient.put(activity, url, null, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                Log.i("Information", "in speechhandler edit speech method");
+                Log.i("Information", "speeches were successfully edited");
+                SpeechHandler speechHandler = new SpeechHandler(activity);
+                speechHandler.getSpeeches(EventActivity.URL + "/speeches");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.i("info", "status code = " + statusCode);
+                Log.i("info", "throwable = " + throwable.toString());
+                Log.i("info", "json error response = " + errorResponse.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
+               // errorWithoutJson(statusCode);
+            }
+
+        });
     }
 }

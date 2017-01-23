@@ -17,6 +17,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.RequestParams;
+import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.handlers.SpeechHandler;
@@ -83,7 +85,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         final String role = sharedPref.getString("role", "role");
         final String userId = sharedPref.getString("userId", "userId");
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
@@ -105,7 +107,20 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.ratingBar.setTag(position);
         float rating=speech.getSpeechRating().getRating();
         viewHolder.ratingBar.setRating(rating);
-        viewHolder.submitRatingButton.setOnClickListener(onClickListener(viewHolder.ratingBar));
+        viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Activity activity = (Activity) getContext();
+                speechRatingHandler = new SpeechRatingHandler(activity);
+                int roundoff_rating = (int) Math.round(viewHolder.ratingBar.getRating());
+                RequestParams params = new RequestParams();
+                String rating = "Your submitted rating : " + roundoff_rating;
+                Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
+                String url = IPAddress.IPrating + "/" + userId + "/" + speech.getSpeechId() + "?rating=" + roundoff_rating;
+                speechRatingHandler.putSpeechRating(url);
+            }
+        });
         final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
         if (role.equals("ADMIN") && isInFuture) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
@@ -170,20 +185,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         };
     }
 
-    private Button.OnClickListener onClickListener(final RatingBar ratingbar) {
 
-        return new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity activity = (Activity) getContext();
-                int roundoff_rating = (int) Math.round(ratingbar.getRating());
-                System.out.println(String.valueOf(roundoff_rating));
-                String rating = "Your submitted rating : " + roundoff_rating;
-                Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
-                //SpeechRatingHandler.postSpeechRating(roundoff_rating);
-            }
-
-        };
-    }
 }
 
