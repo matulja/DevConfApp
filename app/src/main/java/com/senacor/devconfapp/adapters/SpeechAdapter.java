@@ -185,5 +185,13 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             }
         };
     }
+
+    public List<Speech> getSpeeches() {
+        return speeches;
+    }
+
+    public void setSpeeches(List<Speech> speeches) {
+        this.speeches = speeches;
+    }
 }
 

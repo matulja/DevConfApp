@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
-import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Speech;
@@ -25,8 +23,6 @@ import com.senacor.devconfapp.models.Speech;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -58,10 +54,7 @@ public class SpeechHandler extends AppCompatActivity {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
                     final String userId = sharedPref.getString("userId", "userId");
                     noSpeeches.setVisibility(View.GONE);
-                    ArrayList<Speech> speechArray = new ArrayList<>();
-                    SpeechAdapter speechAdapter = new SpeechAdapter((AppCompatActivity)activity, speechArray);
-                    speechRatingHandler = new SpeechRatingHandler(activity, speechAdapter);
-
+                    speechRatingHandler = new SpeechRatingHandler(activity);
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             Speech speech = new Speech(response.getJSONObject(i));
@@ -72,9 +65,6 @@ public class SpeechHandler extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
-                    speechlist.setAdapter(speechAdapter);
                 }
             }
 
