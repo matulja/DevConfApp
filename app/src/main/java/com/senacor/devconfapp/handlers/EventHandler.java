@@ -112,33 +112,25 @@ public class EventHandler {
 
 
                 TextView eventPlace = (TextView) activity.findViewById(R.id.event_place);
-                if (event.getPlace().isEmpty())
-                {
+                if (event.getPlace().isEmpty()) {
                     eventPlace.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     eventPlace.setText(event.getPlace());
                 }
                 TextView eventDate = (TextView) activity.findViewById(R.id.event_date);
                 eventDate.setText(event.dateToString());
 
                 TextView eventStreetAndNumber = (TextView) activity.findViewById(R.id.event_streetAndNumber);
-                if (event.getStreetAndNumber().isEmpty())
-                {
+                if (event.getStreetAndNumber().isEmpty()) {
                     eventStreetAndNumber.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     eventStreetAndNumber.setText(event.getStreetAndNumber());
                 }
 
                 TextView eventPostalCodeAndCity= (TextView) activity.findViewById(R.id.event_postalCodeAndCity);
-                if (event.getPostalCodeAndCity().isEmpty())
-                {
+                if (event.getPostalCodeAndCity().isEmpty()) {
                     eventPostalCodeAndCity.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     eventPostalCodeAndCity.setText(event.getPostalCodeAndCity());
                 }
                 SharedPreferences.Editor editor = sharedPref.edit();
