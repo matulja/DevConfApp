@@ -10,15 +10,14 @@
     android:orientation="vertical"
     tools:context="com.senacor.devconfapp.activities.EventActivity">
 
-
-        <TextView
-            android:text="@string/allEvents_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/title_allEvents"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textColor="@color/senacorBlue"/>
+    <TextView
+        android:text="@string/allEvents_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_allEvents"
+        android:layout_weight="1"
+        android:textSize="22sp"
+        android:textColor="@color/senacorBlue"/>
 
 
     <!-- TextField für Event Id-->
@@ -46,16 +45,15 @@
         android:layout_below="@id/title_allEvents"
         android:layout_marginTop="10dp" />
 
-        <ImageView
-            android:id="@+id/addEventButton"
-            android:src="@drawable/ic_mode_plus_green_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="55dp"
-            android:layout_marginBottom="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:baselineAlignBottom="true"
-            android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/addEventButton"
+        android:src="@drawable/ic_mode_plus_green_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:baselineAlignBottom="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

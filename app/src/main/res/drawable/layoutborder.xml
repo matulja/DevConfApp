@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <!-- <solid android:color="@color/speechBackgroundLtBlue" /> -->
+    <stroke android:width="2dip" android:color="@color/speechBackgroundLtBlue"/>
+    <corners android:bottomRightRadius="1sp"
+        android:bottomLeftRadius="1sp"
+        android:topRightRadius="1sp"
+        android:topLeftRadius="1sp"/>
+</shape>
