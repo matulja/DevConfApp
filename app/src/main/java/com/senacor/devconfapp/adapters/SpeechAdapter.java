@@ -17,7 +17,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
@@ -105,7 +104,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
         viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
         viewHolder.ratingBar.setTag(position);
-        float rating=speech.getSpeechRating().getRating();
+        float rating;
+        if (speech.getSpeechRating() != null){
+            rating = speech.getSpeechRating().getRating();
+        }else{
+            rating = 0;
+        }
         viewHolder.ratingBar.setRating(rating);
         viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener(){
 
@@ -114,7 +118,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                 Activity activity = (Activity) getContext();
                 speechRatingHandler = new SpeechRatingHandler(activity);
                 int roundoff_rating = (int) Math.round(viewHolder.ratingBar.getRating());
-                RequestParams params = new RequestParams();
                 String rating = "Your submitted rating : " + roundoff_rating;
                 Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
                 String url = IPAddress.IPrating + "/" + userId + "/" + speech.getSpeechId() + "?rating=" + roundoff_rating;
@@ -179,8 +182,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             {
                 Speech item = speeches.get(position);
                 int roundoff_rating = (int)Math.round(rating);
-                ratingBar.setRating(roundoff_rating);
                 item.getSpeechRating().setRating((roundoff_rating));
+                ratingBar.setRating(roundoff_rating);
             }
         };
     }
