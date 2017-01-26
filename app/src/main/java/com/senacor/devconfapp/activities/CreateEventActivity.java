@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +40,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private String eventId;
     boolean editing = false;
     boolean needsValidation = false;
+    Toolbar toolbar;
 
 
     @Override
@@ -45,6 +48,17 @@ public class CreateEventActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //AppLogo
+        getSupportActionBar().setLogo(R.drawable.logow);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        // Remove default title text
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // Get access to the custom title view
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler = new EventHandler(this);
         validationHandler = new ValidationHandler();
@@ -173,7 +187,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem newEvent = menu.findItem(R.id.create_new_event);
+        MenuItem newEvent = menu.findItem(R.id.list_all_events);
         newEvent.setVisible(false);
         return true;
     }
@@ -181,7 +195,7 @@ public class CreateEventActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+                return super.onCreateOptionsMenu(menu);
     }
 }
 

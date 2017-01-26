@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
@@ -23,6 +25,7 @@ public class EventActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     public static String URL;
     EventHandler eventHandler = new EventHandler(EventActivity.this);
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,16 @@ public class EventActivity extends AppCompatActivity {
         URL = getIntent().getExtras().getString("url");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler.getEvent(URL);
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //AppLogo
+        getSupportActionBar().setLogo(R.drawable.logow);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        // Remove default title text
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // Get access to the custom title view
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
     }
 
 
@@ -44,10 +57,10 @@ public class EventActivity extends AppCompatActivity {
                 EventActivity.this.startActivity(intent);
                 return true;
 
-            case R.id.create_new_event:
+            /*case R.id.create_new_event:
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
                 startActivity(intent2);
-                return true;
+                return true;*/
 
             case R.id.action_log_out:
                 LogInOutHandler logInOutHandler = new LogInOutHandler(this);
@@ -66,7 +79,7 @@ public class EventActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem newEvent = menu.findItem(R.id.create_new_event);
+        MenuItem newEvent = menu.findItem(R.id.list_all_events);
         newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
         return true;
     }
