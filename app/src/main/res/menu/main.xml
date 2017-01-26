@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--
+
     <item
-        android:id="@+id/list_all_events_arrow"
+        android:id="@+id/list_all_events"
         android:icon="@drawable/ic_keyboard_arrow_left_24dp"
         android:title="Show all events"
         android:layout_width="wrap_content"
         app:showAsAction="always"
-        /> -->
+        />
 
     <item
         android:id="@+id/logo_senacor_white_png"
@@ -19,7 +19,7 @@
         android:title="Senacor Logo" />
 
     <!-- Menu Icon -->
-    <item
+ <!--   <item
         android:id="@+id/list_all_events"
         android:title="Show all events"
         app:showAsAction="never"
@@ -28,7 +28,7 @@
         android:id="@+id/create_new_event"
         android:title="Create new event"
         app:showAsAction="never"
-        />
+        />-->
 
     <!-- Log Out Icon -->
     <item
