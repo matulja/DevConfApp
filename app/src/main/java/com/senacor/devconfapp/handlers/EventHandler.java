@@ -25,6 +25,7 @@ import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
+import com.senacor.devconfapp.fragments.EventRatingDialog;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Event;
 
@@ -139,6 +140,18 @@ public class EventHandler {
                 editor.putBoolean("isToday", event.getDate().isEqual(LocalDate.now()));
                 editor.commit();
 
+                TextView rateSpeech = (TextView) activity.findViewById(R.id.rateEvent);
+                if(event.getDate().isBefore(LocalDate.now()) || event.getDate().isEqual(LocalDate.now())){
+                    rateSpeech.setVisibility(VISIBLE);
+                    rateSpeech.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            DialogFragment eventRatingDialog = EventRatingDialog.newInstance(event);
+                            eventRatingDialog.show(activity.getFragmentManager(), "EventRatingDialog");
+
+                        }
+                    });
+                }
                 speechHandler.getSpeeches(URL + "/speeches");
                 ImageView addSpeechButton = (ImageView) activity.findViewById(R.id.addSpeechButton);
                 ImageView editEventButton = (ImageView) activity.findViewById(R.id.button_editEventButton);

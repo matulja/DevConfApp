@@ -62,4 +62,9 @@
     <string name="speechRate">Rate now:</string>
     <string name="speechRated">You have rated this speech.</string>
 
+    <!-- Strings for rating Event -->
+    <string name="submitRating"> Submit </string>
+    <string name="cancelRating"> Cancel </string>
+    <string name="rateEvent">Rate the whole event here...</string>
+
 </resources>
