@@ -8,13 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.UUID;
-
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SpeechRating {
 
-    private UUID speechRatingId;
+
+/*    private String speechId;
+    private String userId;*/
     private LocalTime timestamp;
     private Integer rating;
     private String comment;
@@ -44,12 +44,38 @@ public class SpeechRating {
         }
     }
 
-    public UUID getSpeechRatingId() {
+   /* public UUID getSpeechRatingId() {
         return speechRatingId;
     }
 
     public void setSpeechRatingId(UUID speechRatingId) {
         this.speechRatingId = speechRatingId;
+    }*/
+/*
+
+    public String getSpeechId() {
+        return speechId;
+    }
+
+    public void setSpeechId(String speechId) {
+        this.speechId = speechId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+*/
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public LocalTime getTimestamp() {

@@ -125,7 +125,8 @@
         android:textColor="@color/senacorGreyDark"
         android:text="@string/speechRate"
         android:layout_marginTop="10sp"
-        android:id="@+id/stringRate"/>
+        android:id="@+id/stringRate"
+        android:visibility="gone"/>
 
     <!-- android:textColor="@color/senacorBlueDark"-->
 
@@ -141,7 +142,8 @@
         style="@style/RatingBar"
         android:numStars="5"
         android:isIndicator="false"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/submitRating_Button"
@@ -150,36 +152,10 @@
         android:layout_height="30sp"
         android:textColor="@color/senacorWhite"
         android:background="@drawable/roundedbutton"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@id/ratingSpeechBar"
         android:layout_margin="4sp"
         android:textSize="14sp"
-        android:layout_alignEnd="@+id/ratingSpeechBar"/>
+        android:layout_alignEnd="@+id/ratingSpeechBar" />
 
-    <!-- String rated: you have rated. -->
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speechSummary"
-        android:layout_alignLeft="@+id/speakerName"
-        android:layout_alignStart="@+id/speakerName"
-        android:text="@string/speechRated"
-        android:layout_marginTop="2dp"
-        android:layout_marginRight="13dp"
-        android:id="@+id/stringRated"
-        android:textColor="@color/senacorBlue"
-        android:visibility="gone"/>-->
-
-
-    <!-- 1 Star - you have rated
-    <ImageView
-        android:id="@+id/speechRated"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_star_filled_notpng"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/stringRate"
-        android:layout_alignBottom="@id/stringRate"
-        android:visibility="gone"/>
-    -->
 </RelativeLayout>

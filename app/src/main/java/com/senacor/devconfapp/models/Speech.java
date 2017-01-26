@@ -26,8 +26,8 @@ public class Speech {
     private String speechSummary;
     private String eventId;
     private SpeechRating speechRating;
-
     private String url;
+
 
     public Speech(JSONObject jsonObject) {
         try {
@@ -48,7 +48,6 @@ public class Speech {
                     if (array.getJSONObject(i).getString("rel").equals("self")) {
                         this.url = array.getJSONObject(i).getString("href");
                         System.out.println(url);
-
                     }
                 }
             }

@@ -134,7 +134,9 @@ public class EventHandler {
                     eventPostalCodeAndCity.setText(event.getPostalCodeAndCity());
                 }
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putBoolean("isInFuture", !(event.getDate().isBefore(LocalDate.now())));
+                editor.putBoolean("isInFuture", event.getDate().isAfter(LocalDate.now()));
+                System.out.println("event is today = " + event.getDate().isEqual(LocalDate.now()));
+                editor.putBoolean("isToday", event.getDate().isEqual(LocalDate.now()));
                 editor.commit();
 
                 speechHandler.getSpeeches(URL + "/speeches");
@@ -142,7 +144,7 @@ public class EventHandler {
                 ImageView editEventButton = (ImageView) activity.findViewById(R.id.button_editEventButton);
                 ImageView deleteEventButton = (ImageView) activity.findViewById(R.id.button_deleteEventButton);
 
-                if (sharedPref.getBoolean("isInFuture", true)) {
+                if (sharedPref.getBoolean("isInFuture", true) || sharedPref.getBoolean("isToday", true)) {
 
                     attendanceHandler.setAttendanceButton(URL + "/attendees/" + sharedPref.getString("userId", "userId"));
 

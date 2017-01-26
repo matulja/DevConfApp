@@ -36,8 +36,10 @@ public class SpeechHandler extends AppCompatActivity {
     private TextView noSpeeches;
     private SpeechRatingHandler speechRatingHandler;
 
+
     public SpeechHandler(Activity activity) {
         this.activity = activity;
+
     }
 
     public void getSpeeches(String speechesUrl) {

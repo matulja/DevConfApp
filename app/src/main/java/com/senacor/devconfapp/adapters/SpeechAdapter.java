@@ -17,12 +17,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.handlers.SpeechRatingHandler;
 import com.senacor.devconfapp.models.Speech;
+
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         TextView speaker;
         TextView speakerInfo;
         TextView speechSummary;
+        TextView rateNow;
         ImageView deleteButton;
         ImageView editSpeechButton;
         RatingBar ratingBar;
@@ -65,6 +69,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             editSpeechButton = (ImageView) view.findViewById(R.id.button_editSpeech);
             ratingBar = (RatingBar) view.findViewById(R.id.ratingSpeechBar);
             submitRatingButton = (Button) view.findViewById(R.id.submitRating_Button);
+            rateNow = (TextView) view.findViewById(R.id.stringRate);
         }
 
     }
@@ -83,6 +88,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final String role = sharedPref.getString("role", "role");
         final String userId = sharedPref.getString("userId", "userId");
+        final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
+        final boolean isToday = sharedPref.getBoolean("isToday", true);
 
         final ViewHolder viewHolder;
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -102,30 +109,48 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
         viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
-        viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
-        viewHolder.ratingBar.setTag(position);
-        float rating;
-        if (speech.getSpeechRating() != null){
-            rating = speech.getSpeechRating().getRating();
-        }else{
-            rating = 0;
-        }
-        viewHolder.ratingBar.setRating(rating);
-        viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Activity activity = (Activity) getContext();
-                speechRatingHandler = new SpeechRatingHandler(activity);
-                int roundoff_rating = (int) Math.round(viewHolder.ratingBar.getRating());
-                String rating = "Your submitted rating : " + roundoff_rating;
-                Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
-                String url = IPAddress.IPrating + "/" + userId + "/" + speech.getSpeechId() + "?rating=" + roundoff_rating;
-                speechRatingHandler.putSpeechRating(url);
+        if (!isInFuture) {
+            viewHolder.ratingBar.setVisibility(View.VISIBLE);
+            viewHolder.submitRatingButton.setVisibility(View.VISIBLE);
+            viewHolder.rateNow.setVisibility(View.VISIBLE);
+            viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
+            viewHolder.ratingBar.setTag(position);
+            float rating;
+            if (speech.getSpeechRating() != null){
+                System.out.println("speechrating found");
+                rating = speech.getSpeechRating().getRating();
+            }else{
+                System.out.println("speechrating does not exist yet");
+                rating = 0;
             }
-        });
-        final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
-        if (role.equals("ADMIN") && isInFuture) {
+            viewHolder.ratingBar.setRating(rating);
+            viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    Activity activity = (Activity) getContext();
+                    speechRatingHandler = new SpeechRatingHandler(activity);
+                    int roundoff_rating = (int) Math.round(viewHolder.ratingBar.getRating());
+                    String rating = "Your submitted rating : " + roundoff_rating;
+                    Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
+                    RequestParams params = new RequestParams();
+                    params.put("rating", roundoff_rating);
+                    params.put("userId", userId);
+                    params.put("speechId", speech.getSpeechId());
+                    params.put("timestamp", new LocalTime().now());
+//                    System.out.println("link is: " + speech.getSpeechRating().getUrl() +"/edit");
+                    if (speech.getSpeechRating() != null) {
+                        speechRatingHandler.putSpeechRating(speech.getSpeechRating().getUrl() + "/edit", params);
+                    }else{
+                        speechRatingHandler.postSpeechRating(IPAddress.IPrating + "/" + speech.getSpeechId() + "/" +userId + "/add", params);
+                    }
+
+                }
+            });
+
+        }
+
+        if (role.equals("ADMIN") && (isInFuture || isToday)) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener(){
 
@@ -182,7 +207,9 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             {
                 Speech item = speeches.get(position);
                 int roundoff_rating = (int)Math.round(rating);
-                item.getSpeechRating().setRating((roundoff_rating));
+                if (item.getSpeechRating() != null) {
+                    item.getSpeechRating().setRating((roundoff_rating));
+                }
                 ratingBar.setRating(roundoff_rating);
             }
         };
