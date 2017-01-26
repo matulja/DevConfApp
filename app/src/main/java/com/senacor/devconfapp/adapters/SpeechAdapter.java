@@ -138,11 +138,10 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
                     params.put("userId", userId);
                     params.put("speechId", speech.getSpeechId());
                     params.put("timestamp", new LocalTime().now());
-//                    System.out.println("link is: " + speech.getSpeechRating().getUrl() +"/edit");
                     if (speech.getSpeechRating() != null) {
                         speechRatingHandler.putSpeechRating(speech.getSpeechRating().getUrl() + "/edit", params);
                     }else{
-                        speechRatingHandler.postSpeechRating(IPAddress.IPrating + "/" + speech.getSpeechId() + "/" +userId + "/add", params);
+                        speechRatingHandler.postSpeechRating(IPAddress.IPrating + "/speeches/" + speech.getSpeechId() + "/" +userId + "/add", params);
                     }
 
                 }

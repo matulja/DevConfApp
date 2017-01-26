@@ -46,20 +46,18 @@ public class SpeechRatingHandler {
     }
 
     public void getSpeechRating(String userId, final Speech speech) {
-                
-        AsynchRestClient.get(activity, IPAddress.IPrating + "/" + speech.getSpeechId() + "/" + userId,
+
+        AsynchRestClient.get(activity, IPAddress.IPrating + "/speeches/" + speech.getSpeechId() + "/" + userId,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                         boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
                         if (!isInFuture) {
-                            System.out.println("success in getting speechrating");
                             System.out.println(jsonObject.toString());
                             if (jsonObject.length() != 0) {
                                 SpeechRating speechRating = new SpeechRating(jsonObject);
                                 speech.setSpeechRating(speechRating);
-                                System.out.println("speechrating is set.");
                             }
                         }
                         boolean wasAdded = false;
