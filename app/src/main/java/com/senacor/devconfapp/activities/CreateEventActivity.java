@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -40,7 +39,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private String eventId;
     boolean editing = false;
     boolean needsValidation = false;
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
 
     @Override
@@ -48,16 +47,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        toolbar=(Toolbar) findViewById(R.id.menutoolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //AppLogo
-        getSupportActionBar().setLogo(R.drawable.logow);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        // Remove default title text
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        // Get access to the custom title view
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler = new EventHandler(this);

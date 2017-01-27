@@ -1,7 +1,6 @@
 package com.senacor.devconfapp.activities;
 
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,7 +21,8 @@ import static com.senacor.devconfapp.R.id.username;
 public class LoginActivity extends AppCompatActivity {
 
     LogInOutHandler logInOutHandler;
-    Toolbar toolbar;
+    private Toolbar toolbar;
+    private TextView textViewToolbar;
 
 
     @Override
@@ -30,16 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         logInOutHandler = new LogInOutHandler(this);
-        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        toolbar=(Toolbar) findViewById(R.id.menutoolbar);
+        textViewToolbar= (TextView)findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //AppLogo
-        getSupportActionBar().setLogo(R.mipmap.logow); //wrong logo diplayed
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        // Remove default title text
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        // Get access to the custom title view
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        textViewToolbar.setText("Sign in for DevCon");
 
         final EditText etUsername = (EditText) findViewById(username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
@@ -75,5 +69,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
 
     }
+
+/*    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return(super.onCreateOptionsMenu(menu));
+    }*/
 }
 

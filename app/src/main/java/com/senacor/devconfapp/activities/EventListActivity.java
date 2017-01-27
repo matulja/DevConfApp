@@ -25,25 +25,19 @@ public class EventListActivity extends AppCompatActivity {
 
     EventHandler eventHandler = new EventHandler(this);
     public SharedPreferences sharedPref;
-    Toolbar toolbar;
+    private Toolbar toolbar;
+    private TextView textViewToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        eventHandler.getEventList();
-        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        toolbar=(Toolbar) findViewById(R.id.toolbar_event);
+        textViewToolbar= (TextView)findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //AppLogo
-        getSupportActionBar().setLogo(R.drawable.logow);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        // Remove default title text
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        // Get access to the custom title view
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        textViewToolbar.setText("All DevCons");
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        eventHandler.getEventList();
     }
 
     // in jeder Activity überschreiben, oder von TabActivity(default--> alle Methods) erben
@@ -51,10 +45,11 @@ public class EventListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
-            case R.id.list_all_events:
+            case R.id.backToEvent:
 
-                Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
-                startActivity(intent2);
+                Intent intent2 = new Intent(EventListActivity.this, EventActivity.class);
+                intent2.putExtra("url", sharedPref.getString("url", "url"));
+                EventListActivity.this.startActivity(intent2);
                 return true;
 
             case R.id.action_log_out:
@@ -73,18 +68,19 @@ public class EventListActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem newEvent = menu.findItem(R.id.list_all_events);
-        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
-
+/*      MenuItem newEvent = menu.findItem(R.id.list_all_events);
+        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));*/
         MenuItem showAllEvents = menu.findItem(R.id.list_all_events);
         showAllEvents.setVisible(false);
+        MenuItem backToEvent = menu.findItem(R.id.backToEvent);
+        backToEvent.setVisible(true);
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override

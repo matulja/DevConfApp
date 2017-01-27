@@ -1,105 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".activities.EventActivity">
-   <!-- android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:layout_marginTop="1dp"-->
-    tools:context=".activities.EventActivity">
-    <!-- tools:context="com.senacor.devconfapp.activities.EventActivity" -->
-    <!-- layout_weight of ImageView and
-    weightSum in LinearLayout -->
 
-    <!-- CoordinatorLayout is used to create scrolling and "floating" effects within a layout -->
-    <!-- This is typically the root layout which wraps the app bar and content -->
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/main_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- AppBarLayout is a wrapper for a Toolbar in order to apply scrolling effects. -->
-        <!-- Note that AppBarLayout expects to be the first child nested within a CoordinatorLayout -->
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-
-            <!-- Toolbar is the actual app bar with text and the action items -->
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways" />
-        </android.support.design.widget.AppBarLayout>
-
-        <!-- This could also be included from another file using the include tag -->
-        <!-- i.e `res/layout/content_main.xml` -->
-        <!-- `app:layout_behavior` is set to a pre-defined standard scrolling behavior -->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    </android.support.design.widget.CoordinatorLayout>
-
-
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar_event"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <!-- DevCon Details-->
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/info_noSpeech"
+        android:textStyle="bold|italic"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="@string/info_noSpeech"
+        android:gravity="center"/>
+
+
+    <!--
+    <ImageButton
+        android:id="@+id/addSpeechButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_mode_plus_green_24dp"
+        android:visibility="gone"/> -->
+
+    <!--> optional -->
+    <ImageView
+        android:id="@+id/addSpeechButton"
+        android:src="@drawable/ic_mode_plus_green_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10sp"
+        android:visibility="gone"
+        android:contentDescription="ButtonForAddingSpeech" />
+
+    <TextView
         android:id="@+id/event_name"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
         android:textSize="24sp"
         android:layout_marginRight="70sp"
         android:layout_marginLeft="5sp"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/senacorBlue"/>
-
-
-    <Button
-        android:id="@+id/joinButton"
-        android:layout_width="70sp"
-        android:layout_height="30sp"
-        android:layout_above="@+id/lineDevCon"
-        android:layout_alignEnd="@+id/lineDevCon"
-        android:layout_alignRight="@+id/lineDevCon"
-        android:background="@drawable/roundedbutton"
-        android:textColor="@color/senacorWhite"
-        android:textSize="14sp"
-        android:visibility="invisible"/>
+        android:textColor="@color/senacorBlue"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/toolbar_event"
+        android:layout_toStartOf="@+id/joinButton" />
 
     <View
         android:id="@+id/lineDevCon"
         android:layout_height="3dp"
         android:background="@color/senacorBlueLight"
         android:layout_width="wrap_content"
-        android:layout_marginTop="8sp"
         android:layout_below="@+id/event_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <!-- Agenda-->
+    <ListView
+        android:id="@+id/list_speeches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:headerDividersEnabled="false"
+        android:dividerHeight="5sp"
+        android:divider="@color/senacorWhite"
+        android:layout_below="@+id/agenda"
+        android:layout_alignParentStart="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lineDevCon"
         android:id="@+id/event_details"
         android:paddingTop="10sp"
-        android:paddingBottom="10sp">
+        android:paddingBottom="10sp"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/lineDevCon"
+        android:layout_toEndOf="@+id/info_noSpeech">
         <!--
         android:background="@drawable/layoutborder" -->
 
@@ -149,7 +142,8 @@
             android:layout_alignParentRight="true"
             android:visibility="gone"
             android:adjustViewBounds="false"
-            android:id="@+id/button_editEventButton"/>
+            android:id="@+id/button_editEventButton"
+            android:contentDescription="" />
 
         <ImageView
             android:src="@drawable/ic_clear_x"
@@ -159,66 +153,29 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/button_editEventButton"
             android:visibility="gone"/>
+
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="70sp"
+        android:layout_height="30sp"
+        android:background="@drawable/roundedbutton"
+        android:textColor="@color/senacorWhite"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/event_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="7dp" />
 
-
-    <!-- Agenda-->
     <TextView
         android:id="@+id/agenda"
         android:text="@string/agendaTitle"
         android:layout_width="120sp"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginBottom="10sp"
         android:layout_below="@+id/event_details"
-        android:layout_alignLeft="@id/lineDevCon"
-        android:layout_alignStart="@id/lineDevCon"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/info_noSpeech"
-        android:textStyle="bold|italic"
-        android:textSize="15sp"
-        android:visibility="gone"
-        android:text="@string/info_noSpeech"
-        android:gravity="center"/>
-
-    <ListView
-        android:id="@+id/list_speeches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/agenda"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:headerDividersEnabled="false"
-        android:dividerHeight="5sp"
-        android:divider="@color/senacorWhite"/>
-
-
-    <!--
-    <ImageButton
-        android:id="@+id/addSpeechButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_mode_plus_green_24dp"
-        android:visibility="gone"/> -->
-
-    <!--> optional -->
-    <ImageView
-        android:id="@+id/addSpeechButton"
-        android:src="@drawable/ic_mode_plus_green_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10sp"
-        android:visibility="gone" />
+        android:layout_alignStart="@+id/event_name" />
 
 </RelativeLayout>
 
