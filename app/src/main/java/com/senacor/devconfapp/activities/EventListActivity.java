@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
@@ -23,13 +25,18 @@ public class EventListActivity extends AppCompatActivity {
 
     EventHandler eventHandler = new EventHandler(this);
     public SharedPreferences sharedPref;
+    private Toolbar toolbar;
+    private TextView textViewToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_events);
+        toolbar=(Toolbar) findViewById(R.id.toolbar_event);
+        textViewToolbar= (TextView)findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        textViewToolbar.setText("All DevCons");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
         eventHandler.getEventList();
     }
 
@@ -38,10 +45,11 @@ public class EventListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
-            case R.id.create_new_event:
+            case R.id.backToEvent:
 
-                Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
-                startActivity(intent2);
+                Intent intent2 = new Intent(EventListActivity.this, EventActivity.class);
+                intent2.putExtra("url", sharedPref.getString("url", "url"));
+                EventListActivity.this.startActivity(intent2);
                 return true;
 
             case R.id.action_log_out:
@@ -60,18 +68,19 @@ public class EventListActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem newEvent = menu.findItem(R.id.create_new_event);
-        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
-
+/*      MenuItem newEvent = menu.findItem(R.id.list_all_events);
+        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));*/
         MenuItem showAllEvents = menu.findItem(R.id.list_all_events);
         showAllEvents.setVisible(false);
+        MenuItem backToEvent = menu.findItem(R.id.backToEvent);
+        backToEvent.setVisible(true);
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override

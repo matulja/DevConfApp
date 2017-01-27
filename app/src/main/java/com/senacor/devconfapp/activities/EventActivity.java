@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.loopj.android.http.RequestParams;
@@ -23,16 +23,38 @@ public class EventActivity extends AppCompatActivity {
     private SharedPreferences sharedPref;
     public static String URL;
     EventHandler eventHandler = new EventHandler(EventActivity.this);
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(event);
+        toolbar=(Toolbar) findViewById(R.id.toolbar_event);
+        if (toolbar != null){
+        setSupportActionBar(toolbar);}
         URL = getIntent().getExtras().getString("url");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler.getEvent(URL);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        /*MenuItem newEvent = menu.findItem(R.id.list_all_events);
+        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));*/
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (final Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    protected void onStart () {
+        super.onStart();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -44,10 +66,10 @@ public class EventActivity extends AppCompatActivity {
                 EventActivity.this.startActivity(intent);
                 return true;
 
-            case R.id.create_new_event:
+            /*case R.id.create_new_event:
                 Intent intent2 = new Intent(getApplicationContext(), CreateEventActivity.class);
                 startActivity(intent2);
-                return true;
+                return true;*/
 
             case R.id.action_log_out:
                 LogInOutHandler logInOutHandler = new LogInOutHandler(this);
@@ -64,25 +86,7 @@ public class EventActivity extends AppCompatActivity {
 
         }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem newEvent = menu.findItem(R.id.create_new_event);
-        newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));
-        return true;
-    }
+}
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
-
-            getMenuInflater().inflate(R.menu.main, menu);
-            return super.onCreateOptionsMenu(menu);
-        }
-
-        @Override
-        protected void onStart () {
-            super.onStart();
-        }
-
-    }
 
 

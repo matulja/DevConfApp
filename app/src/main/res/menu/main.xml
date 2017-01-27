@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--
+    <!-- Back To Event Icon -->
     <item
-        android:id="@+id/list_all_events_arrow"
+        android:id="@+id/backToEvent"
         android:icon="@drawable/ic_keyboard_arrow_left_24dp"
-        android:title="Show all events"
+        android:title="Back to Event"
+        android:layout_width="wrap_content"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+
+    <!-- Show all Events Icon -->
+    <item
+        android:id="@+id/list_all_events"
+        android:icon="@drawable/ic_list_forevent_24dp"
+        android:title="Show all Events"
         android:layout_width="wrap_content"
         app:showAsAction="always"
-        /> -->
+        />
 
+    <!-- Log Out Icon -->
     <item
+        android:id="@+id/action_log_out"
+        android:icon="@drawable/ic_exit_to_app_24dp"
+        android:title="Logout"
+        app:showAsAction="always"
+        />
+
+
+  <!--  <item
         android:id="@+id/logo_senacor_white_png"
         android:layout_width="40dp"
         android:icon="@drawable/logow"
         app:showAsAction="always"
-        android:title="Senacor Logo" />
+        android:title="Senacor Logo"
+        />-->
 
     <!-- Menu Icon -->
-    <item
+ <!--   <item
         android:id="@+id/list_all_events"
         android:title="Show all events"
         app:showAsAction="never"
@@ -28,15 +49,6 @@
         android:id="@+id/create_new_event"
         android:title="Create new event"
         app:showAsAction="never"
-        />
-
-    <!-- Log Out Icon -->
-    <item
-        android:id="@+id/action_log_out"
-        android:icon="@drawable/ic_exit_to_app_24dp"
-        android:title="log out icon"
-        app:showAsAction="always"
-        />
-
+        />-->
 
 </menu>
