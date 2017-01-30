@@ -1,6 +1,5 @@
 package com.senacor.devconfapp.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -46,10 +45,7 @@ public class EventListActivity extends AppCompatActivity {
         switch(item.getItemId()) {
 
             case R.id.backToEvent:
-
-                Intent intent2 = new Intent(EventListActivity.this, EventActivity.class);
-                intent2.putExtra("url", sharedPref.getString("url", "url"));
-                EventListActivity.this.startActivity(intent2);
+                finish();
                 return true;
 
             case R.id.action_log_out:
