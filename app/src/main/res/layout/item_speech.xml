@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin_senacor"
     android:paddingLeft="@dimen/activity_horizontal_margin_senacor"
     android:paddingRight="@dimen/activity_horizontal_margin_senacor"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin_senacor"
     android:background="@color/speechBackgroundLtBlue"
     android:fadingEdge="horizontal"
     android:descendantFocusability="blocksDescendants">
@@ -124,7 +124,7 @@
         android:layout_alignLeft="@+id/speakerName"
         android:textColor="@color/senacorGreyDark"
         android:text="@string/speechRate"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="7sp"
         android:id="@+id/stringRate"
         android:visibility="gone"/>
 

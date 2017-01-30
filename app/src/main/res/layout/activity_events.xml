@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/logow"
     tools:context="com.senacor.devconfapp.activities.EventActivity">
 
     <include
@@ -64,7 +63,8 @@
         android:id="@+id/list_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/value_event_eventId"
         android:layout_below="@+id/toolbar_event"
-        android:layout_alignParentStart="true" />
+        android:background="@drawable/logowbagr"/>
 
 </RelativeLayout>
