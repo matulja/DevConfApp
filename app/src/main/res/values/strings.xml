@@ -66,5 +66,6 @@
     <string name="submitRating"> Submit </string>
     <string name="cancelRating"> Cancel </string>
     <string name="rateEvent">Rate the whole event here...</string>
+    <string name="labelRatingComment">Your comment</string>
 
 </resources>

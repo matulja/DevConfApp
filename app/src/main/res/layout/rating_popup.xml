@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="40dp">
+    android:padding="40dp"
+    android:weightSum="1">
 
 
     <TextView
@@ -19,68 +20,89 @@
         android:layout_height="wrap_content"
         android:elegantTextHeight="false"
         android:ems="10"
-        android:text="Rating"
+        android:text="Rate the event"
         android:textAlignment="center"
         android:textColor="@color/senacorBlue"
         android:textSize="20dp" />
 
 
-            <!-- Rating string: rate now -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Give us your rating"
-                android:layout_margin="25dp"
-                android:id="@+id/giveRating"/>
+    <!-- Rating string: rate now -->
 
-    <LinearLayout
+    <TextView
+        android:text="Rate catering:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_ratingbarCatering" />
+
+    <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/speechBackgroundLtBlue"
+        style="@style/RatingBar"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/ratingBarCatering" />
+
+    <TextView
+        android:text="Rate location:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_ratingbarLocation" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RatingBar"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:id="@+id/ratingBarLocation" />
+
+    <TextView
+        android:text="Rate infos about the event:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_ratingbarInformation" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RatingBar"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:id="@+id/ratingBarInformation" />
+
+    <TextView
+        android:text="Rate topic selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_ratingbarContent" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RatingBar"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:id="@+id/ratingBarTopicSelection" />
+
+    <TextView
+        android:text="Comments/Suggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_rateSuggestions" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textCommentEventRating"
+        android:layout_width="272dp"
+        android:layout_height="24dp"
+        android:inputType="text"
+        android:ems="10"
+        android:hint="@string/labelRatingComment"
         android:orientation="horizontal"
-        android:padding="15dp"
-        android:background="@color/senacorGreyShine">
+        android:layout_weight="0.38">
 
-            <!-- 5 Stars - not rated yet. rate now-->
-            <ImageView
-                android:id="@+id/speechRatingStar1"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_star_border"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_alignBottom="@id/giveRating"
-                android:visibility="visible"
-                android:clickable="true"/>
-
-            <ImageView
-                android:id="@+id/speechRatingStar2"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_star_border"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_toRightOf="@+id/speechRatingStar1"
-                android:layout_alignBottom="@id/speechRatingStar1"
-                android:visibility="visible"
-                android:clickable="true"/>
-            <ImageView
-                android:id="@+id/speechRatingStar3"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_star_border"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_toRightOf="@+id/speechRatingStar2"
-                android:layout_alignBottom="@id/speechRatingStar2"
-                android:visibility="visible"
-                android:clickable="true"/>
-            <ImageView
-                android:id="@+id/speechRatingStar4"
-                android:src="@drawable/ic_star_border"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_toRightOf="@+id/speechRatingStar3"
-                android:layout_alignBottom="@id/speechRatingStar3"
-                android:visibility="visible"
-                android:clickable="true"/>
-        </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
 
 </LinearLayout>
