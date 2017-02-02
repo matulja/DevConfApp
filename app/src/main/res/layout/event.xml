@@ -61,6 +61,19 @@
             android:visibility="invisible"
             android:layout_alignBottom="@+id/event_name"
             android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rateEvent"
+            android:layout_below="@+id/event_name"
+            android:layout_alignStart="@+id/event_name"
+            android:textColor="@color/colorPrimary"
+            android:typeface="sans"
+            android:textStyle="italic"
+            android:text="@string/rateEvent"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
     <View
@@ -130,18 +143,6 @@
                 android:layout_toLeftOf="@+id/button_editEventButton"
                 android:textColor="@color/senacorBlue"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rateEvent"
-                android:layout_below="@+id/event_postalCodeAndCity"
-                android:layout_alignStart="@+id/event_postalCodeAndCity"
-                android:textColor="@color/colorPrimary"
-                android:typeface="sans"
-                android:textStyle="italic"
-                android:text="@string/rateEvent"
-                android:visibility="gone"
-                />
 
             <ImageView
                 android:src="@drawable/ic_edit"

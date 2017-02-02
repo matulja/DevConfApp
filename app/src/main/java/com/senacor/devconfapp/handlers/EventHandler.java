@@ -25,7 +25,6 @@ import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.activities.EventListActivity;
 import com.senacor.devconfapp.adapters.EventListAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
-import com.senacor.devconfapp.fragments.EventRatingDialog;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Event;
 
@@ -55,6 +54,7 @@ public class EventHandler {
     public static boolean eventsPresent = true;
     AttendanceHandler attendanceHandler;
     SpeechHandler speechHandler;
+    EventRatingHandler eventRatingHandler;
 
 
     public EventHandler(Activity activity) {
@@ -104,6 +104,7 @@ public class EventHandler {
                 sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
                 attendanceHandler = new AttendanceHandler(activity);
                 speechHandler = new SpeechHandler(activity);
+                eventRatingHandler = new EventRatingHandler(activity);
                 String[] urlElements = url.split("/");
                 final String eventId = urlElements[urlElements.length - 1];
                 event = new Event(jsonObject);
@@ -140,17 +141,9 @@ public class EventHandler {
                 editor.putBoolean("isToday", event.getDate().isEqual(LocalDate.now()));
                 editor.commit();
 
-                TextView rateSpeech = (TextView) activity.findViewById(R.id.rateEvent);
                 if(event.getDate().isBefore(LocalDate.now()) || event.getDate().isEqual(LocalDate.now())){
-                    rateSpeech.setVisibility(VISIBLE);
-                    rateSpeech.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            DialogFragment eventRatingDialog = EventRatingDialog.newInstance(event);
-                            eventRatingDialog.show(activity.getFragmentManager(), "EventRatingDialog");
-
-                        }
-                    });
+                    String userId = sharedPref.getString("userId", "userId");
+                    eventRatingHandler.getEventRating(eventId, userId);
                 }
                 speechHandler.getSpeeches(URL + "/speeches");
                 ImageView addSpeechButton = (ImageView) activity.findViewById(R.id.addSpeechButton);

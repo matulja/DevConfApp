@@ -93,6 +93,10 @@
         android:id="@+id/text_rateSuggestions" />
 
     <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
         android:id="@+id/textCommentEventRating"
         android:layout_width="272dp"
         android:layout_height="24dp"
@@ -100,7 +104,8 @@
         android:ems="10"
         android:hint="@string/labelRatingComment"
         android:orientation="horizontal"
-        android:layout_weight="0.38">
+        android:layout_weight="0.38"/>
+
 
     </android.support.design.widget.TextInputLayout>
 

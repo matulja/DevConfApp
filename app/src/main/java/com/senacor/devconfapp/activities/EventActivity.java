@@ -31,7 +31,8 @@ public class EventActivity extends AppCompatActivity {
         setContentView(event);
         toolbar=(Toolbar) findViewById(R.id.toolbar_event);
         if (toolbar != null){
-        setSupportActionBar(toolbar);}
+            setSupportActionBar(toolbar);
+        }
         URL = getIntent().getExtras().getString("url");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         eventHandler.getEvent(URL);

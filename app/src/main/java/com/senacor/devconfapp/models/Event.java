@@ -1,8 +1,6 @@
 package com.senacor.devconfapp.models;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -13,19 +11,13 @@ import org.json.JSONObject;
 
 public class Event{
 
-    //@JsonProperty
-    private String eventId;
-    @JsonProperty
-    private String name;
-    @JsonProperty
-    private String place;
-    @JsonProperty
-    private LocalDate date;
-    @JsonProperty
-    private String streetAndNumber;
-    @JsonProperty
-    private String postalCodeAndCity;
 
+    private String eventId;
+    private String name;
+    private String place;
+    private LocalDate date;
+    private String streetAndNumber;
+    private String postalCodeAndCity;
     private String url;
 
 
