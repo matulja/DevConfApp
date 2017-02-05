@@ -19,6 +19,8 @@ public class EventRating {
     private int informationRating;
     private int contentRating;
     private String suggestions;
+    private String eventId;
+    private String userId;
     private LocalTime timestamp;
     private String url;
 
@@ -30,6 +32,8 @@ public class EventRating {
             this.informationRating = object.getInt("informationRating");
             this.contentRating = object.getInt("contentRating");
             this.suggestions = object.getString("suggestions");
+            this.eventId = object.getString("eventId");
+            this.userId = object.getString("userId");
 
             JSONArray array = object.getJSONArray("links");
             if (array != null) {
@@ -112,5 +116,21 @@ public class EventRating {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

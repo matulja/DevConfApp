@@ -67,5 +67,13 @@
     <string name="cancelRating"> Cancel </string>
     <string name="rateEvent">Rate the whole event here...</string>
     <string name="labelRatingComment">Your comment</string>
+    <string name="title_activity_ip">Enter IP addresses</string>
+
+    <!-- Strings related to login -->
+
+    <string name="save_ips">Save IPs</string>
+    <string name="ipEvent">Enter event service IP</string>
+    <string name="ipUser">Enter user service IP</string>
+    <string name="ipRating">Enter rating service IP</string>
 
 </resources>

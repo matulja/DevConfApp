@@ -2,6 +2,7 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.EventRatingDialog;
 import com.senacor.devconfapp.models.EventRating;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -28,6 +30,7 @@ public class EventRatingHandler {
     TextView rateSpeech;
     Activity activity;
     EventHandler eventHandler;
+    SharedPreferences sharedPref;
 
     public EventRatingHandler(Activity activity) {
         this.activity = activity;
@@ -78,22 +81,26 @@ public class EventRatingHandler {
         });
     }
 
-    public void putEventRating(String url, RequestParams params) {
+    public void putEventRating(String url, final String eventId, final String userId, RequestParams params) {
 
         AsynchRestClient.put(activity, url + "/edit", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
                 Log.i("information", "putting eventRating was successful");
+                getEventRating(eventId, userId);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
                 Log.e("error", "putting eventRating was not successful");
                 Log.e("throwable", throwable.toString());
                 Log.e("jsonErrorResponse", errorResponse.toString());
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.e("error", throwable.toString());
             }
         });
     }
@@ -103,6 +110,8 @@ public class EventRatingHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i("information", "posting eventRating was successful");
+                EventRating eventRating = new EventRating(response);
+                getEventRating(eventRating.getEventId(), eventRating.getUserId());
             }
 
             @Override

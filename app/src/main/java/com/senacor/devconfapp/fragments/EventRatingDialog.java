@@ -42,6 +42,8 @@ public class EventRatingDialog extends DialogFragment {
         args.putInt("contentRating", eventRating.getContentRating());
         args.putInt("locationRating", eventRating.getLocationRating());
         args.putString("comment", eventRating.getSuggestions());
+        args.putString("eventId", eventRating.getEventId());
+        args.putString("userId", eventRating.getUserId());
         args.putBoolean("ratingExists", ratingExists);
         args.putString("url", eventRating.getUrl());
         eventRatingDialog.setArguments(args);
@@ -102,7 +104,11 @@ public class EventRatingDialog extends DialogFragment {
                         params.put("suggestions", comment.getText());
                         Log.i("url", getArguments().getString("url"));
                         if (ratingExists) {
-                            eventRatingHandler.putEventRating(getArguments().getString("url"), params);
+                            String eventId = getArguments().getString("eventId");
+                            String userId = getArguments().getString("userId");
+                            params.put("eventId", eventId);
+                            params.put("userId", userId);
+                            eventRatingHandler.putEventRating(getArguments().getString("url"), eventId, userId, params);
                         } else{
                             eventRatingHandler.postEventRating(getArguments().getString("url"), params);
                         }
