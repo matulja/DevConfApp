@@ -118,6 +118,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             float rating;
             if (speech.getSpeechRating() != null){
                 System.out.println("speechrating found");
+                viewHolder.submitRatingButton.setText("Edit");
                 rating = speech.getSpeechRating().getRating();
             }else{
                 System.out.println("speechrating does not exist yet");

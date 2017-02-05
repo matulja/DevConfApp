@@ -2,10 +2,12 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -87,6 +89,10 @@ public class EventRatingHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i("information", "putting eventRating was successful");
+                CharSequence text = "Your rating has been edited. Thanks for your feedback!";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText((Context) activity, text, duration);
+                toast.show();
                 getEventRating(eventId, userId);
             }
 
@@ -111,6 +117,10 @@ public class EventRatingHandler {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.i("information", "posting eventRating was successful");
                 EventRating eventRating = new EventRating(response);
+                CharSequence text = "Your rating has been submitted. Thanks for your feedback!";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText((Context) activity, text, duration);
+                toast.show();
                 getEventRating(eventRating.getEventId(), eventRating.getUserId());
             }
 
