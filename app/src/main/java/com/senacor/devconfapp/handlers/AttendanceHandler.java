@@ -2,6 +2,8 @@ package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +27,12 @@ public class AttendanceHandler {
 
     private Activity activity;
     Button joinButton;
+    SharedPreferences sharedPref;
 
     public AttendanceHandler(Activity activity) {
         this.activity = activity;
+        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
+
     }
 
     public void setAttendanceButton (final String attendanceUrl) {
@@ -48,6 +53,9 @@ public class AttendanceHandler {
                                 int duration = Toast.LENGTH_LONG;
                                 Toast toast = Toast.makeText(context, text, duration);
                                 toast.show();
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putBoolean("isAttending", true);
+                                editor.commit();
                             } else {
                                 joinButton.setText("Join");
                                 Context context = (Context)activity;
@@ -55,6 +63,9 @@ public class AttendanceHandler {
                                 int duration = Toast.LENGTH_LONG;
                                 Toast toast = Toast.makeText(context, text, duration);
                                 toast.show();
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putBoolean("isAttending", false);
+                                editor.commit();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -13,8 +13,8 @@ import org.json.JSONObject;
 public class SpeechRating {
 
 
-/*    private String speechId;
-    private String userId;*/
+    private String speechId;
+    private String userId;
     private LocalTime timestamp;
     private Integer rating;
     private String comment;
@@ -29,6 +29,8 @@ public class SpeechRating {
 //            this.timestamp = LocalTime.parse(jsonObject.getString("timestamp"));
             this.rating = jsonObject.getInt("rating");
             this.comment = jsonObject.getString("comment");
+            this.speechId = jsonObject.getString("speechId");
+            this.userId = jsonObject.getString("userId");
             JSONArray array = jsonObject.getJSONArray("links");
             if (array != null) {
                 for (int i = 0; i < array.length(); i++) {
@@ -100,5 +102,21 @@ public class SpeechRating {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getSpeechId() {
+        return speechId;
+    }
+
+    public void setSpeechId(String speechId) {
+        this.speechId = speechId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

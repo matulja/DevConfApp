@@ -25,7 +25,6 @@ public class Speech {
     private String speakerInfo;
     private String speechSummary;
     private String eventId;
-    private SpeechRating speechRating;
     private String url;
 
 
@@ -145,14 +144,6 @@ public class Speech {
     public String timeToString(LocalTime time) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
         return time.toString(fmt);
-    }
-
-    public SpeechRating getSpeechRating() {
-        return speechRating;
-    }
-
-    public void setSpeechRating(SpeechRating speechRating) {
-        this.speechRating = speechRating;
     }
 
     public String extractAndSaveSpeechId() {

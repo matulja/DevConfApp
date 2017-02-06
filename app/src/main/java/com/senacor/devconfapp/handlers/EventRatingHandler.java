@@ -3,7 +3,6 @@ package com.senacor.devconfapp.handlers;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -29,10 +28,8 @@ import static android.view.View.VISIBLE;
  */
 
 public class EventRatingHandler {
-    TextView rateSpeech;
+    TextView rateEvent;
     Activity activity;
-    EventHandler eventHandler;
-    SharedPreferences sharedPref;
 
     public EventRatingHandler(Activity activity) {
         this.activity = activity;
@@ -41,8 +38,8 @@ public class EventRatingHandler {
     public void getEventRating(final String eventId, final String userId) {
         Log.i("location", "in getEventRating()");
         Log.i("url", IPAddress.IPrating + "/events/" + eventId + "/" + userId);
-        rateSpeech = (TextView) activity.findViewById(R.id.rateEvent);
-        rateSpeech.setVisibility(VISIBLE);
+        rateEvent = (TextView) activity.findViewById(R.id.rateEvent);
+        rateEvent.setVisibility(VISIBLE);
 
         AsynchRestClient.get(activity, IPAddress.IPrating + "/events/" + eventId + "/" + userId, null, new JsonHttpResponseHandler() {
 
@@ -53,7 +50,7 @@ public class EventRatingHandler {
                 Log.i("jsonObject", response.toString());
                 final boolean ratingExists = response.length() > 0;
                 if(ratingExists){
-                    rateSpeech.setText("View/Edit your rating here...");
+                    rateEvent.setText("View/Edit your rating here...");
                     eventRating = new EventRating(response);
                 }else{
                     eventRating = new EventRating();
@@ -64,7 +61,7 @@ public class EventRatingHandler {
                     eventRating.setSuggestions("");
                     eventRating.setUrl(IPAddress.IPrating + "/events/" + eventId + "/" + userId + "/add");
                 }
-                rateSpeech.setOnClickListener(new View.OnClickListener(){
+                rateEvent.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         DialogFragment eventRatingDialog = EventRatingDialog.newInstance(eventRating, ratingExists);

@@ -75,5 +75,7 @@
     <string name="ipEvent">Enter event service IP</string>
     <string name="ipUser">Enter user service IP</string>
     <string name="ipRating">Enter rating service IP</string>
+    <string name="titleSpeechRating">Rate this speech:</string>
+    <string name="btn_rateSpeech">Rate</string>
 
 </resources>

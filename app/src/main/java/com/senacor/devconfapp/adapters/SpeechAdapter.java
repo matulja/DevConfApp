@@ -15,20 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.loopj.android.http.RequestParams;
-import com.senacor.devconfapp.IPAddress;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.handlers.SpeechHandler;
 import com.senacor.devconfapp.handlers.SpeechRatingHandler;
 import com.senacor.devconfapp.models.Speech;
 
-import org.joda.time.LocalTime;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Veronika Babic on 14.11.2016.
@@ -39,7 +33,8 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
     SpeechHandler speechHandler;
     SpeechRatingHandler speechRatingHandler;
     private AppCompatActivity activity;
-    private List<Speech> speeches;
+    boolean isInFuture, isToday;
+    String role, userId;
 
     public static class ViewHolder{
         TextView speechId;
@@ -50,11 +45,12 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         TextView speaker;
         TextView speakerInfo;
         TextView speechSummary;
-        TextView rateNow;
         ImageView deleteButton;
         ImageView editSpeechButton;
         RatingBar ratingBar;
-        Button submitRatingButton;
+        TextView rateNow;
+        Button submitButton;
+
 
         public ViewHolder(View view){
             speechId = (TextView) view.findViewById(R.id.value_speech_speechId);
@@ -68,28 +64,49 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
             deleteButton = (ImageView) view.findViewById(R.id.button_delete);
             editSpeechButton = (ImageView) view.findViewById(R.id.button_editSpeech);
             ratingBar = (RatingBar) view.findViewById(R.id.ratingSpeechBar);
-            submitRatingButton = (Button) view.findViewById(R.id.submitRating_Button);
+            submitButton = (Button) view.findViewById(R.id.submitRating_Button);
             rateNow = (TextView) view.findViewById(R.id.stringRate);
         }
 
+        public Button getSubmitButton() {
+            return submitButton;
+        }
+
+        public void setSubmitButton(Button submitButton) {
+            this.submitButton = submitButton;
+        }
+
+        public TextView getRateNow() {
+            return rateNow;
+        }
+
+        public void setRateNow(TextView rateNow) {
+            this.rateNow = rateNow;
+        }
+
+        public RatingBar getRatingBar() {
+            return ratingBar;
+        }
+
+        public void setRatingBar(RatingBar ratingBar) {
+            this.ratingBar = ratingBar;
+        }
     }
 
     public SpeechAdapter(AppCompatActivity context, ArrayList<Speech> speeches) {
         super(context, R.layout.item_speech, speeches);
         this.activity=context;
-        this.speeches = speeches;
-        speechHandler = new SpeechHandler(activity);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        role = sharedPref.getString("role", "role");
+        userId = sharedPref.getString("userId", "userId");
+        isInFuture = sharedPref.getBoolean("isInFuture", true);
+        isToday = sharedPref.getBoolean("isToday", true);
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Speech speech = getItem(position);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        final String role = sharedPref.getString("role", "role");
-        final String userId = sharedPref.getString("userId", "userId");
-        final boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
-        final boolean isToday = sharedPref.getBoolean("isToday", true);
 
         final ViewHolder viewHolder;
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -101,7 +118,6 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         } else {
             viewHolder = (SpeechAdapter.ViewHolder) convertView.getTag();
         }
-        //viewHolder.speechId.setText(speech.getSpeechId());
         viewHolder.speechTitle.setText(speech.getSpeechTitle());
         viewHolder.speechRoom.setText(speech.getSpeechRoom());
         viewHolder.speaker.setText(speech.getSpeaker());
@@ -109,45 +125,15 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         viewHolder.speechSummary.setText(speech.getSpeechSummary());
         viewHolder.startTime.setText(speech.timeToString(speech.getStartTime()));
         viewHolder.endTime.setText(speech.timeToString(speech.getEndTime()));
+        speechHandler = new SpeechHandler((Activity)getContext());
+        speechRatingHandler = new SpeechRatingHandler((Activity)getContext());
         if (!isInFuture) {
-            viewHolder.ratingBar.setVisibility(View.VISIBLE);
-            viewHolder.submitRatingButton.setVisibility(View.VISIBLE);
-            viewHolder.rateNow.setVisibility(View.VISIBLE);
-            viewHolder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(viewHolder, position));
-            viewHolder.ratingBar.setTag(position);
-            float rating;
-            if (speech.getSpeechRating() != null){
-                System.out.println("speechrating found");
-                viewHolder.submitRatingButton.setText("Edit");
-                rating = speech.getSpeechRating().getRating();
-            }else{
-                System.out.println("speechrating does not exist yet");
-                rating = 0;
-            }
-            viewHolder.ratingBar.setRating(rating);
-            viewHolder.submitRatingButton.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    Activity activity = (Activity) getContext();
-                    speechRatingHandler = new SpeechRatingHandler(activity);
-                    int roundoff_rating = (int) Math.round(viewHolder.ratingBar.getRating());
-                    String rating = "Your submitted rating : " + roundoff_rating;
-                    Toast.makeText(activity, rating, Toast.LENGTH_LONG).show();
-                    RequestParams params = new RequestParams();
-                    params.put("rating", roundoff_rating);
-                    params.put("userId", userId);
-                    params.put("speechId", speech.getSpeechId());
-                    params.put("timestamp", new LocalTime().now());
-                    if (speech.getSpeechRating() != null) {
-                        speechRatingHandler.putSpeechRating(speech.getSpeechRating().getUrl() + "/edit", params);
-                    }else{
-                        speechRatingHandler.postSpeechRating(IPAddress.IPrating + "/speeches/" + speech.getSpeechId() + "/" +userId + "/add", params);
-                    }
-
-                }
-            });
-
+            speechRatingHandler.getSpeechRating(userId, speech, viewHolder);
+        }
+        else{
+            viewHolder.ratingBar.setVisibility(View.GONE);
+            viewHolder.submitButton.setVisibility(View.GONE);
+            viewHolder.rateNow.setVisibility(View.GONE);
         }
 
         if (role.equals("ADMIN") && (isInFuture || isToday)) {
@@ -199,21 +185,7 @@ public class SpeechAdapter extends ArrayAdapter<Speech> {
         return convertView;
     }
 
-    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final ViewHolder holder, final int position)
-    {
-        return new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b)
-            {
-                Speech item = speeches.get(position);
-                int roundoff_rating = (int)Math.round(rating);
-                if (item.getSpeechRating() != null) {
-                    item.getSpeechRating().setRating((roundoff_rating));
-                }
-                ratingBar.setRating(roundoff_rating);
-            }
-        };
-    }
+
 
 
 }

@@ -63,6 +63,12 @@ public class EventListActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 /*      MenuItem newEvent = menu.findItem(R.id.list_all_events);
         newEvent.setVisible(sharedPref.getString("role", "role").equals("ADMIN"));*/

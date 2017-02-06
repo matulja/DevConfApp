@@ -1,25 +1,21 @@
 package com.senacor.devconfapp.handlers;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.app.DialogFragment;
 import android.util.Log;
-import android.widget.ListView;
+import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.IPAddress;
-import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
 import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
+import com.senacor.devconfapp.fragments.SpeechRatingDialog;
 import com.senacor.devconfapp.models.Speech;
 import com.senacor.devconfapp.models.SpeechRating;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -30,62 +26,57 @@ import cz.msebera.android.httpclient.Header;
 public class SpeechRatingHandler {
 
     Activity activity;
-    SpeechAdapter speechAdapter;
     SpeechHandler speechHandler;
-    ArrayList<Speech> speeches;
-    SharedPreferences sharedPref;
+    SpeechAdapter.ViewHolder viewHolder;
+
 
 
     public SpeechRatingHandler(Activity activity) {
         this.activity = activity;
-        this.speeches = new ArrayList<>();
-        this.speechAdapter = new SpeechAdapter((AppCompatActivity) activity, speeches);
         this.speechHandler = new SpeechHandler(activity);
-        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
-
     }
 
-    public void getSpeechRating(String userId, final Speech speech) {
+    public void getSpeechRating(final String userId, final Speech speech, final SpeechAdapter.ViewHolder viewHolder) {
+        this.viewHolder = viewHolder;
 
         AsynchRestClient.get(activity, IPAddress.IPrating + "/speeches/" + speech.getSpeechId() + "/" + userId,
                 null, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-                        boolean isInFuture = sharedPref.getBoolean("isInFuture", true);
-                        if (!isInFuture) {
-                            System.out.println(jsonObject.toString());
-                            if (jsonObject.length() != 0) {
-                                SpeechRating speechRating = new SpeechRating(jsonObject);
-                                speech.setSpeechRating(speechRating);
-                            }
+                        final SpeechRating speechRating;
+                        final boolean ratingExists;
+                        if (jsonObject.length() != 0) {
+                            ratingExists = true;
+                            speechRating = new SpeechRating(jsonObject);
+                            viewHolder.getSubmitButton().setText("Edit");
+                            viewHolder.getRateNow().setText("Your rating: ");
+                        } else {
+                            ratingExists = false;
+                            speechRating = new SpeechRating();
+                            speechRating.setRating(0);
+                            speechRating.setSpeechId(speech.getSpeechId());
+                            speechRating.setUserId(userId);
                         }
-                        boolean wasAdded = false;
-                        for (int i = 0; i < speeches.size(); i++) {
-                            if (speeches.get(i).getStartTime().isAfter(speech.getStartTime())) {
-                                speeches.add(i, speech);
+                        viewHolder.getRatingBar().setRating(speechRating.getRating());
+                        viewHolder.getSubmitButton().setOnClickListener(new View.OnClickListener() {
 
-                                wasAdded = true;
-                                break;
+                            @Override
+                            public void onClick(View v) {
+                                DialogFragment speechRatingFragment = SpeechRatingDialog.newInstance(speechRating, ratingExists);
+                                speechRatingFragment.show(activity.getFragmentManager(), "SpeechRatingDialog");
                             }
-                        }
-                        if (!wasAdded) {
-                            speeches.add(speech);
-                        }
-                        ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
-                        speechlist.setAdapter(speechAdapter);
+                        });
                     }
 
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         System.out.println("speechRating not received");
-                        SpeechRating speechRating = new SpeechRating(errorResponse);
-                        System.out.println(speechRating.getRating());
-                        System.out.println(throwable);
+                        System.out.println(errorResponse.toString());
+                        System.out.println(throwable.toString());
                     }
                 });
-
     }
 
     public void putSpeechRating(final String url, RequestParams params) {
@@ -109,14 +100,14 @@ public class SpeechRatingHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String error, Throwable throwable) {
-               // errorWithoutJson(statusCode);
+                // errorWithoutJson(statusCode);
             }
 
         });
     }
 
     public void postSpeechRating(final String url, RequestParams params) {
-        AsynchRestClient.post(activity, url, params, new JsonHttpResponseHandler(){
+        AsynchRestClient.post(activity, url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 Log.i("Information", "in speechhandler edit speech method");
@@ -138,4 +129,5 @@ public class SpeechRatingHandler {
 
         });
     }
+
 }

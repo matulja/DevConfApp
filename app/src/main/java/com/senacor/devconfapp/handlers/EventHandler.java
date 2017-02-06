@@ -141,10 +141,6 @@ public class EventHandler {
                 editor.putBoolean("isToday", event.getDate().isEqual(LocalDate.now()));
                 editor.commit();
 
-                if(event.getDate().isBefore(LocalDate.now()) || event.getDate().isEqual(LocalDate.now())){
-                    String userId = sharedPref.getString("userId", "userId");
-                    eventRatingHandler.getEventRating(eventId, userId);
-                }
                 speechHandler.getSpeeches(URL + "/speeches");
                 ImageView addSpeechButton = (ImageView) activity.findViewById(R.id.addSpeechButton);
                 ImageView editEventButton = (ImageView) activity.findViewById(R.id.button_editEventButton);
@@ -212,8 +208,11 @@ public class EventHandler {
                         });
 
                     }
+                }
 
-
+                if(event.getDate().isBefore(LocalDate.now()) || event.getDate().isEqual(LocalDate.now())){
+                    String userId = sharedPref.getString("userId", "userId");
+                    eventRatingHandler.getEventRating(eventId, userId);
                 }
 
             }

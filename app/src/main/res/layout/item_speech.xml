@@ -125,8 +125,7 @@
         android:textColor="@color/senacorGreyDark"
         android:text="@string/speechRate"
         android:layout_marginTop="7sp"
-        android:id="@+id/stringRate"
-        android:visibility="gone"/>
+        android:id="@+id/stringRate" />
 
     <!-- android:textColor="@color/senacorBlueDark"-->
 
@@ -142,17 +141,15 @@
         style="@style/RatingBar"
         android:numStars="5"
         android:isIndicator="false"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
+        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/submitRating_Button"
-        android:text="Submit"
+        android:text="@string/btn_rateSpeech"
         android:layout_width="70sp"
         android:layout_height="30sp"
         android:textColor="@color/senacorWhite"
         android:background="@drawable/roundedbutton"
-        android:visibility="gone"
         android:layout_below="@id/ratingSpeechBar"
         android:layout_marginTop="4sp"
         android:textSize="14sp"

@@ -152,6 +152,11 @@ public class CreateEventActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

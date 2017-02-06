@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.senacor.devconfapp.R;
 import com.senacor.devconfapp.activities.EventActivity;
+import com.senacor.devconfapp.adapters.SpeechAdapter;
 import com.senacor.devconfapp.clients.AsynchRestClient;
 import com.senacor.devconfapp.fragments.SpeechDialog;
 import com.senacor.devconfapp.models.Speech;
@@ -23,6 +25,8 @@ import com.senacor.devconfapp.models.Speech;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -34,11 +38,14 @@ public class SpeechHandler extends AppCompatActivity {
 
     private Activity activity;
     private TextView noSpeeches;
-    private SpeechRatingHandler speechRatingHandler;
+    ArrayList<Speech> speeches;
+    SpeechAdapter speechAdapter;
+
 
 
     public SpeechHandler(Activity activity) {
         this.activity = activity;
+        speeches = new ArrayList<Speech>();
 
     }
 
@@ -54,19 +61,30 @@ public class SpeechHandler extends AppCompatActivity {
                 }
                 else {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
-                    final String userId = sharedPref.getString("userId", "userId");
                     noSpeeches.setVisibility(View.GONE);
-                    speechRatingHandler = new SpeechRatingHandler(activity);
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             Speech speech = new Speech(response.getJSONObject(i));
                             String id = response.getJSONObject(i).getString("speechId");
                             speech.setSpeechId(id);
-                            speechRatingHandler.getSpeechRating(userId, speech);
+                            boolean wasAdded = false;
+                            for (int j = 0; j < speeches.size(); j++) {
+                                if (speeches.get(j).getStartTime().isAfter(speech.getStartTime())) {
+                                    speeches.add(j, speech);
+                                    wasAdded = true;
+                                    break;
+                                }
+                            }
+                            if (!wasAdded) {
+                                speeches.add(speech);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                    speechAdapter = new SpeechAdapter((AppCompatActivity)activity, speeches);
+                    ListView speechlist = (ListView) activity.findViewById(R.id.list_speeches);
+                    speechlist.setAdapter(speechAdapter);
                 }
             }
 
