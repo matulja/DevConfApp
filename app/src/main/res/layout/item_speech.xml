@@ -140,7 +140,7 @@
         android:layout_alignTop="@+id/stringRate"
         style="@style/RatingBar"
         android:numStars="5"
-        android:isIndicator="false"
+        android:isIndicator="true"
         android:layout_marginBottom="8dp" />
 
     <Button

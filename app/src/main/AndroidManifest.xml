@@ -18,8 +18,8 @@
         android:icon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity" >
-        <!--android:configChanges="orientation|screenSize|keyboardHidden"-->
+        <activity android:name=".activities.LoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
 
 <!--        <activity android:name=".activities.IPActivity"
             android:label="@string/title_activity_ip">-->

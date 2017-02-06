@@ -46,16 +46,17 @@ public class IPActivity extends AppCompatActivity {
                 IPAddress.setIPrating(ipRating);
                 System.out.println(ipRating);
 
-               /* IPAddress.eventIP = eventIP.getText().toString().trim();
-                System.out.println(eventIP.getText().toString());
-                IPAddress.userIP = userIP.getText().toString().trim();
-                IPAddress.ratingIP = ratingIP.getText().toString().trim();*/
-
                 Intent intent = new Intent(IPActivity.this, LoginActivity.class);
                 startActivity(intent);
 
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
 }
