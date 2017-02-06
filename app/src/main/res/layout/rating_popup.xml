@@ -71,7 +71,7 @@
         android:id="@+id/ratingBarInformation" />
 
     <TextView
-        android:text="Rate topic selection"
+        android:text="Rate topic selection:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_ratingbarContent" />
