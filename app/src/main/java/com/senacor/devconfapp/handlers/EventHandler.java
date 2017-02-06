@@ -269,8 +269,9 @@ public class EventHandler {
                                 }
 
                             });
-                            ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
+                        }
                             if(sharedPref.getString("role", "role").equals("ADMIN")){
+                                ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
                                 addEventButton.setVisibility(View.VISIBLE);
                                 addEventButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -283,7 +284,7 @@ public class EventHandler {
                                 });
 
                             }
-                        }
+
                     }
 
 

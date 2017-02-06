@@ -49,7 +49,7 @@
 
     <!-- Strings for showing list of all Events-->
     <string name="allEvents_title"> All Events </string>
-    <string name="info_noEvent">Sorry, there are no conferences planned at the moment.</string>
+    <string name="info_noEvent">Sorry, there are no conferences planned at the moment. For adding a new conference click on \'+\'.</string>
     <string name="newEvent_label_date">Date:</string>
     <string name="warning_speechColliding">The times entered for this speech collide with another speech. Please check and change the start/end time.</string>
     <string name="speech_endBeforeStartTime">Your input is incorrect. Please check (start time cannot be after end time/fields cannot be empty)! </string>

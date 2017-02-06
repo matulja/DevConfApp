@@ -34,9 +34,22 @@ public class IPActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                IPAddress.eventIP = eventIP.getText().toString().trim();
+                String ipEvent = eventIP.getText().toString().trim();
+                IPAddress.setIPevent(ipEvent);
+                System.out.println(ipEvent);
+
+                String ipUser = userIP.getText().toString().trim();
+                IPAddress.setIPuser(ipUser);
+                System.out.println(ipUser);
+
+                String ipRating = ratingIP.getText().toString().trim();
+                IPAddress.setIPrating(ipRating);
+                System.out.println(ipRating);
+
+               /* IPAddress.eventIP = eventIP.getText().toString().trim();
+                System.out.println(eventIP.getText().toString());
                 IPAddress.userIP = userIP.getText().toString().trim();
-                IPAddress.ratingIP = ratingIP.getText().toString().trim();
+                IPAddress.ratingIP = ratingIP.getText().toString().trim();*/
 
                 Intent intent = new Intent(IPActivity.this, LoginActivity.class);
                 startActivity(intent);
