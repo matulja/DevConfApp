@@ -83,6 +83,7 @@ public class EventHandler {
                     intent.putExtra("url", IPAddress.IPevent + "/" + url);
                 }
                 activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override
@@ -173,6 +174,7 @@ public class EventHandler {
                                 intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
                                 intent.putExtra("eventId", eventId);
                                 activity.startActivity(intent);
+                                activity.finish();
                             }
                         });
 
@@ -264,6 +266,7 @@ public class EventHandler {
                                     String url = IPAddress.IPevent + "/" + event.getEventId();
                                     intent.putExtra("url", url);
                                     activity.startActivity(intent);
+                                    activity.finish();
 
                                 }
 
@@ -278,6 +281,7 @@ public class EventHandler {
                                         //Activity activity = new Activity();
                                         Intent intent1 = new Intent(activity, CreateEventActivity.class);
                                         activity.startActivity(intent1);
+                                        activity.finish();
 
                                     }
                                 });
@@ -308,6 +312,7 @@ public class EventHandler {
                     Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("url", event.getUrl());
                     activity.startActivity(intent);
+                    activity.finish();
                 }
 
             }
@@ -335,6 +340,7 @@ public class EventHandler {
                 System.out.println("in delete event");
                 Intent intent = new Intent(activity, EventListActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override
@@ -355,6 +361,7 @@ public class EventHandler {
                     Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("url", url);
                     activity.startActivity(intent);
+                    activity.finish();
                 }
             }
 

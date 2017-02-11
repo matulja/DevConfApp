@@ -53,6 +53,7 @@ public class AttendanceClickListener implements View.OnClickListener {
                     Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("url", EventActivity.URL);
                     activity.startActivity(intent);
+                    activity.finish();
                   /*  attendanceHandler = new AttendanceHandler(activity);
                     attendanceHandler.setAttendanceButton(url);*/
 

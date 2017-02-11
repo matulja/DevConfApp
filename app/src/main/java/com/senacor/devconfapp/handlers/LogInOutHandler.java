@@ -54,6 +54,7 @@ public class LogInOutHandler {
 
                 System.out.println("post login on success");
                 prgDialog.hide();
+                prgDialog.dismiss();
                 if (statusCode == 200) {
                     Token token = new Token(jsonObject);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -62,12 +63,14 @@ public class LogInOutHandler {
                     editor.putString("userId", token.getUserId());
                     editor.commit();
                     eventHandler.getCurrentEvent();
+                    activity.finish();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 prgDialog.hide();
+                prgDialog.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setMessage("Login failed.")
                         .setNegativeButton("Retry", null)
@@ -79,6 +82,7 @@ public class LogInOutHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 prgDialog.hide();
+                prgDialog.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setMessage("Login failed.")
                         .setNegativeButton("Retry", null)
@@ -102,9 +106,17 @@ public class LogInOutHandler {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.clear();
                 editor.commit();
-
-                Intent intent3 = new Intent(activity, LoginActivity.class);
-                activity.startActivity(intent3);
+                Intent intent = new Intent(activity, LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                /*if(Build.VERSION.SDK_INT >= 11) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                } else {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                }*/
+                //Intent intent3 = new Intent(activity, LoginActivity.class);
+                activity.startActivity(intent);
+                activity.finish();
 
                 CharSequence text = "You logged out successfully. Goodbye! ";
                 int duration = Toast.LENGTH_LONG;

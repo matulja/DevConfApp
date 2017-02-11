@@ -164,7 +164,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
             case R.id.list_all_events:
                 Intent intent = new Intent(CreateEventActivity.this, EventListActivity.class);
-                CreateEventActivity.this.startActivity(intent);
+                startActivity(intent);
+                finish();
                 return true;
 
             case R.id.action_log_out:

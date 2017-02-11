@@ -25,6 +25,7 @@ public class ErrorHandler {
     protected static void handleUnauthorizedError(Activity activity) {
         Intent intent = new Intent(activity, LoginActivity.class);
         activity.startActivity(intent);
+        activity.finish();
         Context context = (Context) activity;
         CharSequence text = "Your session has expired, please log in again.";
         int duration = Toast.LENGTH_LONG;
@@ -43,6 +44,7 @@ public class ErrorHandler {
             intent.putExtra("date", event.getDate().toString());
             intent.putExtra("validationErrorDate", true);
             activity.startActivity(intent);
+            activity.finish();
 
 
     }

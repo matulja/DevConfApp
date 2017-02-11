@@ -70,7 +70,8 @@ public class EventActivity extends AppCompatActivity {
             case R.id.list_all_events:
 
                 Intent intent = new Intent(EventActivity.this, EventListActivity.class);
-                EventActivity.this.startActivity(intent);
+                startActivity(intent);
+                finish();
                 return true;
 
             /*case R.id.create_new_event:
