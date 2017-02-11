@@ -46,15 +46,15 @@ import static com.senacor.devconfapp.activities.EventActivity.URL;
 
 public class EventHandler {
 
-    private Event event;
-    private Activity activity;
+    public static boolean eventsPresent = true;
     SharedPreferences sharedPref;
     ListView eventList;
     TextView noEvents;
-    public static boolean eventsPresent = true;
     AttendanceHandler attendanceHandler;
     SpeechHandler speechHandler;
     EventRatingHandler eventRatingHandler;
+    private Event event;
+    private Activity activity;
 
 
     public EventHandler(Activity activity) {
@@ -272,21 +272,21 @@ public class EventHandler {
 
                             });
                         }
-                            if(sharedPref.getString("role", "role").equals("ADMIN")){
-                                ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
-                                addEventButton.setVisibility(View.VISIBLE);
-                                addEventButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        //Activity activity = new Activity();
-                                        Intent intent1 = new Intent(activity, CreateEventActivity.class);
-                                        activity.startActivity(intent1);
-                                        activity.finish();
+                        if(sharedPref.getString("role", "role").equals("ADMIN")){
+                            ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
+                            addEventButton.setVisibility(View.VISIBLE);
+                            addEventButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //Activity activity = new Activity();
+                                    Intent intent1 = new Intent(activity, CreateEventActivity.class);
+                                    activity.startActivity(intent1);
+                                    activity.finish();
 
-                                    }
-                                });
+                                }
+                            });
 
-                            }
+                        }
 
                     }
 
