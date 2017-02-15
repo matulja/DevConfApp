@@ -106,13 +106,13 @@ public class SpeechDialog extends DialogFragment {
 
             String startTime = getArguments().getString("speechStartTime");
             String[] partsStart = startTime.split(":");
-            tpStartTime.setHour(Integer.parseInt(partsStart[0]));
-            tpStartTime.setMinute(Integer.parseInt(partsStart[1]));
+            tpStartTime.setCurrentHour(Integer.parseInt(partsStart[0]));
+            tpStartTime.setCurrentMinute(Integer.parseInt(partsStart[1]));
 
             String endTime = getArguments().getString("speechEndTime");
             String[] partsEnd = endTime.split(":");
-            tpEndTime.setHour(Integer.parseInt(partsEnd[0]));
-            tpEndTime.setMinute(Integer.parseInt(partsEnd[1]));
+            tpEndTime.setCurrentHour(Integer.parseInt(partsEnd[0]));
+            tpEndTime.setCurrentMinute(Integer.parseInt(partsEnd[1]));
 
             if (editing) {
                 headline.setText("Edit Speech");
@@ -140,12 +140,12 @@ public class SpeechDialog extends DialogFragment {
                         final String room = etRoom.getText().toString();
 
 
-                        int startHour = tpStartTime.getHour();
-                        int startMin = tpStartTime.getMinute();
+                        int startHour = tpStartTime.getCurrentHour();
+                        int startMin = tpStartTime.getCurrentMinute();
                         final LocalTime startTime = new LocalTime(startHour, startMin);
 
-                        int endHour = tpEndTime.getHour();
-                        int endMin = tpEndTime.getMinute();
+                        int endHour = tpEndTime.getCurrentHour();
+                        int endMin = tpEndTime.getCurrentMinute();
                         final LocalTime endTime = new LocalTime(endHour, endMin);
 
                         //check if fields are empty
@@ -162,7 +162,7 @@ public class SpeechDialog extends DialogFragment {
                             speech.setStartTime(startTime);
                             speech.setEndTime(endTime);
                             DialogFragment speechFragment = SpeechDialog.newInstance(speech, editing, true);
-                            Activity activity = (Activity) getContext();
+                            Activity activity = getActivity();
                             speechFragment.show(activity.getFragmentManager(), "SpeechDialog");
                         }
                         //check if times were entered in correct order (starttime < endtime)

@@ -32,6 +32,8 @@ import java.util.ArrayList;
 public class EventListAdapter extends ArrayAdapter<Event>  {
 
     EventHandler eventHandler;
+    Activity activity;
+    Context context;
 
     private static class ViewHolder {
         //TextView eventId;
@@ -45,7 +47,9 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
     public EventListAdapter(Context context, ArrayList<Event> events) {
         super(context, R.layout.item_event, events);
-        eventHandler = new EventHandler((Activity) context);
+        activity = (Activity) context;
+        this.context = context;
+        eventHandler = new EventHandler(activity);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         if (convertView == null) {
             viewHolder = new ViewHolder();
 
-            LayoutInflater inflater = LayoutInflater.from(getContext());
+            LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.item_event, parent, false);
 
             //viewHolder.eventId = (TextView) convertView.findViewById(R.id.value_event_eventId);
@@ -78,7 +82,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
         viewHolder.streetAndNumber.setText(event.getStreetAndNumber());
         viewHolder.postalCodeAndCity.setText(event.getPostalCodeAndCity());
         viewHolder.date.setText(event.dateToString());
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
         final String role = sharedPref.getString("role", "role");
         if (role.equals("ADMIN") && !(event.getDate().isBefore(LocalDate.now()))){
             viewHolder.deleteEventButton.setVisibility(View.VISIBLE);
@@ -105,7 +109,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
                     }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setMessage("Do you want delete this event?")
                         .setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener)
@@ -118,7 +122,6 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
 
             @Override
             public void onClick(View v) {
-                Activity activity = (Activity)getContext();
                 Intent intent = new Intent(activity, CreateEventActivity.class);
                 intent.putExtra("name", event.getName());
                 intent.putExtra("place", event.getPlace());
