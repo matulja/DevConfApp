@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,11 +85,12 @@ public class SpeechRatingDialog extends DialogFragment {
                 // Add action buttons
                 .setPositiveButton(R.string.submitRating, new DialogInterface.OnClickListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
                         System.out.println("rated values are set");
-                        Activity activity = (Activity) getContext();
+                        Activity activity = getActivity();
                         speechRatingHandler = new SpeechRatingHandler(activity);
                         speechHandler = new SpeechHandler(activity);
                         int roundoff_rating = (int) Math.round(speechRating.getRating());
