@@ -57,6 +57,8 @@ public class SpeechRatingHandler {
                             speechRating.setRating(0);
                             speechRating.setSpeechId(speech.getSpeechId());
                             speechRating.setUserId(userId);
+                            viewHolder.getSubmitButton().setText("Rate");
+                            viewHolder.getRateNow().setText("Rate now: ");
                         }
                         viewHolder.getRatingBar().setRating(speechRating.getRating());
                         viewHolder.getSubmitButton().setOnClickListener(new View.OnClickListener() {

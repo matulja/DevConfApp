@@ -46,15 +46,15 @@ import static com.senacor.devconfapp.activities.EventActivity.URL;
 
 public class EventHandler {
 
-    private Event event;
-    private Activity activity;
+    public static boolean eventsPresent = true;
     SharedPreferences sharedPref;
     ListView eventList;
     TextView noEvents;
-    public static boolean eventsPresent = true;
     AttendanceHandler attendanceHandler;
     SpeechHandler speechHandler;
     EventRatingHandler eventRatingHandler;
+    private Event event;
+    private Activity activity;
 
 
     public EventHandler(Activity activity) {
@@ -83,6 +83,7 @@ public class EventHandler {
                     intent.putExtra("url", IPAddress.IPevent + "/" + url);
                 }
                 activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override
@@ -173,6 +174,7 @@ public class EventHandler {
                                 intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
                                 intent.putExtra("eventId", eventId);
                                 activity.startActivity(intent);
+                                activity.finish();
                             }
                         });
 
@@ -264,25 +266,27 @@ public class EventHandler {
                                     String url = IPAddress.IPevent + "/" + event.getEventId();
                                     intent.putExtra("url", url);
                                     activity.startActivity(intent);
+                                    activity.finish();
 
                                 }
 
                             });
                         }
-                            if(sharedPref.getString("role", "role").equals("ADMIN")){
-                                ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
-                                addEventButton.setVisibility(View.VISIBLE);
-                                addEventButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        //Activity activity = new Activity();
-                                        Intent intent1 = new Intent(activity, CreateEventActivity.class);
-                                        activity.startActivity(intent1);
+                        if(sharedPref.getString("role", "role").equals("ADMIN")){
+                            ImageView addEventButton = (ImageView) activity.findViewById(R.id.addEventButton);
+                            addEventButton.setVisibility(View.VISIBLE);
+                            addEventButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //Activity activity = new Activity();
+                                    Intent intent1 = new Intent(activity, CreateEventActivity.class);
+                                    activity.startActivity(intent1);
+                                    activity.finish();
 
-                                    }
-                                });
+                                }
+                            });
 
-                            }
+                        }
 
                     }
 
@@ -308,6 +312,7 @@ public class EventHandler {
                     Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("url", event.getUrl());
                     activity.startActivity(intent);
+                    activity.finish();
                 }
 
             }
@@ -335,6 +340,7 @@ public class EventHandler {
                 System.out.println("in delete event");
                 Intent intent = new Intent(activity, EventListActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override
@@ -355,6 +361,7 @@ public class EventHandler {
                     Intent intent = new Intent(activity, EventActivity.class);
                     intent.putExtra("url", url);
                     activity.startActivity(intent);
+                    activity.finish();
                 }
             }
 

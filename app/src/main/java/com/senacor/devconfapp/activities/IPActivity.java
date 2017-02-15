@@ -48,6 +48,7 @@ public class IPActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(IPActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });

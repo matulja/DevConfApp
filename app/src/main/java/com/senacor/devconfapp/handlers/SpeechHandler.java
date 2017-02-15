@@ -105,6 +105,7 @@ public class SpeechHandler extends AppCompatActivity {
                 Intent intent = new Intent(activity, EventActivity.class);
                 intent.putExtra("url", EventActivity.URL);
                 activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override
@@ -182,6 +183,7 @@ public class SpeechHandler extends AppCompatActivity {
                 Intent intent = new Intent(activity, EventActivity.class);
                 intent.putExtra("url", EventActivity.URL);
                 activity.startActivity(intent);
+                activity.finish();
                 break;
         }
 
@@ -200,6 +202,7 @@ public class SpeechHandler extends AppCompatActivity {
                 Intent intent = new Intent(activity, EventActivity.class);
                 intent.putExtra("url", EventActivity.URL);
                 activity.startActivity(intent);
+                activity.finish();
                 break;
         }
     }

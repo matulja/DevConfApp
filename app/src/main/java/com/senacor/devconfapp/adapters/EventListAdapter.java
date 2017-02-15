@@ -127,6 +127,7 @@ public class EventListAdapter extends ArrayAdapter<Event>  {
                 intent.putExtra("postalCodeAndCity", event.getPostalCodeAndCity());
                 intent.putExtra("eventId", event.getEventId());
                 activity.startActivity(intent);
+                activity.finish();
             }
         });
 
