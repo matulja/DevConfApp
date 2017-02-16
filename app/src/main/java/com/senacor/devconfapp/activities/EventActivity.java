@@ -71,7 +71,7 @@ public class EventActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(EventActivity.this, EventListActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 return true;
 
             /*case R.id.create_new_event:
